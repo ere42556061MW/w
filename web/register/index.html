@@ -1,0 +1,135 @@
+<!-- register/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Bot - Register</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">🤖 Bot Manager</div>
+        <div class="nav-links" id="nav-links">
+            <a class="nav-link" href="/home/">🏠 Home</a>
+            <a class="nav-link" href="/manager/" data-require-login="true">⚙️ Manager</a>
+            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
+            <a class="nav-link" href="/create/" data-require-login="true">➕ Tạo</a>
+            <!-- More pages in dropdown -->
+            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
+            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
+            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
+                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
+                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
+            </div>
+            <div class="user-profile" id="user-profile" style="display: none;">
+                <div class="user-profile-btn" id="user-profile-btn">
+                    <div class="profile-avatar" id="profile-avatar">A</div>
+                    <span class="profile-name" id="profile-name">User</span>
+                    <span style="font-size: 12px;">▼</span>
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-dropdown-item" id="profile-info">
+                        <span>👤</span>
+                        <span>Thông tin cá nhân</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="profile-settings">
+                        <span>⚙️</span>
+                        <span>Cài đặt tài khoản</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
+                        <span>🚪</span>
+                        <span>Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation Dropdown -->
+        <div class="nav-dropdown" id="nav-dropdown">
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">🎯 Chính</div>
+                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
+                <a class="nav-dropdown-item" href="/manager/" data-require-login="true">⚙️ Manager</a>
+                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
+                <a class="nav-dropdown-item" href="/create/" data-require-login="true">➕ Tạo Bot</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">💰 Dịch vụ</div>
+                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
+                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">📊 Quản lý</div>
+                <a class="nav-dropdown-item" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
+                <a class="nav-dropdown-item" href="/users/" data-require-login="true">👥 Users</a>
+                <a class="nav-dropdown-item" href="/history/" data-require-login="true">📝 Lịch Sử</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
+                <a class="nav-dropdown-item" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
+                <a class="nav-dropdown-item" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="page active" id="register-page">
+        <div class="home-container">
+            <div class="create-card" style="max-width: 450px;">
+                <h2 class="create-title">📝 Đăng Ký</h2>
+                <p style="text-align: center; color: #6b7280; margin-bottom: 30px;">Tạo tài khoản mới miễn phí</p>
+                
+                <div class="action-group">
+                    <label>Họ và tên:</label>
+                    <input type="text" class="input-field" id="register-fullname" placeholder="Nguyễn Văn A">
+                </div>
+                <div class="action-group">
+                    <label>Email:</label>
+                    <input type="email" class="input-field" id="register-email" placeholder="example@email.com">
+                </div>
+                <div class="action-group">
+                    <label>Username:</label>
+                    <input type="text" class="input-field" id="register-username" placeholder="username123">
+                </div>
+                <div class="action-group">
+                    <label>Mật khẩu:</label>
+                    <input type="password" class="input-field" id="register-password" placeholder="Tối thiểu 8 ký tự">
+                </div>
+                <div class="action-group">
+                    <label>Xác nhận mật khẩu:</label>
+                    <input type="password" class="input-field" id="register-confirm" placeholder="Nhập lại mật khẩu">
+                </div>
+
+                <label style="display: flex; align-items: center; gap: 8px; cursor: pointer; margin-bottom: 20px;">
+                    <input type="checkbox" id="accept-terms" style="cursor: pointer;">
+                    <span style="font-size: 14px; color: #6b7280;">Tôi đồng ý với <a href="#" style="color: #667eea;">Điều khoản dịch vụ</a></span>
+                </label>
+
+                <button class="btn btn-primary" id="register-btn">✨ Tạo Tài Khoản</button>
+                
+                <div style="text-align: center; margin: 20px 0; color: #9ca3af;">
+                    <span>hoặc</span>
+                </div>
+
+                <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+                    <button class="btn" id="register-google" style="flex: 1; background: #ea4335; color: white; margin: 0;">
+                        🌐 Google
+                    </button>
+                    <button class="btn" id="register-facebook" style="flex: 1; background: #1877f2; color: white; margin: 0;">
+                        📘 Facebook
+                    </button>
+                </div>
+
+                <div style="text-align: center; font-size: 14px; color: #6b7280;">
+                    Đã có tài khoản? <a href="#" id="goto-login" style="color: #667eea; text-decoration: none; font-weight: 600;">Đăng nhập</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>

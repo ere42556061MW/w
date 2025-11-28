@@ -1,0 +1,248 @@
+<!-- settings/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Bot - Settings</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">🤖 Bot Manager</div>
+        <div class="nav-links" id="nav-links">
+            <a class="nav-link" href="/home/">🏠 Home</a>
+            <a class="nav-link" href="/manager/" data-require-login="true">⚙️ Manager</a>
+            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
+            <a class="nav-link" href="/create/" data-require-login="true">➕ Tạo</a>
+            <!-- More pages in dropdown -->
+            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
+            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
+            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
+                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
+                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
+            </div>
+            <div class="user-profile" id="user-profile" style="display: none;">
+                <div class="user-profile-btn" id="user-profile-btn">
+                    <div class="profile-avatar" id="profile-avatar">A</div>
+                    <span class="profile-name" id="profile-name">User</span>
+                    <span style="font-size: 12px;">▼</span>
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-dropdown-item" id="profile-info">
+                        <span>👤</span>
+                        <span>Thông tin cá nhân</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="profile-settings">
+                        <span>⚙️</span>
+                        <span>Cài đặt tài khoản</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
+                        <span>🚪</span>
+                        <span>Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation Dropdown -->
+        <div class="nav-dropdown" id="nav-dropdown">
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">🎯 Chính</div>
+                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
+                <a class="nav-dropdown-item" href="/manager/" data-require-login="true">⚙️ Manager</a>
+                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
+                <a class="nav-dropdown-item" href="/create/" data-require-login="true">➕ Tạo Bot</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">💰 Dịch vụ</div>
+                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
+                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">📊 Quản lý</div>
+                <a class="nav-dropdown-item" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
+                <a class="nav-dropdown-item" href="/users/" data-require-login="true">👥 Users</a>
+                <a class="nav-dropdown-item" href="/history/" data-require-login="true">📝 Lịch Sử</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
+                <a class="nav-dropdown-item active" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
+                <a class="nav-dropdown-item" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="page active" id="settings-page">
+        <div class="settings-container">
+            <div class="settings-card">
+                <h2 class="settings-title">⚙️ Cấu Hình Bot</h2>
+                <p class="settings-subtitle">Tùy chỉnh cài đặt cho bot của bạn</p>
+
+                <!-- Bot Settings -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🤖 Cài Đặt Bot</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Prefix Lệnh</div>
+                            <div class="setting-desc">Ký tự bắt đầu mỗi lệnh</div>
+                        </div>
+                        <input type="text" class="setting-input" id="setting-prefix" value="!" maxlength="3">
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Tên Bot</div>
+                            <div class="setting-desc">Tên hiển thị của bot</div>
+                        </div>
+                        <input type="text" class="setting-input" id="setting-botname" value="Bot Zalo">
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Ngôn Ngữ</div>
+                            <div class="setting-desc">Ngôn ngữ mặc định</div>
+                        </div>
+                        <select class="setting-select" id="setting-language">
+                            <option value="vi">Tiếng Việt</option>
+                            <option value="en">English</option>
+                            <option value="ja">日本語</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Auto Reply -->
+                <div class="settings-section">
+                    <div class="settings-section-title">💬 Trả Lời Tự Động</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Bật Auto Reply</div>
+                            <div class="setting-desc">Tự động trả lời tin nhắn</div>
+                        </div>
+                        <div class="toggle-switch active" id="toggle-autoreply">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="action-group" style="margin-top: 15px;">
+                        <label>Tin nhắn tự động:</label>
+                        <textarea class="setting-textarea" id="setting-autoreply-msg" placeholder="Nhập nội dung tin nhắn tự động...">Xin chào! Bot đang bận, sẽ trả lời bạn sau.</textarea>
+                    </div>
+                </div>
+
+                <!-- Features -->
+                <div class="settings-section">
+                    <div class="settings-section-title">✨ Tính Năng</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Tự động chào mừng thành viên mới</div>
+                            <div class="setting-desc">Gửi tin nhắn chào khi có người vào nhóm</div>
+                        </div>
+                        <div class="toggle-switch active" id="toggle-welcome">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Thông báo khi có người rời nhóm</div>
+                            <div class="setting-desc">Gửi tin nhắn thông báo khi có người rời</div>
+                        </div>
+                        <div class="toggle-switch" id="toggle-leave">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Anti Spam</div>
+                            <div class="setting-desc">Chặn tin nhắn spam tự động</div>
+                        </div>
+                        <div class="toggle-switch active" id="toggle-antispam">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Lưu Log</div>
+                            <div class="setting-desc">Lưu lại tất cả tin nhắn</div>
+                        </div>
+                        <div class="toggle-switch active" id="toggle-logging">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Permissions -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🔐 Phân Quyền</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Chỉ Admin dùng được lệnh</div>
+                            <div class="setting-desc">Giới hạn lệnh cho admin nhóm</div>
+                        </div>
+                        <div class="toggle-switch" id="toggle-adminonly">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Cooldown lệnh (giây)</div>
+                            <div class="setting-desc">Thời gian chờ giữa các lệnh</div>
+                        </div>
+                        <input type="number" class="setting-input" id="setting-cooldown" value="3" min="0" max="60">
+                    </div>
+                </div>
+
+                <!-- Blacklist -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🚫 Danh Sách Chặn</div>
+                    <div class="action-group">
+                        <label>User IDs bị chặn:</label>
+                        <div id="blacklist-container">
+                            <div class="blacklist-item">
+                                <span>123456789012345678</span>
+                                <button class="blacklist-remove" data-id="123456789012345678">Xóa</button>
+                            </div>
+                        </div>
+                        <div class="add-blacklist-input">
+                            <input type="text" class="input-field" id="blacklist-input" placeholder="Nhập User ID..." style="margin: 0;">
+                            <button class="btn btn-primary" id="add-blacklist-btn" style="margin: 0; width: auto; padding: 12px 20px;">Thêm</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notifications -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🔔 Thông Báo</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Thông báo khi bot offline</div>
+                            <div class="setting-desc">Gửi email khi bot ngừng hoạt động</div>
+                        </div>
+                        <div class="toggle-switch active" id="toggle-notify-offline">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Thông báo lỗi</div>
+                            <div class="setting-desc">Gửi email khi có lỗi xảy ra</div>
+                        </div>
+                        <div class="toggle-switch active" id="toggle-notify-error">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <div class="action-group" style="margin-top: 15px;">
+                        <label>Email nhận thông báo:</label>
+                        <input type="email" class="input-field" id="setting-notify-email" placeholder="example@email.com">
+                    </div>
+                </div>
+
+                <button class="btn btn-success" id="save-settings-btn">💾 Lưu Cài Đặt</button>
+                <button class="btn btn-warning" id="reset-settings-btn">🔄 Đặt Lại Mặc Định</button>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>

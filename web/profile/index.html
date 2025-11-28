@@ -1,0 +1,190 @@
+<!-- profile/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Bot - Profile</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">🤖 Bot Manager</div>
+        <div class="nav-links" id="nav-links">
+            <a class="nav-link" href="/home/">🏠 Home</a>
+            <a class="nav-link" href="/manager/" data-require-login="true">⚙️ Manager</a>
+            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
+            <a class="nav-link" href="/create/" data-require-login="true">➕ Tạo</a>
+            <!-- More pages in dropdown -->
+            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
+            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
+            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
+                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
+                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
+            </div>
+            <div class="user-profile" id="user-profile" style="display: none;">
+                <div class="user-profile-btn" id="user-profile-btn">
+                    <div class="profile-avatar" id="profile-avatar">A</div>
+                    <span class="profile-name" id="profile-name">User</span>
+                    <span style="font-size: 12px;">▼</span>
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-dropdown-item" id="profile-info">
+                        <span>👤</span>
+                        <span>Thông tin cá nhân</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="profile-settings">
+                        <span>⚙️</span>
+                        <span>Cài đặt tài khoản</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
+                        <span>🚪</span>
+                        <span>Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation Dropdown -->
+        <div class="nav-dropdown" id="nav-dropdown">
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">🎯 Chính</div>
+                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
+                <a class="nav-dropdown-item" href="/manager/" data-require-login="true">⚙️ Manager</a>
+                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
+                <a class="nav-dropdown-item" href="/create/" data-require-login="true">➕ Tạo Bot</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">💰 Dịch vụ</div>
+                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
+                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">📊 Quản lý</div>
+                <a class="nav-dropdown-item" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
+                <a class="nav-dropdown-item" href="/users/" data-require-login="true">👥 Users</a>
+                <a class="nav-dropdown-item" href="/history/" data-require-login="true">📝 Lịch Sử</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
+                <a class="nav-dropdown-item" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
+                <a class="nav-dropdown-item" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="page active" id="profile-page">
+        <div class="settings-container">
+            <div class="settings-card">
+                <h2 class="settings-title">👤 Thông Tin Cá Nhân</h2>
+                <p class="settings-subtitle">Quản lý thông tin tài khoản của bạn</p>
+
+                <!-- Profile Header -->
+                <div class="profile-header-section">
+                    <div class="profile-avatar-large" id="profile-avatar-large">A</div>
+                    <div class="profile-header-info">
+                        <h3 class="profile-display-name" id="profile-display-name">User Name</h3>
+                        <p class="profile-email" id="profile-email">user@example.com</p>
+                        <button class="btn btn-primary" id="change-avatar-btn" style="margin-top: 10px; width: auto; padding: 8px 20px;">📷 Đổi Avatar</button>
+                    </div>
+                </div>
+
+                <!-- Account Info -->
+                <div class="settings-section">
+                    <div class="settings-section-title">📋 Thông Tin Tài Khoản</div>
+                    <div class="action-group">
+                        <label>Họ và tên:</label>
+                        <input type="text" class="input-field" id="profile-fullname" placeholder="Nguyễn Văn A">
+                    </div>
+                    <div class="action-group">
+                        <label>Username:</label>
+                        <input type="text" class="input-field" id="profile-username" placeholder="username123">
+                    </div>
+                    <div class="action-group">
+                        <label>Email:</label>
+                        <input type="email" class="input-field" id="profile-email-input" placeholder="example@email.com">
+                    </div>
+                    <div class="action-group">
+                        <label>Số điện thoại:</label>
+                        <input type="tel" class="input-field" id="profile-phone" placeholder="0123456789">
+                    </div>
+                    <div class="action-group">
+                        <label>Ngày sinh:</label>
+                        <input type="date" class="input-field" id="profile-birthday">
+                    </div>
+                    <div class="action-group">
+                        <label>Giới tính:</label>
+                        <select class="setting-select" id="profile-gender">
+                            <option value="">Chọn giới tính</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Account Stats -->
+                <div class="settings-section">
+                    <div class="settings-section-title">📊 Thống Kê Tài Khoản</div>
+                    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                        <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div class="stat-content">
+                                <div class="stat-value" id="profile-bots-count">3</div>
+                                <div class="stat-label">Bot đang có</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                            <div class="stat-content">
+                                <div class="stat-value" id="profile-messages-count">12,458</div>
+                                <div class="stat-label">Tin nhắn</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                            <div class="stat-content">
+                                <div class="stat-value" id="profile-commands-count">1,234</div>
+                                <div class="stat-label">Lệnh đã dùng</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);">
+                            <div class="stat-content">
+                                <div class="stat-value" id="profile-days-count">47</div>
+                                <div class="stat-label">Ngày tham gia</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🔐 Bảo Mật</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Xác thực 2 bước (2FA)</div>
+                            <div class="setting-desc">Tăng cường bảo mật tài khoản</div>
+                        </div>
+                        <div class="toggle-switch" id="toggle-2fa">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                    <button class="btn btn-warning" id="change-password-btn" style="margin-top: 15px;">🔑 Đổi Mật Khẩu</button>
+                </div>
+
+                <!-- Account Actions -->
+                <div class="settings-section">
+                    <div class="settings-section-title">⚙️ Hành Động Tài Khoản</div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <button class="btn btn-success" id="save-profile-btn">💾 Lưu Thay Đổi</button>
+                        <button class="btn btn-warning" id="export-data-btn">📥 Xuất Dữ Liệu</button>
+                        <button class="btn" id="delete-account-btn" style="background: #ef4444; color: white; margin: 0;">🗑️ Xóa Tài Khoản</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>

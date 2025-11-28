@@ -1,0 +1,316 @@
+<!-- statistics/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Bot - Statistics</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">🤖 Bot Manager</div>
+        <div class="nav-links" id="nav-links">
+            <a class="nav-link" href="/home/">🏠 Home</a>
+            <a class="nav-link" href="/manager/" data-require-login="true">⚙️ Manager</a>
+            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
+            <a class="nav-link" href="/create/" data-require-login="true">➕ Tạo</a>
+            <!-- More pages in dropdown -->
+            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
+            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
+            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
+                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
+                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
+            </div>
+            <div class="user-profile" id="user-profile" style="display: none;">
+                <div class="user-profile-btn" id="user-profile-btn">
+                    <div class="profile-avatar" id="profile-avatar">A</div>
+                    <span class="profile-name" id="profile-name">User</span>
+                    <span style="font-size: 12px;">▼</span>
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-dropdown-item" id="profile-info">
+                        <span>👤</span>
+                        <span>Thông tin cá nhân</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="profile-settings">
+                        <span>⚙️</span>
+                        <span>Cài đặt tài khoản</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
+                        <span>🚪</span>
+                        <span>Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation Dropdown -->
+        <div class="nav-dropdown" id="nav-dropdown">
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">🎯 Chính</div>
+                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
+                <a class="nav-dropdown-item" href="/manager/" data-require-login="true">⚙️ Manager</a>
+                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
+                <a class="nav-dropdown-item" href="/create/" data-require-login="true">➕ Tạo Bot</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">💰 Dịch vụ</div>
+                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
+                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">📊 Quản lý</div>
+                <a class="nav-dropdown-item active" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
+                <a class="nav-dropdown-item" href="/users/" data-require-login="true">👥 Users</a>
+                <a class="nav-dropdown-item" href="/history/" data-require-login="true">📝 Lịch Sử</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
+                <a class="nav-dropdown-item" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
+                <a class="nav-dropdown-item" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="page active" id="statistics-page">
+        <div class="settings-container">
+            <div class="settings-card">
+                <h2 class="settings-title">📊 Thống Kê</h2>
+                <p class="settings-subtitle">Xem tổng quan và phân tích hoạt động bot</p>
+
+                <!-- Overview Stats -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon">📨</div>
+                        <div class="stat-content">
+                            <div class="stat-value">12,458</div>
+                            <div class="stat-label">Tin nhắn hôm nay</div>
+                            <div class="stat-change positive">+15.3%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">👥</div>
+                        <div class="stat-content">
+                            <div class="stat-value">847</div>
+                            <div class="stat-label">Người dùng hoạt động</div>
+                            <div class="stat-change positive">+8.2%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">💬</div>
+                        <div class="stat-content">
+                            <div class="stat-value">24</div>
+                            <div class="stat-label">Nhóm đang hoạt động</div>
+                            <div class="stat-change neutral">0%</div>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">⚡</div>
+                        <div class="stat-content">
+                            <div class="stat-value">1,234</div>
+                            <div class="stat-label">Lệnh đã thực thi</div>
+                            <div class="stat-change positive">+23.1%</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bot Status -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🤖 Trạng Thái Bot</div>
+                    <div class="bot-stats-list">
+                        <div class="bot-stat-item">
+                            <div class="bot-stat-info">
+                                <div class="bot-stat-name">Bot Main</div>
+                                <div class="bot-stat-detail">Uptime: 47h 23m | Messages: 8,234</div>
+                            </div>
+                            <div class="bot-stat-status online">🟢 Online</div>
+                        </div>
+                        <div class="bot-stat-item">
+                            <div class="bot-stat-info">
+                                <div class="bot-stat-name">Bot Backup</div>
+                                <div class="bot-stat-detail">Uptime: 35h 12m | Messages: 5,126</div>
+                            </div>
+                            <div class="bot-stat-status online">🟢 Online</div>
+                        </div>
+                        <div class="bot-stat-item">
+                            <div class="bot-stat-info">
+                                <div class="bot-stat-name">Bot Test</div>
+                                <div class="bot-stat-detail">Last seen: 2h ago</div>
+                            </div>
+                            <div class="bot-stat-status offline">🔴 Offline</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Users -->
+                <div class="settings-section">
+                    <div class="settings-section-title">👑 Top Người Dùng Hoạt Động</div>
+                    <div class="ranking-list">
+                        <div class="ranking-item">
+                            <div class="ranking-number gold">1</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">Nguyễn Văn A</div>
+                                <div class="ranking-detail">2,458 tin nhắn | 156 lệnh</div>
+                            </div>
+                            <div class="ranking-score">2,458</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-number silver">2</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">Trần Thị B</div>
+                                <div class="ranking-detail">1,892 tin nhắn | 98 lệnh</div>
+                            </div>
+                            <div class="ranking-score">1,892</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-number bronze">3</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">Lê Văn C</div>
+                                <div class="ranking-detail">1,654 tin nhắn | 87 lệnh</div>
+                            </div>
+                            <div class="ranking-score">1,654</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-number">4</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">Phạm Thị D</div>
+                                <div class="ranking-detail">1,234 tin nhắn | 72 lệnh</div>
+                            </div>
+                            <div class="ranking-score">1,234</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-number">5</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">Hoàng Văn E</div>
+                                <div class="ranking-detail">987 tin nhắn | 54 lệnh</div>
+                            </div>
+                            <div class="ranking-score">987</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Groups -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🔥 Top Nhóm Hoạt Động</div>
+                    <div class="ranking-list">
+                        <div class="ranking-item">
+                            <div class="ranking-number gold">1</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">Nhóm Game</div>
+                                <div class="ranking-detail">67 thành viên | 4,582 tin nhắn</div>
+                            </div>
+                            <div class="ranking-score">4,582</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-number silver">2</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">Nhóm Học Tập</div>
+                                <div class="ranking-detail">45 thành viên | 3,124 tin nhắn</div>
+                            </div>
+                            <div class="ranking-score">3,124</div>
+                        </div>
+                        <div class="ranking-item">
+                            <div class="ranking-number bronze">3</div>
+                            <div class="ranking-info">
+                                <div class="ranking-name">Nhóm Công Việc</div>
+                                <div class="ranking-detail">23 thành viên | 2,456 tin nhắn</div>
+                            </div>
+                            <div class="ranking-score">2,456</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Popular Commands -->
+                <div class="settings-section">
+                    <div class="settings-section-title">⚡ Lệnh Được Sử Dụng Nhiều Nhất</div>
+                    <div class="command-stats-list">
+                        <div class="command-stat-item">
+                            <div class="command-stat-icon">🤖</div>
+                            <div class="command-stat-info">
+                                <div class="command-stat-name">AI Chat</div>
+                                <div class="command-stat-bar">
+                                    <div class="command-stat-fill" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="command-stat-count">850</div>
+                        </div>
+                        <div class="command-stat-item">
+                            <div class="command-stat-icon">🎵</div>
+                            <div class="command-stat-info">
+                                <div class="command-stat-name">Music</div>
+                                <div class="command-stat-bar">
+                                    <div class="command-stat-fill" style="width: 65%"></div>
+                                </div>
+                            </div>
+                            <div class="command-stat-count">650</div>
+                        </div>
+                        <div class="command-stat-item">
+                            <div class="command-stat-icon">🎨</div>
+                            <div class="command-stat-info">
+                                <div class="command-stat-name">Image Gen</div>
+                                <div class="command-stat-bar">
+                                    <div class="command-stat-fill" style="width: 45%"></div>
+                                </div>
+                            </div>
+                            <div class="command-stat-count">450</div>
+                        </div>
+                        <div class="command-stat-item">
+                            <div class="command-stat-icon">🌐</div>
+                            <div class="command-stat-info">
+                                <div class="command-stat-name">Translate</div>
+                                <div class="command-stat-bar">
+                                    <div class="command-stat-fill" style="width: 35%"></div>
+                                </div>
+                            </div>
+                            <div class="command-stat-count">350</div>
+                        </div>
+                        <div class="command-stat-item">
+                            <div class="command-stat-icon">📱</div>
+                            <div class="command-stat-info">
+                                <div class="command-stat-name">TikTok Down</div>
+                                <div class="command-stat-bar">
+                                    <div class="command-stat-fill" style="width: 25%"></div>
+                                </div>
+                            </div>
+                            <div class="command-stat-count">250</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Statistics -->
+                <div class="settings-section">
+                    <div class="settings-section-title">⏰ Thống Kê Theo Thời Gian</div>
+                    <div class="time-stats">
+                        <div class="time-stat-item">
+                            <div class="time-stat-label">Hôm nay</div>
+                            <div class="time-stat-value">12,458</div>
+                            <div class="time-stat-change positive">+15.3%</div>
+                        </div>
+                        <div class="time-stat-item">
+                            <div class="time-stat-label">Tuần này</div>
+                            <div class="time-stat-value">78,456</div>
+                            <div class="time-stat-change positive">+8.7%</div>
+                        </div>
+                        <div class="time-stat-item">
+                            <div class="time-stat-label">Tháng này</div>
+                            <div class="time-stat-value">342,890</div>
+                            <div class="time-stat-change positive">+12.4%</div>
+                        </div>
+                        <div class="time-stat-item">
+                            <div class="time-stat-label">Tổng cộng</div>
+                            <div class="time-stat-value">1.2M</div>
+                            <div class="time-stat-change neutral">All time</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>

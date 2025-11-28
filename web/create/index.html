@@ -1,0 +1,129 @@
+<!-- create/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Bot - Create</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">🤖 Bot Manager</div>
+        <div class="nav-links" id="nav-links">
+            <a class="nav-link" href="/home/">🏠 Home</a>
+            <a class="nav-link" href="/manager/" data-require-login="true">⚙️ Manager</a>
+            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
+            <a class="nav-link active" href="/create/" data-require-login="true">➕ Tạo</a>
+            <!-- More pages in dropdown -->
+            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
+            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
+            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
+                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
+                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
+            </div>
+            <div class="user-profile" id="user-profile" style="display: none;">
+                <div class="user-profile-btn" id="user-profile-btn">
+                    <div class="profile-avatar" id="profile-avatar">A</div>
+                    <span class="profile-name" id="profile-name">User</span>
+                    <span style="font-size: 12px;">▼</span>
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-dropdown-item" id="profile-info">
+                        <span>👤</span>
+                        <span>Thông tin cá nhân</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="profile-settings">
+                        <span>⚙️</span>
+                        <span>Cài đặt tài khoản</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
+                        <span>🚪</span>
+                        <span>Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation Dropdown -->
+        <div class="nav-dropdown" id="nav-dropdown">
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">🎯 Chính</div>
+                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
+                <a class="nav-dropdown-item" href="/manager/" data-require-login="true">⚙️ Manager</a>
+                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
+                <a class="nav-dropdown-item active" href="/create/" data-require-login="true">➕ Tạo Bot</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">💰 Dịch vụ</div>
+                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
+                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">📊 Quản lý</div>
+                <a class="nav-dropdown-item" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
+                <a class="nav-dropdown-item" href="/users/" data-require-login="true">👥 Users</a>
+                <a class="nav-dropdown-item" href="/history/" data-require-login="true">📝 Lịch Sử</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
+                <a class="nav-dropdown-item" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
+                <a class="nav-dropdown-item" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="page active" id="create-page">
+        <div class="create-container">
+            <div class="create-card">
+                <h2 class="create-title">Tạo Bot Mới</h2>
+                <div class="create-methods">
+                    <div class="method-btn active" data-method="cookie">
+                        <div class="method-icon">🍪</div>
+                        <div class="method-name">IMEI + Cookie</div>
+                    </div>
+                    <div class="method-btn" data-method="qr">
+                        <div class="method-icon">📱</div>
+                        <div class="method-name">Quét QR</div>
+                    </div>
+                </div>
+                <div class="create-form active" id="cookie-form">
+                    <div class="action-group">
+                        <label>Prefix (tiền tố lệnh):</label>
+                        <input type="text" class="input-field" id="bot-prefix" placeholder="Ví dụ: !, /, ." maxlength="3">
+                    </div>
+                    <div class="action-group">
+                        <label>IMEI:</label>
+                        <input type="text" class="input-field" id="imei-input" placeholder="Nhập IMEI...">
+                    </div>
+                    <div class="action-group">
+                        <label>Cookie:</label>
+                        <textarea class="input-field" id="cookie-input" placeholder="Nhập cookie..." style="min-height: 100px;"></textarea>
+                    </div>
+                    <button class="btn btn-primary" id="create-bot-cookie">🚀 Tạo Bot</button>
+                </div>
+                <div class="create-form" id="qr-form">
+                    <div class="action-group">
+                        <label>Prefix (tiền tố lệnh):</label>
+                        <input type="text" class="input-field" id="bot-prefix-qr" placeholder="Ví dụ: !, /, ." maxlength="3">
+                    </div>
+                    <div class="qr-container">
+                        <div class="qr-code">📱</div>
+                        <p class="qr-instructions">
+                            1. Mở ứng dụng Zalo trên điện thoại<br>
+                            2. Vào Cá nhân → Quét mã QR<br>
+                            3. Quét mã QR bên trên để đăng nhập
+                        </p>
+                        <button class="btn btn-success" id="generate-qr" style="margin-top: 20px;">🔄 Tạo mã QR</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>

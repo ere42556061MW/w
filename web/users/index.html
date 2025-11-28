@@ -1,0 +1,259 @@
+<!-- users/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Bot - Users</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">🤖 Bot Manager</div>
+        <div class="nav-links" id="nav-links">
+            <a class="nav-link" href="/home/">🏠 Home</a>
+            <a class="nav-link" href="/manager/" data-require-login="true">⚙️ Manager</a>
+            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
+            <a class="nav-link" href="/create/" data-require-login="true">➕ Tạo</a>
+            <!-- More pages in dropdown -->
+            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
+            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
+            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
+                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
+                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
+            </div>
+            <div class="user-profile" id="user-profile" style="display: none;">
+                <div class="user-profile-btn" id="user-profile-btn">
+                    <div class="profile-avatar" id="profile-avatar">A</div>
+                    <span class="profile-name" id="profile-name">User</span>
+                    <span style="font-size: 12px;">▼</span>
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-dropdown-item" id="profile-info">
+                        <span>👤</span>
+                        <span>Thông tin cá nhân</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="profile-settings">
+                        <span>⚙️</span>
+                        <span>Cài đặt tài khoản</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
+                        <span>🚪</span>
+                        <span>Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation Dropdown -->
+        <div class="nav-dropdown" id="nav-dropdown">
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">🎯 Chính</div>
+                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
+                <a class="nav-dropdown-item" href="/manager/" data-require-login="true">⚙️ Manager</a>
+                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
+                <a class="nav-dropdown-item" href="/create/" data-require-login="true">➕ Tạo Bot</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">💰 Dịch vụ</div>
+                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
+                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">📊 Quản lý</div>
+                <a class="nav-dropdown-item" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
+                <a class="nav-dropdown-item active" href="/users/" data-require-login="true">👥 Users</a>
+                <a class="nav-dropdown-item" href="/history/" data-require-login="true">📝 Lịch Sử</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
+                <a class="nav-dropdown-item" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
+                <a class="nav-dropdown-item" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="page active" id="users-page">
+        <div class="settings-container">
+            <div class="settings-card">
+                <h2 class="settings-title">👥 Quản Lý Users</h2>
+                <p class="settings-subtitle">Quản lý người dùng và phân quyền</p>
+
+                <!-- Search and Filter -->
+                <div class="users-toolbar">
+                    <input type="text" class="input-field" id="user-search" placeholder="🔍 Tìm kiếm user (ID, tên)..." style="flex: 1; margin: 0;">
+                    <select class="setting-select" id="user-filter" style="width: 150px; margin: 0;">
+                        <option value="all">Tất cả</option>
+                        <option value="admin">Admin</option>
+                        <option value="mod">Moderator</option>
+                        <option value="user">User</option>
+                        <option value="blocked">Đã chặn</option>
+                    </select>
+                    <button class="btn btn-primary" id="add-user-btn" style="margin: 0; width: auto; padding: 12px 20px;">➕ Thêm User</button>
+                </div>
+
+                <!-- Users List -->
+                <div class="settings-section">
+                    <div class="settings-section-title">📋 Danh Sách Users</div>
+                    <div class="users-list" id="users-list">
+                        <!-- User Item 1 -->
+                        <div class="user-item" data-user-id="123456789">
+                            <div class="user-avatar">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Crect width='50' height='50' fill='%23667eea'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EA%3C/text%3E%3C/svg%3E" alt="A">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name">Nguyễn Văn A</div>
+                                <div class="user-id">ID: 123456789012345678</div>
+                                <div class="user-stats">
+                                    <span>📨 2,458 tin nhắn</span>
+                                    <span>⚡ 156 lệnh</span>
+                                    <span>📅 Tham gia: 15/10/2024</span>
+                                </div>
+                            </div>
+                            <div class="user-role admin">
+                                <span class="role-badge">👑 Admin</span>
+                            </div>
+                            <div class="user-actions">
+                                <button class="user-action-btn edit" data-user-id="123456789">✏️</button>
+                                <button class="user-action-btn block" data-user-id="123456789">🚫</button>
+                                <button class="user-action-btn delete" data-user-id="123456789">🗑️</button>
+                            </div>
+                        </div>
+
+                        <!-- User Item 2 -->
+                        <div class="user-item" data-user-id="987654321">
+                            <div class="user-avatar">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Crect width='50' height='50' fill='%2310b981'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EB%3C/text%3E%3C/svg%3E" alt="B">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name">Trần Thị B</div>
+                                <div class="user-id">ID: 987654321098765432</div>
+                                <div class="user-stats">
+                                    <span>📨 1,892 tin nhắn</span>
+                                    <span>⚡ 98 lệnh</span>
+                                    <span>📅 Tham gia: 20/10/2024</span>
+                                </div>
+                            </div>
+                            <div class="user-role mod">
+                                <span class="role-badge">⚙️ Moderator</span>
+                            </div>
+                            <div class="user-actions">
+                                <button class="user-action-btn edit" data-user-id="987654321">✏️</button>
+                                <button class="user-action-btn block" data-user-id="987654321">🚫</button>
+                                <button class="user-action-btn delete" data-user-id="987654321">🗑️</button>
+                            </div>
+                        </div>
+
+                        <!-- User Item 3 -->
+                        <div class="user-item" data-user-id="111222333">
+                            <div class="user-avatar">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Crect width='50' height='50' fill='%23f59e0b'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EC%3C/text%3E%3C/svg%3E" alt="C">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name">Lê Văn C</div>
+                                <div class="user-id">ID: 111222333444555666</div>
+                                <div class="user-stats">
+                                    <span>📨 1,654 tin nhắn</span>
+                                    <span>⚡ 87 lệnh</span>
+                                    <span>📅 Tham gia: 25/10/2024</span>
+                                </div>
+                            </div>
+                            <div class="user-role user">
+                                <span class="role-badge">👤 User</span>
+                            </div>
+                            <div class="user-actions">
+                                <button class="user-action-btn edit" data-user-id="111222333">✏️</button>
+                                <button class="user-action-btn block" data-user-id="111222333">🚫</button>
+                                <button class="user-action-btn delete" data-user-id="111222333">🗑️</button>
+                            </div>
+                        </div>
+
+                        <!-- User Item 4 - Blocked -->
+                        <div class="user-item blocked" data-user-id="444555666">
+                            <div class="user-avatar">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Crect width='50' height='50' fill='%23ef4444'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3ED%3C/text%3E%3C/svg%3E" alt="D">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name">Phạm Thị D</div>
+                                <div class="user-id">ID: 444555666777888999</div>
+                                <div class="user-stats">
+                                    <span>📨 234 tin nhắn</span>
+                                    <span>⚡ 12 lệnh</span>
+                                    <span>🚫 Đã chặn: 18/11/2024</span>
+                                </div>
+                            </div>
+                            <div class="user-role blocked">
+                                <span class="role-badge">🚫 Blocked</span>
+                            </div>
+                            <div class="user-actions">
+                                <button class="user-action-btn unblock" data-user-id="444555666">✅</button>
+                                <button class="user-action-btn delete" data-user-id="444555666">🗑️</button>
+                            </div>
+                        </div>
+
+                        <!-- User Item 5 -->
+                        <div class="user-item" data-user-id="777888999">
+                            <div class="user-avatar">
+                                <img src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50'%3E%3Crect width='50' height='50' fill='%238b5cf6'/%3E%3Ctext x='50%25' y='50%25' dominant-baseline='middle' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EE%3C/text%3E%3C/svg%3E" alt="E">
+                            </div>
+                            <div class="user-info">
+                                <div class="user-name">Hoàng Văn E</div>
+                                <div class="user-id">ID: 777888999000111222</div>
+                                <div class="user-stats">
+                                    <span>📨 987 tin nhắn</span>
+                                    <span>⚡ 54 lệnh</span>
+                                    <span>📅 Tham gia: 05/11/2024</span>
+                                </div>
+                            </div>
+                            <div class="user-role user">
+                                <span class="role-badge">👤 User</span>
+                            </div>
+                            <div class="user-actions">
+                                <button class="user-action-btn edit" data-user-id="777888999">✏️</button>
+                                <button class="user-action-btn block" data-user-id="777888999">🚫</button>
+                                <button class="user-action-btn delete" data-user-id="777888999">🗑️</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- User Statistics -->
+                <div class="settings-section">
+                    <div class="settings-section-title">📊 Thống Kê Users</div>
+                    <div class="stats-grid" style="grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));">
+                        <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                            <div class="stat-content">
+                                <div class="stat-value">1,247</div>
+                                <div class="stat-label">Tổng users</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                            <div class="stat-content">
+                                <div class="stat-value">847</div>
+                                <div class="stat-label">Đang hoạt động</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);">
+                            <div class="stat-content">
+                                <div class="stat-value">12</div>
+                                <div class="stat-label">Admins</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);">
+                            <div class="stat-content">
+                                <div class="stat-value">23</div>
+                                <div class="stat-label">Đã chặn</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>

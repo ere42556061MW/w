@@ -1,0 +1,288 @@
+<!-- theme/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản Lý Bot - Theme</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-brand">🤖 Bot Manager</div>
+        <div class="nav-links" id="nav-links">
+            <a class="nav-link" href="/home/">🏠 Home</a>
+            <a class="nav-link" href="/manager/" data-require-login="true">⚙️ Manager</a>
+            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
+            <a class="nav-link" href="/create/" data-require-login="true">➕ Tạo</a>
+            <!-- More pages in dropdown -->
+            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
+            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
+            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
+                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
+                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
+            </div>
+            <div class="user-profile" id="user-profile" style="display: none;">
+                <div class="user-profile-btn" id="user-profile-btn">
+                    <div class="profile-avatar" id="profile-avatar">A</div>
+                    <span class="profile-name" id="profile-name">User</span>
+                    <span style="font-size: 12px;">▼</span>
+                </div>
+                <div class="profile-dropdown" id="profile-dropdown">
+                    <div class="profile-dropdown-item" id="profile-info">
+                        <span>👤</span>
+                        <span>Thông tin cá nhân</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="profile-settings">
+                        <span>⚙️</span>
+                        <span>Cài đặt tài khoản</span>
+                    </div>
+                    <div class="profile-dropdown-divider"></div>
+                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
+                        <span>🚪</span>
+                        <span>Đăng xuất</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Navigation Dropdown -->
+        <div class="nav-dropdown" id="nav-dropdown">
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">🎯 Chính</div>
+                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
+                <a class="nav-dropdown-item" href="/manager/" data-require-login="true">⚙️ Manager</a>
+                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
+                <a class="nav-dropdown-item" href="/create/" data-require-login="true">➕ Tạo Bot</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">💰 Dịch vụ</div>
+                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
+                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">📊 Quản lý</div>
+                <a class="nav-dropdown-item" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
+                <a class="nav-dropdown-item" href="/users/" data-require-login="true">👥 Users</a>
+                <a class="nav-dropdown-item" href="/history/" data-require-login="true">📝 Lịch Sử</a>
+            </div>
+            <div class="nav-dropdown-section">
+                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
+                <a class="nav-dropdown-item" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
+                <a class="nav-dropdown-item active" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
+            </div>
+        </div>
+    </nav>
+    
+    <div class="page active" id="theme-page">
+        <div class="settings-container">
+            <div class="settings-card">
+                <h2 class="settings-title">🎨 Tùy Chỉnh Giao Diện</h2>
+                <p class="settings-subtitle">Cá nhân hóa theme và màu sắc theo ý bạn</p>
+
+                <!-- Theme Mode -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🌓 Chế Độ Hiển Thị</div>
+                    <div class="theme-modes">
+                        <div class="theme-mode-card active" data-mode="light">
+                            <div class="theme-mode-preview light-preview">
+                                <div class="preview-nav"></div>
+                                <div class="preview-content">
+                                    <div class="preview-box"></div>
+                                    <div class="preview-box"></div>
+                                </div>
+                            </div>
+                            <div class="theme-mode-name">☀️ Sáng</div>
+                        </div>
+                        <div class="theme-mode-card" data-mode="dark">
+                            <div class="theme-mode-preview dark-preview">
+                                <div class="preview-nav"></div>
+                                <div class="preview-content">
+                                    <div class="preview-box"></div>
+                                    <div class="preview-box"></div>
+                                </div>
+                            </div>
+                            <div class="theme-mode-name">🌙 Tối</div>
+                        </div>
+                        <div class="theme-mode-card" data-mode="auto">
+                            <div class="theme-mode-preview auto-preview">
+                                <div class="preview-nav"></div>
+                                <div class="preview-content">
+                                    <div class="preview-box"></div>
+                                    <div class="preview-box"></div>
+                                </div>
+                            </div>
+                            <div class="theme-mode-name">🔄 Tự động</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color Schemes -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🎨 Bảng Màu Chủ Đạo</div>
+                    <div class="color-schemes">
+                        <div class="color-scheme active" data-scheme="purple">
+                            <div class="scheme-colors">
+                                <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                            </div>
+                            <div class="scheme-name">Tím (Mặc định)</div>
+                        </div>
+                        <div class="color-scheme" data-scheme="blue">
+                            <div class="scheme-colors">
+                                <div style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);"></div>
+                            </div>
+                            <div class="scheme-name">Xanh dương</div>
+                        </div>
+                        <div class="color-scheme" data-scheme="green">
+                            <div class="scheme-colors">
+                                <div style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);"></div>
+                            </div>
+                            <div class="scheme-name">Xanh lá</div>
+                        </div>
+                        <div class="color-scheme" data-scheme="orange">
+                            <div class="scheme-colors">
+                                <div style="background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);"></div>
+                            </div>
+                            <div class="scheme-name">Cam</div>
+                        </div>
+                        <div class="color-scheme" data-scheme="red">
+                            <div class="scheme-colors">
+                                <div style="background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);"></div>
+                            </div>
+                            <div class="scheme-name">Đỏ</div>
+                        </div>
+                        <div class="color-scheme" data-scheme="pink">
+                            <div class="scheme-colors">
+                                <div style="background: linear-gradient(135deg, #ec4899 0%, #be185d 100%);"></div>
+                            </div>
+                            <div class="scheme-name">Hồng</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Font Settings -->
+                <div class="settings-section">
+                    <div class="settings-section-title">📝 Font Chữ</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Font chữ</div>
+                            <div class="setting-desc">Chọn font chữ hiển thị</div>
+                        </div>
+                        <select class="setting-select" id="font-family">
+                            <option value="default">Mặc định (Segoe UI)</option>
+                            <option value="arial">Arial</option>
+                            <option value="roboto">Roboto</option>
+                            <option value="inter">Inter</option>
+                            <option value="poppins">Poppins</option>
+                            <option value="montserrat">Montserrat</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Kích thước chữ</div>
+                            <div class="setting-desc">Điều chỉnh kích thước font</div>
+                        </div>
+                        <select class="setting-select" id="font-size">
+                            <option value="small">Nhỏ</option>
+                            <option value="medium" selected>Trung bình</option>
+                            <option value="large">Lớn</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Background Settings -->
+                <div class="settings-section">
+                    <div class="settings-section-title">🖼️ Nền Trang Chủ</div>
+                    <div class="background-options">
+                        <div class="bg-option active" data-bg="gradient">
+                            <div class="bg-preview" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);"></div>
+                            <div class="bg-name">Gradient</div>
+                        </div>
+                        <div class="bg-option" data-bg="solid">
+                            <div class="bg-preview" style="background: #667eea;"></div>
+                            <div class="bg-name">Solid</div>
+                        </div>
+                        <div class="bg-option" data-bg="pattern">
+                            <div class="bg-preview" style="background: url('data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23667eea\' fill-opacity=\'0.1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E'), #667eea;"></div>
+                            <div class="bg-name">Pattern</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Border Radius -->
+                <div class="settings-section">
+                    <div class="settings-section-title">⚪ Bo Góc</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Độ bo góc</div>
+                            <div class="setting-desc">Điều chỉnh độ bo góc các thẻ</div>
+                        </div>
+                        <select class="setting-select" id="border-radius">
+                            <option value="sharp">Vuông vức (0px)</option>
+                            <option value="small">Nhỏ (8px)</option>
+                            <option value="medium" selected>Trung bình (12px)</option>
+                            <option value="large">Lớn (16px)</option>
+                            <option value="rounded">Bo tròn (20px)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Animation Speed -->
+                <div class="settings-section">
+                    <div class="settings-section-title">⚡ Hiệu Ứng</div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Tốc độ animation</div>
+                            <div class="setting-desc">Tốc độ chuyển động hiệu ứng</div>
+                        </div>
+                        <select class="setting-select" id="animation-speed">
+                            <option value="slow">Chậm</option>
+                            <option value="normal" selected>Bình thường</option>
+                            <option value="fast">Nhanh</option>
+                            <option value="none">Tắt animation</option>
+                        </select>
+                    </div>
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Hiệu ứng blur</div>
+                            <div class="setting-desc">Làm mờ nền trong suốt</div>
+                        </div>
+                        <div class="toggle-switch active" id="toggle-blur">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Preview -->
+                <div class="settings-section">
+                    <div class="settings-section-title">👁️ Xem Trước</div>
+                    <div class="theme-preview-container">
+                        <div class="theme-preview-box">
+                            <div class="preview-header">
+                                <span>🤖 Bot Manager</span>
+                                <button class="preview-btn">🌙</button>
+                            </div>
+                            <div class="preview-body">
+                                <div class="preview-card">
+                                    <div class="preview-title">Thẻ mẫu</div>
+                                    <div class="preview-text">Đây là cách giao diện sẽ trông như thế nào với cài đặt hiện tại của bạn.</div>
+                                    <button class="preview-button">Button mẫu</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn btn-success" id="save-theme-btn">💾 Lưu Theme</button>
+                    <button class="btn btn-warning" id="reset-theme-btn">🔄 Đặt Lại Mặc Định</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <script src="/script.js"></script>
+</body>
+</html>
