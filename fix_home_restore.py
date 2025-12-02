@@ -1,13 +1,46 @@
-<!-- rental/index.html -->
+#!/usr/bin/env python3
+# -*- coding: utf-8 -*-
+"""
+Restore home/index.html - remove BOM, format, fix mojibake
+"""
+
+import os
+
+# File path
+html_file = r"c:\Users\vuhai\OneDrive\Máy tính\aaaas\web\home\index.html"
+
+# Read file with UTF-8 encoding and explicit BOM handling
+with open(html_file, 'rb') as f:
+    content_bytes = f.read()
+
+# Remove UTF-8 BOM if present
+if content_bytes.startswith(b'\xef\xbb\xbf'):
+    print("✓ Removing UTF-8 BOM")
+    content_bytes = content_bytes[3:]
+
+# Decode as UTF-8
+content = content_bytes.decode('utf-8', errors='replace')
+
+# Fix mojibake: dÃâ¬ → do
+content = content.replace('dÃâ¬', 'do')
+content = content.replace("d' ng", 'day du')
+content = content.replace("c'ch", 'che')
+content = content.replace('Ã¯', '')  # Remove any remaining BOM artifacts
+
+# Fix duplicate closing html tag
+content = content.replace('</html></html>', '</html>')
+
+# Format - add line breaks after tags for readability (without breaking functionality)
+# But keep it simple - just ensure proper structure
+formatted = """<!-- home/index.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quan Ly Bot - Rental</title>
+    <title>Quan Ly Bot - Home</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="/styles.css">
-
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <!-- Sidebar Navigation -->
@@ -128,21 +161,32 @@
 </div>
 
 <section class="home-section">
-<div class="page active" id="rental-page">
+<div class="page active" id="home-page">
 <div class="home-container">
-<div class="rental-container">
-<div class="rental-card">
-<h2 class="page-title">💰 Cho Thuê Bot</h2>
-<div class="rental-list" id="rental-list"></div>
-<button class="btn btn-primary" id="add-rental-btn" style="margin-top: 20px;">➕ Thêm Gói Cho Thuê</button>
-</div>
+<div class="home-content">
+<h1 class="home-title">Bot Manager</h1>
+<p class="home-subtitle">Quan Ly bot Zalo mat che do day du</p>
+<p class="home-author">by ere</p>
 </div>
 </div>
 </div>
 </section>
+
 <!-- Boxicons CDN Link -->
 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
 <script src="/sidebar.js"></script>
 <script src="/script.js"></script>
 </body>
 </html>
+"""
+
+# Write back without BOM
+with open(html_file, 'w', encoding='utf-8') as f:
+    f.write(formatted)
+
+print(f"✓ Fixed home/index.html")
+print(f"  - Removed BOM")
+print(f"  - Fixed mojibake (dÃâ¬ → do)")
+print(f"  - Fixed quotes")
+print(f"  - Formatted for readability")
+print(f"  - Removed duplicate </html> tag")

@@ -1,0 +1,140 @@
+<!-- users/index.html -->
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quan Ly Bot - Users</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+<div class="logo-details">
+<i class="bx bxl-c-plus-plus icon"></i>
+<div class="logo_name">Bot Manager</div>
+<i class="bx bx-menu" id="btn"></i>
+</div>
+<ul class="nav-list">
+<li>
+<i class="bx bx-search"></i>
+<input type="text" placeholder="Search..." />
+<span class="tooltip">Search</span>
+</li>
+<li>
+<a href="/home/">
+<i class="bx bx-grid-alt"></i>
+<span class="links_name">Home</span>
+</a>
+<span class="tooltip">Home</span>
+</li>
+<li>
+<a href="/manager/" data-require-login="true">
+<i class="bx bx-cog"></i>
+<span class="links_name">Manager</span>
+</a>
+<span class="tooltip">Manager</span>
+</li>
+<li>
+<a href="/bots/" data-require-login="true">
+<i class="bx bxs-bot"></i>
+<span class="links_name">Bot</span>
+</a>
+<span class="tooltip">Bot</span>
+</li>
+<li>
+<a href="/create/" data-require-login="true">
+<i class="bx bx-plus"></i>
+<span class="links_name">Create</span>
+</a>
+<span class="tooltip">Create</span>
+</li>
+<li>
+<a href="/rental/" data-require-login="true">
+<i class="bx bx-money"></i>
+<span class="links_name">Rental</span>
+</a>
+<span class="tooltip">Rental</span>
+</li>
+<li>
+<a href="/commands/" data-require-login="true">
+<i class="bx bx-command"></i>
+<span class="links_name">Commands</span>
+</a>
+<span class="tooltip">Commands</span>
+</li>
+<li>
+<a href="/statistics/" data-require-login="true">
+<i class="bx bx-pie-chart-alt-2"></i>
+<span class="links_name">Statistics</span>
+</a>
+<span class="tooltip">Statistics</span>
+</li>
+<li>
+<a href="/users/" data-require-login="true">
+<i class="bx bx-user"></i>
+<span class="links_name">Users</span>
+</a>
+<span class="tooltip">Users</span>
+</li>
+<li>
+<a href="/history/" data-require-login="true">
+<i class="bx bx-history"></i>
+<span class="links_name">History</span>
+</a>
+<span class="tooltip">History</span>
+</li>
+<li>
+<a href="/settings/" data-require-login="true">
+<i class="bx bx-slider"></i>
+<span class="links_name">Settings</span>
+</a>
+<span class="tooltip">Settings</span>
+</li>
+<li>
+<a href="/theme/" data-require-login="true">
+<i class="bx bx-palette"></i>
+<span class="links_name">Theme</span>
+</a>
+<span class="tooltip">Theme</span>
+</li>
+<li>
+<a href="#" id="theme-toggle-sidebar">
+<i class="bx bx-moon"></i>
+<span class="links_name">Theme</span>
+</a>
+<span class="tooltip">Toggle Theme</span>
+</li>
+<li>
+<a href="#" id="nav-register-btn">
+<i class="bx bx-user-plus"></i>
+<span class="links_name">Register</span>
+</a>
+<span class="tooltip">Register</span>
+</li>
+<li class="profile">
+<div class="profile-details">
+<img src="/profile.jpg" alt="profileImg" />
+<div class="name_job">
+<div class="name" id="profile-name">User</div>
+<div class="job">Web Manager</div>
+</div>
+</div>
+<i class="bx bx-log-out" id="logout-btn"></i>
+</li>
+</ul>
+</div>
+
+<section class="home-section">
+<div class="page" id="users-page">
+<div
+</section>
+<!-- Boxicons CDN Link -->
+<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+<script src="/sidebar.js"></script>
+<script src="/script.js"></script>
+</body>
+</html>
+</body>
+</html>

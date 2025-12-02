@@ -1,10 +1,16 @@
 """
 Web Server cho Bot Manager - Fix lỗi ngắt kết nối trên Mobile
-Với tích hợp Authentication System (SQLite)
+Với tích hợp Authentication System & Bot Ownership Management (SQLite)
 """
-# --- THÊM ĐOẠN NÀY ĐẦU TIÊN ---
-import eventlet
-eventlet.monkey_patch()
+# --- CHỌN MỘT TRONG HAI ---
+# Option 1: Dùng gevent (khuyến nghị cho Python 3.12+)
+from gevent import monkey
+monkey.patch_all()
+
+# Option 2: Dùng threading (không cần eventlet/gevent)
+# Bỏ comment dòng dưới nếu không muốn dùng async mode
+# pass
+
 # ------------------------------
 
 from flask import Flask, jsonify, request, send_file
@@ -17,6 +23,7 @@ import queue
 from collections import deque, defaultdict
 import itertools
 import uuid
+from functools import wraps
 
 # Import authentication module
 from auth import AuthDB
@@ -30,13 +37,14 @@ app.config['SECRET_KEY'] = 'your-secret-key-here-change-in-production'
 CORS(app, supports_credentials=True)
 
 # --- SỬA CẤU HÌNH SOCKETIO ---
-# 1. Chuyển sang eventlet
-# 2. Tăng ping_timeout lên 60s (để khi chuyển tab 1 lúc không bị disconnect ngay)
-# 3. Tăng ping_interval lên 25s
+# Chọn async_mode phù hợp với environment của bạn
+# - 'gevent': Tốt nhất cho production, Python 3.12+
+# - 'threading': Không cần cài thêm gì, ổn định
+# - 'eventlet': Cho Python < 3.12
 socketio = SocketIO(
     app, 
     cors_allowed_origins="*", 
-    async_mode='eventlet', 
+    async_mode='gevent',  # Đổi thành 'threading' nếu không dùng gevent
     ping_timeout=60, 
     ping_interval=25
 )
@@ -109,8 +117,9 @@ def log_worker():
     """Background worker to process log queue"""
     while True:
         try:
-            # Eventlet sleep để tránh block CPU 100% trong vòng lặp while True
-            eventlet.sleep(0.1) 
+            # Sleep để tránh block CPU 100% trong vòng lặp while True
+            import time
+            time.sleep(0.1) 
             log_data = log_queue.get(timeout=1)
             if log_data:
                 emit_log_to_clients(log_data)
@@ -173,6 +182,27 @@ class WebLogger:
         add_log('error', error_message, {
             'exception': str(exception) if exception else None
         })
+
+# ==================== AUTHENTICATION DECORATOR ====================
+
+def require_auth(f):
+    """Decorator to require authentication"""
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        session_token = request.cookies.get('session_token')
+        
+        if not session_token:
+            return jsonify({'error': 'Not authenticated'}), 401
+        
+        user = auth_db.validate_session(session_token)
+        
+        if not user:
+            return jsonify({'error': 'Invalid session'}), 401
+        
+        # Pass user to the route function
+        return f(user, *args, **kwargs)
+    
+    return decorated_function
 
 # ==================== AUTHENTICATION ROUTES ====================
 
@@ -412,6 +442,147 @@ def api_delete_account():
     add_log('event', f'User account deleted: {username}', {'user_id': user['id']})
     return response
 
+# ==================== BOT OWNERSHIP ROUTES ====================
+
+@app.route('/api/my-bots', methods=['GET'])
+@require_auth
+def api_get_my_bots(user):
+    """Get all bots owned by current user"""
+    bots = auth_db.get_user_bots(user['id'])
+    return jsonify({'bots': bots, 'count': len(bots)})
+
+@app.route('/api/my-bots', methods=['POST'])
+@require_auth
+def api_create_my_bot(user):
+    """Create a new bot"""
+    data = request.get_json(silent=True) or {}
+    
+    name = data.get('name', '').strip()
+    
+    if not name:
+        return jsonify({'error': 'Bot name is required'}), 400
+    
+    metadata = data.get('metadata', {})
+    
+    result = auth_db.create_bot(user['id'], name, metadata)
+    
+    if not result['success']:
+        return jsonify({'error': result['error']}), 400
+    
+    add_log('event', f'New bot created: {result["bot_id"]}', {
+        'bot_id': result['bot_id'],
+        'user_id': user['id']
+    })
+    
+    return jsonify({
+        'success': True,
+        'bot_id': result['bot_id'],
+        'token': result['token']
+    })
+
+@app.route('/api/my-bots/<bot_id>', methods=['GET'])
+@require_auth
+def api_get_my_bot(user, bot_id):
+    """Get specific bot details"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id):
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    bot = auth_db.get_bot(bot_id)
+    
+    if not bot:
+        return jsonify({'error': 'Bot not found'}), 404
+    
+    return jsonify({'bot': bot})
+
+@app.route('/api/my-bots/<bot_id>', methods=['PUT'])
+@require_auth
+def api_update_my_bot(user, bot_id):
+    """Update bot info"""
+    data = request.get_json(silent=True) or {}
+    
+    result = auth_db.update_bot_info(bot_id, user['id'], **data)
+    
+    if not result['success']:
+        return jsonify({'error': result['error']}), 400
+    
+    add_log('event', f'Bot updated: {bot_id}', {'bot_id': bot_id, 'user_id': user['id']})
+    
+    return jsonify({'success': True})
+
+@app.route('/api/my-bots/<bot_id>', methods=['DELETE'])
+@require_auth
+def api_delete_my_bot(user, bot_id):
+    """Delete a bot"""
+    result = auth_db.delete_bot(bot_id, user['id'])
+    
+    if not result['success']:
+        return jsonify({'error': result['error']}), 403
+    
+    add_log('event', f'Bot deleted: {bot_id}', {'bot_id': bot_id, 'user_id': user['id']})
+    
+    return jsonify({'success': True})
+
+@app.route('/api/my-bots/<bot_id>/data', methods=['GET'])
+@require_auth
+def api_get_my_bot_data(user, bot_id):
+    """Get bot data"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id):
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    data = auth_db.get_bot_data(bot_id)
+    
+    if data is None:
+        return jsonify({'data': None})
+    
+    return jsonify({'data': data})
+
+@app.route('/api/my-bots/<bot_id>/token', methods=['GET'])
+@require_auth
+def api_get_my_bot_token(user, bot_id):
+    """Get bot token"""
+    token = auth_db.get_bot_token(bot_id, user['id'])
+    
+    if not token:
+        return jsonify({'error': 'Not authorized or bot not found'}), 403
+    
+    return jsonify({'token': token})
+
+@app.route('/api/my-bots/<bot_id>/regenerate-token', methods=['POST'])
+@require_auth
+def api_regenerate_my_bot_token(user, bot_id):
+    """Regenerate bot token"""
+    result = auth_db.regenerate_bot_token(bot_id, user['id'])
+    
+    if not result['success']:
+        return jsonify({'error': result['error']}), 403
+    
+    add_log('event', f'Bot token regenerated: {bot_id}', {'bot_id': bot_id, 'user_id': user['id']})
+    
+    return jsonify({'success': True, 'token': result['token']})
+
+# ==================== BOT API ROUTES (For bot clients) ====================
+
+@app.route('/api/bot/auth', methods=['POST'])
+def api_bot_auth():
+    """Authenticate bot using token"""
+    data = request.get_json(silent=True) or {}
+    
+    bot_id = data.get('bot_id', '').strip()
+    token = data.get('token', '').strip()
+    
+    if not bot_id or not token:
+        return jsonify({'error': 'bot_id and token required'}), 400
+    
+    if not auth_db.verify_bot_token(bot_id, token):
+        return jsonify({'error': 'Invalid bot credentials'}), 401
+    
+    bot = auth_db.get_bot(bot_id)
+    
+    return jsonify({
+        'success': True,
+        'bot': bot
+    })
+
 # ==================== BOT MANAGEMENT ROUTES ====================
 
 @app.route('/api/health')
@@ -450,15 +621,32 @@ def api_register_bot():
 def bot_status(bot_id):
     """Get or update bot status"""
     if request.method == 'GET':
+        bot = auth_db.get_bot(bot_id)
+        if bot:
+            return jsonify(bot)
+        
+        # Fallback to old in-memory system
         if bot_id in bot_instances:
             return jsonify(bot_instances[bot_id])
         return jsonify({'error': 'Bot not found'}), 404
 
-    # POST - Update status
+    # POST - Update status (requires bot token)
     payload = request.get_json(silent=True) or {}
+    token = payload.get('token') or request.headers.get('X-Bot-Token')
+    
+    # Verify bot token if provided
+    if token and not auth_db.verify_bot_token(bot_id, token):
+        return jsonify({'error': 'Invalid bot token'}), 401
+    
     status = payload.get('status', 'unknown')
     extra = payload.get('data', {})
 
+    # Update in database if bot exists
+    bot = auth_db.get_bot(bot_id)
+    if bot:
+        auth_db.update_bot_status(bot_id, status)
+    
+    # Also update in-memory for backward compatibility
     if bot_id not in bot_instances:
         bot_instances[bot_id] = {
             'id': bot_id,
@@ -548,15 +736,33 @@ def api_post_messages(bot_id):
 @app.route('/api/bot/<bot_id>/data', methods=['GET'])
 def api_get_bot_data(bot_id):
     """Get bot data (groups, friends, etc.)"""
+    # Try database first
+    data = auth_db.get_bot_data(bot_id)
+    if data:
+        return jsonify({'data': data, 'source': 'database'})
+    
+    # Fallback to in-memory store
     if bot_id not in bot_data_store:
         return jsonify({'data': {}, 'updated_at': None}), 404
-    return jsonify(bot_data_store[bot_id])
+    
+    return jsonify({**bot_data_store[bot_id], 'source': 'memory'})
 
 @app.route('/api/bot/<bot_id>/sync', methods=['POST'])
 def api_sync_bot_data(bot_id):
     """Sync bot data"""
     payload = request.get_json(silent=True) or {}
+    token = payload.get('token') or request.headers.get('X-Bot-Token')
     
+    # Verify bot token if provided
+    if token and not auth_db.verify_bot_token(bot_id, token):
+        return jsonify({'error': 'Invalid bot token'}), 401
+    
+    # Save to database if bot exists
+    bot = auth_db.get_bot(bot_id)
+    if bot:
+        auth_db.update_bot_data(bot_id, payload)
+    
+    # Also save to in-memory store for backward compatibility
     bot_data_store[bot_id] = {
         'data': payload,
         'updated_at': _current_time_iso()
@@ -730,22 +936,22 @@ def serve_web_pages(subpath):
 
 def start_web_server(host='0.0.0.0', port=5000, debug=False):
     """Start the web server"""
-    # Log worker thread giữ nguyên vì eventlet monkey_patch đã xử lý threading
+    # Log worker thread
     log_thread = threading.Thread(target=log_worker, daemon=True)
     log_thread.start()
 
-    print(f'\n🌐 Starting Web Server with Eventlet...')
-    print(f'📍 URL: http://{host}:{port}')
+    print(f'\n🌐 Starting Web Server...')
+    print(f'🔗 URL: http://{host}:{port}')
     print(f'📁 Serving files from: {web_dir}')
     print(f'🔐 Authentication: Enabled (SQLite)')
     print(f'💾 Database: data/users.db')
+    print(f'🤖 Bot Management: Enabled')
     print('=' * 50)
 
     # Create web directory if not exists
     os.makedirs(web_dir, exist_ok=True)
 
     try:
-        # Eventlet sẽ tự động được sử dụng do async_mode='eventlet'
         socketio.run(app, host=host, port=port, debug=debug)
     except OSError as e:
         if "Address already in use" in str(e):
@@ -780,9 +986,11 @@ if __name__ == '__main__':
     ║  ✅ Real-time Socket.IO communication                   ║
     ║  ✅ Bot management & monitoring                         ║
     ║  ✅ User authentication (SQLite)                        ║
+    ║  ✅ Bot ownership & access control                      ║
     ║  ✅ Session management                                  ║
     ║  ✅ Profile management                                  ║
     ║  ✅ Password reset                                      ║
+    ║  ✅ Bot token authentication                            ║
     ║  ✅ Responsive web interface                            ║
     ║                                                          ║
     ║  Created by: ere                                        ║

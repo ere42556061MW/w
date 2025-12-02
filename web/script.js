@@ -1,4 +1,4 @@
-// script.js - Bot Manager Frontend
+﻿// script.js - Bot Manager Frontend
 // Smooth page transition
 document.addEventListener('DOMContentLoaded', function() {
     document.body.style.opacity = '0';
@@ -6,9 +6,37 @@ document.addEventListener('DOMContentLoaded', function() {
         document.body.style.transition = 'opacity 0.3s ease';
         document.body.style.opacity = '1';
     }, 10);
+    // Apply saved theme preference on initial load
+    try {
+        const savedTheme = localStorage.getItem('site-theme');
+        if (savedTheme === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.body.classList.add('dark');
+        } else if (savedTheme === 'light') {
+            document.documentElement.classList.remove('dark');
+            document.body.classList.remove('dark');
+        }
+    } catch (e) {
+        // ignore
+    }
 });
 
 $(document).ready(function() {
+    // ==================== API CONFIGURATION ====================
+    const API_BASE_URL = window.location.origin; // hoáº·c 'http://localhost:5000'
+
+    // Helper function cho API calls
+    function apiCall(endpoint, options = {}) {
+        return $.ajax({
+            url: `${API_BASE_URL}${endpoint}`,
+            method: options.method || 'GET',
+            contentType: 'application/json',
+            data: options.data ? JSON.stringify(options.data) : undefined,
+            ...options
+        });
+    }
+
+    // ==================== DATA & STATE ====================
     // Fallback data
     const fallbackBots = [
         { id: 'bot_sample_1', name: 'Bot Main', status: 'online' },
@@ -17,19 +45,19 @@ $(document).ready(function() {
     ];
 
     const fallbackGroups = [
-        { id: 'group_sample_1', name: 'Nhóm Học Tập', members: 45, online: 12 },
-        { id: 'group_sample_2', name: 'Nhóm Công Việc', members: 23, online: 8 },
-        { id: 'group_sample_3', name: 'Gia Đình', members: 8, online: 5 },
-        { id: 'group_sample_4', name: 'Nhóm Game', members: 67, online: 23 },
-        { id: 'group_sample_5', name: 'Dự Án X', members: 15, online: 7 }
+        { id: 'group_sample_1', name: 'NhÃ³m Há»c Táº­p', members: 45, online: 12 },
+        { id: 'group_sample_2', name: 'NhÃ³m CÃ´ng Viá»‡c', members: 23, online: 8 },
+        { id: 'group_sample_3', name: 'Gia ÄÃ¬nh', members: 8, online: 5 },
+        { id: 'group_sample_4', name: 'NhÃ³m Game', members: 67, online: 23 },
+        { id: 'group_sample_5', name: 'Dá»± Ãn X', members: 15, online: 7 }
     ];
 
     const fallbackFriends = [
-        { id: 'friend_sample_1', name: 'Nguyễn Văn A', status: 'Online' },
-        { id: 'friend_sample_2', name: 'Trần Thị B', status: 'Offline' },
-        { id: 'friend_sample_3', name: 'Lê Văn C', status: 'Online' },
-        { id: 'friend_sample_4', name: 'Phạm Thị D', status: 'Away' },
-        { id: 'friend_sample_5', name: 'Hoàng Văn E', status: 'Online' }
+        { id: 'friend_sample_1', name: 'Nguyá»…n VÄƒn A', status: 'Online' },
+        { id: 'friend_sample_2', name: 'Tráº§n Thá»‹ B', status: 'Offline' },
+        { id: 'friend_sample_3', name: 'LÃª VÄƒn C', status: 'Online' },
+        { id: 'friend_sample_4', name: 'Pháº¡m Thá»‹ D', status: 'Away' },
+        { id: 'friend_sample_5', name: 'HoÃ ng VÄƒn E', status: 'Online' }
     ];
 
     let bots = [...fallbackBots];
@@ -51,14 +79,14 @@ $(document).ready(function() {
     let currentUser = null;
 
     const commands = [
-        { id: 1, name: 'AI Chat', icon: '🤖', desc: 'Trò chuyện với AI thông minh', price: 50000 },
-        { id: 2, name: 'Music', icon: '🎵', desc: 'Phát nhạc từ YouTube', price: 30000 },
-        { id: 3, name: 'Image Gen', icon: '🎨', desc: 'Tạo ảnh từ văn bản', price: 70000 },
-        { id: 4, name: 'Translate', icon: '🌐', desc: 'Dịch ngôn ngữ tự động', price: 20000 },
-        { id: 5, name: 'Weather', icon: '🌤️', desc: 'Xem thời tiết realtime', price: 15000 },
-        { id: 6, name: 'Wiki Search', icon: '📚', desc: 'Tra cứu Wikipedia', price: 25000 },
-        { id: 7, name: 'TikTok Down', icon: '📱', desc: 'Tải video TikTok', price: 40000 },
-        { id: 8, name: 'Game Mini', icon: '🎮', desc: 'Các mini game vui nhộn', price: 35000 }
+        { id: 1, name: 'AI Chat', icon: 'ðŸ¤–', desc: 'TrÃ² chuyá»‡n vá»›i AI thÃ´ng minh', price: 50000 },
+        { id: 2, name: 'Music', icon: 'ðŸŽµ', desc: 'PhÃ¡t nháº¡c tá»« YouTube', price: 30000 },
+        { id: 3, name: 'Image Gen', icon: 'ðŸŽ¨', desc: 'Táº¡o áº£nh tá»« vÄƒn báº£n', price: 70000 },
+        { id: 4, name: 'Translate', icon: 'ðŸŒ', desc: 'Dá»‹ch ngÃ´n ngá»¯ tá»± Ä‘á»™ng', price: 20000 },
+        { id: 5, name: 'Weather', icon: 'ðŸŒ¤ï¸', desc: 'Xem thá»i tiáº¿t realtime', price: 15000 },
+        { id: 6, name: 'Wiki Search', icon: 'ðŸ“š', desc: 'Tra cá»©u Wikipedia', price: 25000 },
+        { id: 7, name: 'TikTok Down', icon: 'ðŸ“±', desc: 'Táº£i video TikTok', price: 40000 },
+        { id: 8, name: 'Game Mini', icon: 'ðŸŽ®', desc: 'CÃ¡c mini game vui nhá»™n', price: 35000 }
     ];
 
     commands.forEach(cmd => {
@@ -78,6 +106,8 @@ $(document).ready(function() {
                     currentUser = response.user;
                     showUserProfile(response.user);
                     localStorage.setItem('loggedInUser', JSON.stringify(response.user));
+                    // Reload bots after login confirmed
+                    loadMyBotsFromAPI();
                 }
             },
             error: function() {
@@ -103,7 +133,7 @@ $(document).ready(function() {
 
     function requireLogin() {
         if (!isLoggedIn) {
-            alert('⚠️ Bạn cần đăng nhập để sử dụng tính năng này!');
+            alert('âš ï¸ Báº¡n cáº§n Ä‘Äƒng nháº­p Ä‘á»ƒ sá»­ dá»¥ng tÃ­nh nÄƒng nÃ y!');
             window.location.href = '/login/';
             return false;
         }
@@ -116,12 +146,12 @@ $(document).ready(function() {
         const password = $('#login-password').val().trim();
 
         if (!username || !password) {
-            alert('⚠️ Vui lòng điền đầy đủ thông tin!');
+            alert('âš ï¸ Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin!');
             return;
         }
 
         const $btn = $(this);
-        $btn.prop('disabled', true).text('⏳ Đang đăng nhập...');
+        $btn.prop('disabled', true).text('â³ Äang Ä‘Äƒng nháº­p...');
 
         $.ajax({
             url: '/api/auth/login',
@@ -137,16 +167,16 @@ $(document).ready(function() {
                     currentUser = response.user;
                     localStorage.setItem('loggedInUser', JSON.stringify(response.user));
                     showUserProfile(response.user);
-                    alert('✅ Đăng nhập thành công!\n\nChào mừng ' + response.user.username + '!');
+                    alert('âœ… ÄÄƒng nháº­p thÃ nh cÃ´ng!\n\nChÃ o má»«ng ' + response.user.username + '!');
                     window.location.href = '/home/';
                 }
             },
             error: function(xhr) {
-                const error = xhr.responseJSON?.error || 'Đăng nhập thất bại';
-                alert('❌ ' + error);
+                const error = xhr.responseJSON?.error || 'ÄÄƒng nháº­p tháº¥t báº¡i';
+                alert('âŒ ' + error);
             },
             complete: function() {
-                $btn.prop('disabled', false).text('🔓 Đăng Nhập');
+                $btn.prop('disabled', false).text('ðŸ”“ ÄÄƒng Nháº­p');
             }
         });
     });
@@ -161,27 +191,27 @@ $(document).ready(function() {
         const acceptTerms = $('#accept-terms').is(':checked');
 
         if (!fullname || !email || !username || !password || !confirm) {
-            alert('⚠️ Vui lòng điền đầy đủ thông tin!');
+            alert('âš ï¸ Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin!');
             return;
         }
 
         if (password !== confirm) {
-            alert('⚠️ Mật khẩu xác nhận không khớp!');
+            alert('âš ï¸ Máº­t kháº©u xÃ¡c nháº­n khÃ´ng khá»›p!');
             return;
         }
 
         if (password.length < 8) {
-            alert('⚠️ Mật khẩu phải có ít nhất 8 ký tự!');
+            alert('âš ï¸ Máº­t kháº©u pháº£i cÃ³ Ã­t nháº¥t 8 kÃ½ tá»±!');
             return;
         }
 
         if (!acceptTerms) {
-            alert('⚠️ Vui lòng đồng ý với điều khoản dịch vụ!');
+            alert('âš ï¸ Vui lÃ²ng Ä‘á»“ng Ã½ vá»›i Ä‘iá»u khoáº£n dá»‹ch vá»¥!');
             return;
         }
 
         const $btn = $(this);
-        $btn.prop('disabled', true).text('⏳ Đang đăng ký...');
+        $btn.prop('disabled', true).text('â³ Äang Ä‘Äƒng kÃ½...');
 
         $.ajax({
             url: '/api/auth/register',
@@ -195,23 +225,23 @@ $(document).ready(function() {
             }),
             success: function(response) {
                 if (response.success) {
-                    alert('🎉 Đăng ký thành công!\n\nVui lòng đăng nhập để tiếp tục.');
+                    alert('ðŸŽ‰ ÄÄƒng kÃ½ thÃ nh cÃ´ng!\n\nVui lÃ²ng Ä‘Äƒng nháº­p Ä‘á»ƒ tiáº¿p tá»¥c.');
                     window.location.href = '/login/';
                 }
             },
             error: function(xhr) {
-                const error = xhr.responseJSON?.error || 'Đăng ký thất bại';
-                alert('❌ ' + error);
+                const error = xhr.responseJSON?.error || 'ÄÄƒng kÃ½ tháº¥t báº¡i';
+                alert('âŒ ' + error);
             },
             complete: function() {
-                $btn.prop('disabled', false).text('✨ Tạo Tài Khoản');
+                $btn.prop('disabled', false).text('âœ¨ Táº¡o TÃ i Khoáº£n');
             }
         });
     });
 
     // Logout handler
     $('#logout-btn').click(function() {
-        if (confirm('Bạn có chắc muốn đăng xuất?')) {
+        if (confirm('Báº¡n cÃ³ cháº¯c muá»‘n Ä‘Äƒng xuáº¥t?')) {
             $.ajax({
                 url: '/api/auth/logout',
                 method: 'POST',
@@ -220,11 +250,11 @@ $(document).ready(function() {
                     isLoggedIn = false;
                     currentUser = null;
                     showAuthButtons();
-                    alert('👋 Đã đăng xuất thành công!');
+                    alert('ðŸ‘‹ ÄÃ£ Ä‘Äƒng xuáº¥t thÃ nh cÃ´ng!');
                     window.location.href = '/login/';
                 },
                 error: function() {
-                    alert('Có lỗi xảy ra khi đăng xuất');
+                    alert('CÃ³ lá»—i xáº£y ra khi Ä‘Äƒng xuáº¥t');
                 }
             });
         }
@@ -239,6 +269,28 @@ $(document).ready(function() {
         window.location.href = '/register/';
     });
 
+    // Theme toggle from sidebar/button
+    function setTheme(mode) {
+        if (mode === 'dark') {
+            document.documentElement.classList.add('dark');
+            document.body.classList.add('dark');
+            try { localStorage.setItem('site-theme', 'dark'); } catch(e){}
+        } else {
+            document.documentElement.classList.remove('dark');
+            document.body.classList.remove('dark');
+            try { localStorage.setItem('site-theme', 'light'); } catch(e){}
+        }
+        // Notify other parts of the page (and theme page) that theme changed
+        try { window.dispatchEvent(new Event('site-theme-changed')); } catch(e) {}
+    }
+
+    // handle click on sidebar theme toggle
+    $(document).on('click', '#theme-toggle-sidebar, #theme-toggle-nav', function(e){
+        e.preventDefault();
+        const isDark = document.body.classList.contains('dark') || document.documentElement.classList.contains('dark');
+        setTheme(isDark ? 'light' : 'dark');
+    });
+
     $('#goto-register').click(function(e) {
         e.preventDefault();
         window.location.href = '/register/';
@@ -250,11 +302,11 @@ $(document).ready(function() {
     });
 
     $('#login-google, #register-google').click(function() {
-        alert('🌐 Đăng nhập với Google sẽ được cập nhật sớm!');
+        alert('ðŸŒ ÄÄƒng nháº­p vá»›i Google sáº½ Ä‘Æ°á»£c cáº­p nháº­t sá»›m!');
     });
 
     $('#login-facebook, #register-facebook').click(function() {
-        alert('📘 Đăng nhập với Facebook sẽ được cập nhật sớm!');
+        alert('ðŸ“˜ ÄÄƒng nháº­p vá»›i Facebook sáº½ Ä‘Æ°á»£c cáº­p nháº­t sá»›m!');
     });
 
     // Forgot password handler
@@ -262,12 +314,12 @@ $(document).ready(function() {
         const email = $('#forgot-email').val().trim();
         
         if (!email) {
-            alert('⚠️ Vui lòng nhập email!');
+            alert('âš ï¸ Vui lÃ²ng nháº­p email!');
             return;
         }
 
         const $btn = $(this);
-        $btn.prop('disabled', true).text('⏳ Đang gửi...');
+        $btn.prop('disabled', true).text('â³ Äang gá»­i...');
 
         $.ajax({
             url: '/api/auth/forgot-password',
@@ -275,15 +327,15 @@ $(document).ready(function() {
             contentType: 'application/json',
             data: JSON.stringify({ email: email }),
             success: function(response) {
-                alert('✅ ' + response.message + '\n\nVui lòng kiểm tra email của bạn.');
+                alert('âœ… ' + response.message + '\n\nVui lÃ²ng kiá»ƒm tra email cá»§a báº¡n.');
                 window.location.href = '/login/';
             },
             error: function(xhr) {
-                const error = xhr.responseJSON?.error || 'Không thể gửi email';
-                alert('❌ ' + error);
+                const error = xhr.responseJSON?.error || 'KhÃ´ng thá»ƒ gá»­i email';
+                alert('âŒ ' + error);
             },
             complete: function() {
-                $btn.prop('disabled', false).text('📧 Gửi Link Đặt Lại');
+                $btn.prop('disabled', false).text('ðŸ“§ Gá»­i Link Äáº·t Láº¡i');
             }
         });
     });
@@ -325,7 +377,7 @@ $(document).ready(function() {
 
     // Change avatar
     $('#change-avatar-btn').click(function() {
-        alert('📷 Chức năng đổi avatar sẽ được cập nhật sớm!');
+        alert('ðŸ“· Chá»©c nÄƒng Ä‘á»•i avatar sáº½ Ä‘Æ°á»£c cáº­p nháº­t sá»›m!');
     });
 
     // Update profile
@@ -339,7 +391,7 @@ $(document).ready(function() {
         };
 
         const $btn = $(this);
-        $btn.prop('disabled', true).text('⏳ Đang lưu...');
+        $btn.prop('disabled', true).text('â³ Äang lÆ°u...');
 
         $.ajax({
             url: '/api/auth/update-profile',
@@ -348,36 +400,36 @@ $(document).ready(function() {
             data: JSON.stringify(profileData),
             success: function(response) {
                 if (response.success) {
-                    alert('✅ Đã lưu thông tin thành công!');
+                    alert('âœ… ÄÃ£ lÆ°u thÃ´ng tin thÃ nh cÃ´ng!');
                     checkLoginFromServer();
                 }
             },
             error: function(xhr) {
-                const error = xhr.responseJSON?.error || 'Không thể cập nhật thông tin';
-                alert('❌ ' + error);
+                const error = xhr.responseJSON?.error || 'KhÃ´ng thá»ƒ cáº­p nháº­t thÃ´ng tin';
+                alert('âŒ ' + error);
             },
             complete: function() {
-                $btn.prop('disabled', false).text('💾 Lưu Thay Đổi');
+                $btn.prop('disabled', false).text('ðŸ’¾ LÆ°u Thay Äá»•i');
             }
         });
     });
 
     // Change password
     $('#change-password-btn').click(function() {
-        const oldPassword = prompt('Nhập mật khẩu hiện tại:');
+        const oldPassword = prompt('Nháº­p máº­t kháº©u hiá»‡n táº¡i:');
         if (!oldPassword) return;
 
-        const newPassword = prompt('Nhập mật khẩu mới (tối thiểu 8 ký tự):');
+        const newPassword = prompt('Nháº­p máº­t kháº©u má»›i (tá»‘i thiá»ƒu 8 kÃ½ tá»±):');
         if (!newPassword) return;
 
         if (newPassword.length < 8) {
-            alert('⚠️ Mật khẩu phải có ít nhất 8 ký tự!');
+            alert('âš ï¸ Máº­t kháº©u pháº£i cÃ³ Ã­t nháº¥t 8 kÃ½ tá»±!');
             return;
         }
 
-        const confirmPassword = prompt('Xác nhận mật khẩu mới:');
+        const confirmPassword = prompt('XÃ¡c nháº­n máº­t kháº©u má»›i:');
         if (newPassword !== confirmPassword) {
-            alert('⚠️ Mật khẩu xác nhận không khớp!');
+            alert('âš ï¸ Máº­t kháº©u xÃ¡c nháº­n khÃ´ng khá»›p!');
             return;
         }
 
@@ -391,27 +443,27 @@ $(document).ready(function() {
             }),
             success: function(response) {
                 if (response.success) {
-                    alert('✅ Đã đổi mật khẩu thành công!\n\nVui lòng đăng nhập lại.');
+                    alert('âœ… ÄÃ£ Ä‘á»•i máº­t kháº©u thÃ nh cÃ´ng!\n\nVui lÃ²ng Ä‘Äƒng nháº­p láº¡i.');
                     window.location.href = '/login/';
                 }
             },
             error: function(xhr) {
-                const error = xhr.responseJSON?.error || 'Không thể đổi mật khẩu';
-                alert('❌ ' + error);
+                const error = xhr.responseJSON?.error || 'KhÃ´ng thá»ƒ Ä‘á»•i máº­t kháº©u';
+                alert('âŒ ' + error);
             }
         });
     });
 
     // Export data
     $('#export-data-btn').click(function() {
-        alert('📥 Dữ liệu của bạn đang được xuất...\n\nFile sẽ được tải xuống sau vài giây.');
+        alert('ðŸ“¥ Dá»¯ liá»‡u cá»§a báº¡n Ä‘ang Ä‘Æ°á»£c xuáº¥t...\n\nFile sáº½ Ä‘Æ°á»£c táº£i xuá»‘ng sau vÃ i giÃ¢y.');
     });
 
     // Delete account
     $('#delete-account-btn').click(function() {
-        if (confirm('⚠️ BẠN CÓ CHẮC CHẮN MUỐN XÓA TÀI KHOẢN?\n\nHành động này KHÔNG THỂ HOÀN TÁC!')) {
-            if (confirm('⚠️ XÁC NHẬN LẦN CUỐI!\n\nTất cả dữ liệu sẽ bị xóa vĩnh viễn!')) {
-                const password = prompt('Nhập mật khẩu để xác nhận:');
+        if (confirm('âš ï¸ Báº N CÃ“ CHáº®C CHáº®N MUá»N XÃ“A TÃ€I KHOáº¢N?\n\nHÃ nh Ä‘á»™ng nÃ y KHÃ”NG THá»‚ HOÃ€N TÃC!')) {
+            if (confirm('âš ï¸ XÃC NHáº¬N Láº¦N CUá»I!\n\nTáº¥t cáº£ dá»¯ liá»‡u sáº½ bá»‹ xÃ³a vÄ©nh viá»…n!')) {
+                const password = prompt('Nháº­p máº­t kháº©u Ä‘á»ƒ xÃ¡c nháº­n:');
                 
                 if (!password) return;
 
@@ -423,13 +475,13 @@ $(document).ready(function() {
                     success: function(response) {
                         if (response.success) {
                             localStorage.removeItem('loggedInUser');
-                            alert('✅ Tài khoản đã được xóa!');
+                            alert('âœ… TÃ i khoáº£n Ä‘Ã£ Ä‘Æ°á»£c xÃ³a!');
                             window.location.href = '/login/';
                         }
                     },
                     error: function(xhr) {
-                        const error = xhr.responseJSON?.error || 'Không thể xóa tài khoản';
-                        alert('❌ ' + error);
+                        const error = xhr.responseJSON?.error || 'KhÃ´ng thá»ƒ xÃ³a tÃ i khoáº£n';
+                        alert('âŒ ' + error);
                     }
                 });
             }
@@ -446,18 +498,18 @@ $(document).ready(function() {
         
         if (mode === 'light') {
             $('body').removeClass('dark');
-            $('#theme-toggle-nav').text('🌙');
+            $('#theme-toggle-nav').text('ðŸŒ™');
         } else if (mode === 'dark') {
             $('body').addClass('dark');
-            $('#theme-toggle-nav').text('☀️');
+            $('#theme-toggle-nav').text('â˜€ï¸');
         } else {
             const hour = new Date().getHours();
             if (hour >= 18 || hour < 6) {
                 $('body').addClass('dark');
-                $('#theme-toggle-nav').text('☀️');
+                $('#theme-toggle-nav').text('â˜€ï¸');
             } else {
                 $('body').removeClass('dark');
-                $('#theme-toggle-nav').text('🌙');
+                $('#theme-toggle-nav').text('ðŸŒ™');
             }
         }
     });
@@ -466,14 +518,14 @@ $(document).ready(function() {
         $('.color-scheme').removeClass('active');
         $(this).addClass('active');
         const scheme = $(this).data('scheme');
-        alert('🎨 Đã áp dụng bảng màu ' + $(this).find('.scheme-name').text());
+        alert('ðŸŽ¨ ÄÃ£ Ã¡p dá»¥ng báº£ng mÃ u ' + $(this).find('.scheme-name').text());
     });
 
     $('.bg-option').click(function() {
         $('.bg-option').removeClass('active');
         $(this).addClass('active');
         const bg = $(this).data('bg');
-        alert('🖼️ Đã áp dụng nền ' + $(this).find('.bg-name').text());
+        alert('ðŸ–¼ï¸ ÄÃ£ Ã¡p dá»¥ng ná»n ' + $(this).find('.bg-name').text());
     });
 
     $('#save-theme-btn').click(function() {
@@ -487,11 +539,11 @@ $(document).ready(function() {
             background: $('.bg-option.active').data('bg')
         };
         localStorage.setItem('userTheme', JSON.stringify(theme));
-        alert('✅ Đã lưu theme thành công!');
+        alert('âœ… ÄÃ£ lÆ°u theme thÃ nh cÃ´ng!');
     });
 
     $('#reset-theme-btn').click(function() {
-        if (confirm('Bạn có chắc muốn đặt lại theme mặc định?')) {
+        if (confirm('Báº¡n cÃ³ cháº¯c muá»‘n Ä‘áº·t láº¡i theme máº·c Ä‘á»‹nh?')) {
             localStorage.removeItem('userTheme');
             location.reload();
         }
@@ -501,14 +553,14 @@ $(document).ready(function() {
     $('#theme-toggle-nav').click(function() {
         $('body').toggleClass('dark');
         const isDark = $('body').hasClass('dark');
-        $(this).text(isDark ? '☀️' : '🌙');
+        $(this).text(isDark ? 'â˜€ï¸' : 'ðŸŒ™');
         localStorage.setItem('theme', isDark ? 'dark' : 'light');
     });
 
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'dark') {
         $('body').addClass('dark');
-        $('#theme-toggle-nav').text('☀️');
+        $('#theme-toggle-nav').text('â˜€ï¸');
     }
 
     // Navigation Menu Dropdown
@@ -538,48 +590,37 @@ $(document).ready(function() {
 
     // ==================== DATA LOADING ====================
     
-    async function loadDataFromAPI() {
+    // Load user's bots from server
+    async function loadMyBotsFromAPI() {
+        if (!isLoggedIn) {
+            bots = [...fallbackBots];
+            renderBotsManagement();
+            return;
+        }
         try {
-            const botsResponse = await fetch('/api/bots');
-            if (botsResponse.ok) {
-                const botsJson = await botsResponse.json();
-                if (Array.isArray(botsJson.bots) && botsJson.bots.length > 0) {
-                    bots = botsJson.bots.map(bot => ({
-                        id: bot.id,
-                        name: bot.name || bot.id,
-                        status: bot.status || 'unknown'
-                    }));
-                    activeBotId = bots[0].id;
-                    
-                    const dataResponse = await fetch(`/api/bot/${activeBotId}/data`);
-                    if (dataResponse.ok) {
-                        const dataJson = await dataResponse.json();
-                        const data = dataJson.data || {};
-                        
-                        if (Array.isArray(data.groups) && data.groups.length) {
-                            groups = data.groups.map((group, idx) => ({
-                                id: group.group_id || group.id || idx,
-                                name: group.name || 'Unknown Group',
-                                members: group.members || 0,
-                                online: group.online || 0
-                            }));
-                        }
-                        
-                        if (Array.isArray(data.friends) && data.friends.length) {
-                            friends = data.friends.map((friend, idx) => ({
-                                id: friend.user_id || friend.id || idx,
-                                name: friend.name || friend.displayName || 'User',
-                                status: friend.status || 'Online'
-                            }));
-                        }
+            const response = await apiCall('/api/my-bots');
+            if (response.bots && response.bots.length > 0) {
+                bots = response.bots.map(bot => ({
+                    id: bot.id,
+                    name: bot.name,
+                    status: bot.status || 'offline',
+                    token: bot.token,
+                    created_at: bot.created_at
+                }));
+                activeBotId = bots[0]?.id;
+                
+                // Load data for first bot
+                if (activeBotId) {
+                    const botData = await apiCall(`/api/my-bots/${activeBotId}/data`);
+                    if (botData.data) {
+                        groups = botData.data.groups || fallbackGroups;
+                        friends = botData.data.friends || fallbackFriends;
                     }
                 }
             }
         } catch (error) {
-            console.warn('Không thể tải dữ liệu thật, dùng dữ liệu mẫu.', error);
+            console.warn('KhÃ´ng thá»ƒ táº£i bots, dÃ¹ng dá»¯ liá»‡u máº«u', error);
             bots = [...fallbackBots];
-            groups = [...fallbackGroups];
-            friends = [...fallbackFriends];
         } finally {
             renderBotsManagement();
             renderGroups();
@@ -593,10 +634,10 @@ $(document).ready(function() {
         $('#bots-management-list').empty();
         bots.forEach(bot => {
             const statusClass = bot.status === 'online' ? 'online' : 'offline';
-            const statusText = bot.status === 'online' ? '🟢 Online' : '🔴 Offline';
+            const statusText = bot.status === 'online' ? 'ðŸŸ¢ Online' : 'ðŸ”´ Offline';
             const actionBtn = bot.status === 'online' 
-                ? `<button class="bot-action-btn stop" data-bot-id="${bot.id}">⏸️ Dừng</button>`
-                : `<button class="bot-action-btn start" data-bot-id="${bot.id}">▶️ Khởi động</button>`;
+                ? `<button class="bot-action-btn stop" data-bot-id="${bot.id}">â¸ï¸ Dá»«ng</button>`
+                : `<button class="bot-action-btn start" data-bot-id="${bot.id}">â–¶ï¸ Khá»Ÿi Ä‘á»™ng</button>`;
             
             const card = $(`
                 <div class="bot-card">
@@ -612,7 +653,7 @@ $(document).ready(function() {
                     </div>
                     <div class="bot-card-actions">
                         ${actionBtn}
-                        <button class="bot-action-btn delete" data-bot-id="${bot.id}">🗑️ Xóa</button>
+                        <button class="bot-action-btn delete" data-bot-id="${bot.id}">ðŸ—‘ï¸ XÃ³a</button>
                     </div>
                 </div>
             `);
@@ -625,7 +666,7 @@ $(document).ready(function() {
         commands.forEach(cmd => {
             const isPurchased = commandsData[cmd.id].count > 0;
             const selectedClass = isPurchased ? 'selected' : '';
-            const checkmark = isPurchased ? '<div class="selected-count">✓</div>' : '';
+            const checkmark = isPurchased ? '<div class="selected-count">âœ“</div>' : '';
             
             const item = $(`
                 <div class="command-item ${selectedClass}" data-cmd-id="${cmd.id}">
@@ -633,7 +674,7 @@ $(document).ready(function() {
                     <div class="command-icon">${cmd.icon}</div>
                     <div class="command-name">${cmd.name}</div>
                     <div class="command-desc">${cmd.desc}</div>
-                    <div class="command-price">${cmd.price.toLocaleString('vi-VN')}đ</div>
+                    <div class="command-price">${cmd.price.toLocaleString('vi-VN')}Ä‘</div>
                 </div>
             `);
             $('#commands-grid').append(item);
@@ -649,7 +690,7 @@ $(document).ready(function() {
                     <div class="avatar">${group.name.charAt(0)}</div>
                     <div class="item-info">
                         <div class="item-name">${group.name}</div>
-                        <div class="item-status">${group.members} thành viên • ${group.online} online</div>
+                        <div class="item-status">${group.members} thÃ nh viÃªn â€¢ ${group.online} online</div>
                     </div>
                 </div>
             `);
@@ -685,15 +726,15 @@ $(document).ready(function() {
             }
         });
         $('#commands-selected-count').text(count);
-        $('#commands-total').text(`${total.toLocaleString('vi-VN')}đ`);
+        $('#commands-total').text(`${total.toLocaleString('vi-VN')}Ä‘`);
     }
 
     function updateRentalSummary() {
-        $('#summary-days').text(`${selectedRentalDays} ngày`);
-        $('#summary-price').text(`${selectedRentalPrice.toLocaleString('vi-VN')}đ`);
-        $('#summary-total').text(`${selectedRentalPrice.toLocaleString('vi-VN')}đ`);
+        $('#summary-days').text(`${selectedRentalDays} ngÃ y`);
+        $('#summary-price').text(`${selectedRentalPrice.toLocaleString('vi-VN')}Ä‘`);
+        $('#summary-total').text(`${selectedRentalPrice.toLocaleString('vi-VN')}Ä‘`);
         
-        const methodNames = { 'momo': 'MoMo', 'bank': 'Banking', 'card': 'Thẻ' };
+        const methodNames = { 'momo': 'MoMo', 'bank': 'Banking', 'card': 'Tháº»' };
         $('#summary-method').text(methodNames[selectedPaymentMethod]);
     }
 
@@ -724,36 +765,36 @@ $(document).ready(function() {
                 <div class="log-entry">
                     <div class="log-box">
                         <div class="log-header">
-                            <div>📋 Tin nhắn mới <span class="message-count">#${logCount}</span></div>
+                            <div>ðŸ“‹ Tin nháº¯n má»›i <span class="message-count">#${logCount}</span></div>
                             <span class="account-badge">${userData.account || 'Acc 1'}</span>
                         </div>
                         <div class="log-content-area">
                             <div class="log-row">
-                                <span class="log-icon">💬</span>
+                                <span class="log-icon">ðŸ’¬</span>
                                 <span class="log-label">Message:</span>
                                 <span class="log-value">${message}</span>
                             </div>
                             <div class="log-row">
-                                <span class="log-icon">👤</span>
+                                <span class="log-icon">ðŸ‘¤</span>
                                 <span class="log-label">User:</span>
                                 <span class="log-value">${userData.userName || sender} (${userData.userId})</span>
                             </div>
                             <div class="log-row">
-                                <span class="log-icon">💥</span>
+                                <span class="log-icon">ðŸ’¥</span>
                                 <span class="log-label">Group:</span>
                                 <span class="log-value">${userData.threadName || 'N/A'} (${userData.threadId || 'N/A'})</span>
                             </div>
                         </div>
                         <div class="log-footer">
-                            <span>🆔 <strong>${userData.messageId || Math.floor(Math.random() * 10000000000000)}</strong></span>
-                            <span>⚙️ <strong>${userData.threadType || 'ThreadType.GROUP'}</strong></span>
-                            <span>⏰ <strong>${time} - ${date}</strong></span>
+                            <span>ðŸ†” <strong>${userData.messageId || Math.floor(Math.random() * 10000000000000)}</strong></span>
+                            <span>âš™ï¸ <strong>${userData.threadType || 'ThreadType.GROUP'}</strong></span>
+                            <span>â° <strong>${time} - ${date}</strong></span>
                         </div>
                     </div>
                 </div>
             `;
         } else {
-            const eventIcon = type === 'join' ? '🎉' : type === 'leave' ? '👋' : '⚙️';
+            const eventIcon = type === 'join' ? 'ðŸŽ‰' : type === 'leave' ? 'ðŸ‘‹' : 'âš™ï¸';
             return `
                 <div class="log-entry">
                     <div class="event-log">
@@ -807,11 +848,11 @@ $(document).ready(function() {
             timeLeft--;
             const minutes = Math.floor(timeLeft / 60);
             const seconds = timeLeft % 60;
-            $('#payment-timer').text(`⏰ Thời gian còn lại: ${minutes}:${seconds.toString().padStart(2, '0')}`);
+            $('#payment-timer').text(`â° Thá»i gian cÃ²n láº¡i: ${minutes}:${seconds.toString().padStart(2, '0')}`);
             
             if (timeLeft <= 0) {
                 clearInterval(paymentTimer);
-                alert('⏰ Hết thời gian thanh toán!');
+                alert('â° Háº¿t thá»i gian thanh toÃ¡n!');
                 window.location.href = '/rental/';
             }
         }, 1000);
@@ -852,22 +893,22 @@ $(document).ready(function() {
         $('#log-content').addClass('thread-mode');
         $('#log-content').empty();
         $('#message-composer').addClass('show');
-        $('#composer-textarea').attr('placeholder', `Nhập tin nhắn gửi đến ${name}...`);
+        $('#composer-textarea').attr('placeholder', `Nháº­p tin nháº¯n gá»­i Ä‘áº¿n ${name}...`);
         
-        addThreadMessage('incoming', 'Nguyễn Văn A', 'Chào mọi người!', '10:30');
-        addThreadMessage('incoming', 'Trần Thị B', 'Hello', '10:32');
-        addThreadMessage('outgoing', 'Bot', 'Xin chào! Tôi có thể giúp gì cho bạn?', '10:33');
+        addThreadMessage('incoming', 'Nguyá»…n VÄƒn A', 'ChÃ o má»i ngÆ°á»i!', '10:30');
+        addThreadMessage('incoming', 'Tráº§n Thá»‹ B', 'Hello', '10:32');
+        addThreadMessage('outgoing', 'Bot', 'Xin chÃ o! TÃ´i cÃ³ thá»ƒ giÃºp gÃ¬ cho báº¡n?', '10:33');
     });
 
     // Composer send
     $('#composer-send-btn').click(function() {
         const message = $('#composer-textarea').val().trim();
         if (!selectedTarget) {
-            alert('Vui lòng chọn thread trước!');
+            alert('Vui lÃ²ng chá»n thread trÆ°á»›c!');
             return;
         }
         if (!message) {
-            alert('Vui lòng nhập tin nhắn!');
+            alert('Vui lÃ²ng nháº­p tin nháº¯n!');
             return;
         }
         
@@ -877,7 +918,7 @@ $(document).ready(function() {
         $('#composer-textarea').val('');
         
         setTimeout(() => {
-            addThreadMessage('incoming', 'User', 'Đã nhận tin nhắn!', time);
+            addThreadMessage('incoming', 'User', 'ÄÃ£ nháº­n tin nháº¯n!', time);
         }, 1000);
     });
 
@@ -885,17 +926,17 @@ $(document).ready(function() {
     $('#composer-send-all').click(function() {
         const message = $('#composer-textarea').val().trim();
         if (!message) {
-            alert('Vui lòng nhập tin nhắn!');
+            alert('Vui lÃ²ng nháº­p tin nháº¯n!');
             return;
         }
         if (isThreadMode) {
-            alert('Không thể gửi All khi đang trong thread. Vui lòng hủy chọn thread!');
+            alert('KhÃ´ng thá»ƒ gá»­i All khi Ä‘ang trong thread. Vui lÃ²ng há»§y chá»n thread!');
             return;
         }
         
         const activeTab = $('.tab.active').data('tab');
         const count = activeTab === 'groups' ? groups.length : friends.length;
-        addLog('event', '📢 BOT', `Đã gửi tin nhắn đến tất cả ${count} ${activeTab === 'groups' ? 'nhóm' : 'bạn bè'}: ${message}`);
+        addLog('event', 'ðŸ“¢ BOT', `ÄÃ£ gá»­i tin nháº¯n Ä‘áº¿n táº¥t cáº£ ${count} ${activeTab === 'groups' ? 'nhÃ³m' : 'báº¡n bÃ¨'}: ${message}`);
         $('#composer-textarea').val('');
     });
 
@@ -903,70 +944,116 @@ $(document).ready(function() {
     $('#composer-run-cmd').click(function() {
         const message = $('#composer-textarea').val().trim();
         if (!message) {
-            alert('Vui lòng nhập lệnh!');
+            alert('Vui lÃ²ng nháº­p lá»‡nh!');
             return;
         }
         
         if (isThreadMode) {
             const now = new Date();
             const time = now.toLocaleTimeString('vi-VN', { hour: '2-digit', minute: '2-digit' });
-            addThreadMessage('outgoing', 'Bot', `⚡ ${message}`, time);
+            addThreadMessage('outgoing', 'Bot', `âš¡ ${message}`, time);
             $('#composer-textarea').val('');
             setTimeout(() => {
-                addThreadMessage('incoming', 'System', `✅ Lệnh "${message}" đã được thực thi`, time);
+                addThreadMessage('incoming', 'System', `âœ… Lá»‡nh "${message}" Ä‘Ã£ Ä‘Æ°á»£c thá»±c thi`, time);
             }, 1000);
         } else {
-            addLog('event', '⚡ SYSTEM', `Đang chạy lệnh: ${message}`);
+            addLog('event', 'âš¡ SYSTEM', `Äang cháº¡y lá»‡nh: ${message}`);
             $('#composer-textarea').val('');
             setTimeout(() => {
-                addLog('event', '✅ SYSTEM', `Lệnh "${message}" đã được thực thi thành công`);
+                addLog('event', 'âœ… SYSTEM', `Lá»‡nh "${message}" Ä‘Ã£ Ä‘Æ°á»£c thá»±c thi thÃ nh cÃ´ng`);
             }, 1000);
         }
     });
 
     // ==================== BOT MANAGEMENT ====================
     
-    $(document).on('click', '.bot-action-btn.start', function() {
+    $(document).on('click', '.bot-action-btn.start, .bot-action-btn.stop', function() {
         const botId = $(this).data('bot-id');
         const bot = bots.find(b => b.id === botId);
-        if (bot) {
-            bot.status = 'online';
-            renderBotsManagement();
-            addLog('event', '🤖 SYSTEM', `Bot "${bot.name}" đã được khởi động`);
-        }
-    });
-
-    $(document).on('click', '.bot-action-btn.stop', function() {
-        const botId = $(this).data('bot-id');
-        const bot = bots.find(b => b.id === botId);
-        if (bot) {
-            bot.status = 'offline';
-            renderBotsManagement();
-            addLog('event', '🤖 SYSTEM', `Bot "${bot.name}" đã bị dừng`);
-        }
+        const isStart = $(this).hasClass('start');
+        
+        if (!bot) return;
+        // Update local status immediately for UX
+        bot.status = isStart ? 'online' : 'offline';
+        renderBotsManagement();
+        
+        // Update server (optional - náº¿u bot tá»± update status thÃ¬ khÃ´ng cáº§n)
+        addLog('event', 'ðŸ¤– SYSTEM', `Bot "${bot.name}" ${isStart ? 'Ä‘Ã£ khá»Ÿi Ä‘á»™ng' : 'Ä‘Ã£ dá»«ng'}`);
     });
 
     $(document).on('click', '.bot-action-btn.delete', function() {
+        if (!requireLogin()) return;
+        
         const botId = $(this).data('bot-id');
         const bot = bots.find(b => b.id === botId);
-        if (bot && confirm(`Bạn có chắc muốn xóa bot "${bot.name}"?`)) {
-            const index = bots.findIndex(b => b.id === botId);
-            bots.splice(index, 1);
+        
+        if (!bot) return;
+        
+        if (!confirm(`âš ï¸ XÃ³a bot "${bot.name}"?\n\nHÃ nh Ä‘á»™ng khÃ´ng thá»ƒ hoÃ n tÃ¡c!`)) return;
+        const $btn = $(this);
+        $btn.prop('disabled', true).text('â³');
+        apiCall(`/api/my-bots/${botId}`, {
+            method: 'DELETE'
+        }).done(function() {
+            bots = bots.filter(b => b.id !== botId);
             renderBotsManagement();
-            addLog('event', '🤖 SYSTEM', `Bot "${bot.name}" đã bị xóa`);
-        }
+            addLog('event', 'ðŸ—‘ï¸ SYSTEM', `Bot "${bot.name}" Ä‘Ã£ bá»‹ xÃ³a`);
+        }).fail(function(xhr) {
+            alert('âŒ ' + (xhr.responseJSON?.error || 'KhÃ´ng thá»ƒ xÃ³a bot'));
+            $btn.prop('disabled', false).text('ðŸ—‘ï¸ XÃ³a');
+        });
+    });
+
+    $(document).on('dblclick', '.bot-card-name', function() {
+        if (!requireLogin()) return;
+        
+        const $card = $(this).closest('.bot-card');
+        const botId = $card.find('.bot-action-btn').first().data('bot-id');
+        const bot = bots.find(b => b.id === botId);
+        
+        if (!bot) return;
+        
+        const newName = prompt('Nháº­p tÃªn má»›i:', bot.name);
+        if (!newName || newName === bot.name) return;
+        apiCall(`/api/my-bots/${botId}`, {
+            method: 'PUT',
+            data: { name: newName }
+        }).done(function() {
+            bot.name = newName;
+            renderBotsManagement();
+            alert('âœ… ÄÃ£ Ä‘á»•i tÃªn thÃ nh cÃ´ng!');
+        }).fail(function(xhr) {
+            alert('âŒ ' + (xhr.responseJSON?.error || 'KhÃ´ng thá»ƒ Ä‘á»•i tÃªn'));
+        });
+    });
+
+    $(document).on('click', '.bot-card-info', function() {
+        if (!requireLogin()) return;
+        
+        const $card = $(this).closest('.bot-card');
+        const botId = $card.find('.bot-action-btn').first().data('bot-id');
+        
+        apiCall(`/api/my-bots/${botId}/token`).done(function(response) {
+            const token = response.token;
+            if (confirm('ðŸ“‹ Bot Token:\n\n' + token + '\n\nCopy vÃ o clipboard?')) {
+                navigator.clipboard.writeText(token);
+                alert('âœ… ÄÃ£ copy token!');
+            }
+        }).fail(function(xhr) {
+            alert('âŒ ' + (xhr.responseJSON?.error || 'KhÃ´ng thá»ƒ láº¥y token'));
+        });
     });
 
     $('#start-all-bots').click(function() {
         bots.forEach(bot => bot.status = 'online');
         renderBotsManagement();
-        addLog('event', '🤖 SYSTEM', 'Đã khởi động tất cả bot');
+        addLog('event', 'ðŸ¤– SYSTEM', 'ÄÃ£ khá»Ÿi Ä‘á»™ng táº¥t cáº£ bot');
     });
 
     $('#stop-all-bots').click(function() {
         bots.forEach(bot => bot.status = 'offline');
         renderBotsManagement();
-        addLog('event', '🤖 SYSTEM', 'Đã dừng tất cả bot');
+        addLog('event', 'ðŸ¤– SYSTEM', 'ÄÃ£ dá»«ng táº¥t cáº£ bot');
     });
 
     $('#add-new-bot').click(function() {
@@ -984,41 +1071,60 @@ $(document).ready(function() {
     });
 
     $('#create-bot-cookie').click(function() {
+        if (!requireLogin()) return;
+        
         const prefix = $('#bot-prefix').val().trim();
-        const imei = $('#imei-input').val().trim();
-        const cookie = $('#cookie-input').val().trim();
-
-        if (!prefix || !imei || !cookie) {
-            alert('Vui lòng điền đầy đủ thông tin!');
-            return;
-        }
-
-        const botName = `Bot_${prefix}`;
-        bots.push({ id: 'bot_' + Date.now(), name: botName, status: 'online' });
-        alert(`Đã tạo bot "${botName}" thành công!`);
-        $('#bot-prefix, #imei-input, #cookie-input').val('');
-        window.location.href = '/manager/';
-        addLog('event', '🤖 SYSTEM', `Bot mới: ${botName} [Prefix: ${prefix}]`);
+        const botName = prompt('Nháº­p tÃªn bot:', `Bot_${prefix}`);
+        
+        if (!botName) return;
+        const $btn = $(this);
+        $btn.prop('disabled', true).text('â³ Äang táº¡o...');
+        apiCall('/api/my-bots', {
+            method: 'POST',
+            data: {
+                name: botName,
+                metadata: { prefix: prefix }
+            }
+        }).done(function(response) {
+            if (response.success) {
+                alert(`âœ… Táº¡o bot thÃ nh cÃ´ng!\n\nBot ID: ${response.bot_id}\nToken: ${response.token}\n\nâš ï¸ LÆ°u token nÃ y!`);
+                
+                // Add to local list
+                bots.push({
+                    id: response.bot_id,
+                    name: botName,
+                    status: 'offline',
+                    token: response.token
+                });
+                
+                renderBotsManagement();
+                $('#bot-prefix, #imei-input, #cookie-input').val('');
+            }
+        }).fail(function(xhr) {
+            alert('âŒ ' + (xhr.responseJSON?.error || 'KhÃ´ng thá»ƒ táº¡o bot'));
+        }).always(function() {
+            $btn.prop('disabled', false).text('ðŸš€ Táº¡o Bot');
+        });
     });
 
     $('#generate-qr').click(function() {
         const prefix = $('#bot-prefix-qr').val().trim();
         if (!prefix) {
-            alert('Vui lòng nhập prefix!');
+            alert('Vui lÃ²ng nháº­p prefix!');
             return;
         }
 
-        $(this).text('⏳ Đang tạo QR...');
+        $(this).text('â³ Äang táº¡o QR...');
         setTimeout(() => {
-            $('.qr-code').html('📱');
-            $(this).text('✅ QR đã tạo');
+            $('.qr-code').html('ðŸ“±');
+            $(this).text('âœ… QR Ä‘Ã£ táº¡o');
             setTimeout(() => {
                 const botName = `Bot_${prefix}`;
                 bots.push({ id: 'bot_' + Date.now(), name: botName, status: 'online' });
-                alert(`Bot "${botName}" đã được tạo!`);
+                alert(`Bot "${botName}" Ä‘Ã£ Ä‘Æ°á»£c táº¡o!`);
                 $('#bot-prefix-qr').val('');
                 window.location.href = '/manager/';
-                addLog('event', '🤖 SYSTEM', `Bot qua QR: ${botName}`);
+                addLog('event', 'ðŸ¤– SYSTEM', `Bot qua QR: ${botName}`);
             }, 2000);
         }, 1500);
     });
@@ -1037,7 +1143,7 @@ $(document).ready(function() {
     $('#apply-custom-days').click(function() {
         const days = parseInt($('#custom-days').val());
         if (!days || days < 1) {
-            alert('Vui lòng nhập số ngày hợp lệ!');
+            alert('Vui lÃ²ng nháº­p sá»‘ ngÃ y há»£p lá»‡!');
             return;
         }
         
@@ -1046,7 +1152,7 @@ $(document).ready(function() {
         let pricePerDay = days >= 90 ? 4500 : days >= 30 ? 5000 : days >= 15 ? 6000 : 7000;
         selectedRentalPrice = days * pricePerDay;
         updateRentalSummary();
-        alert(`✅ Đã áp dụng: ${days} ngày - ${selectedRentalPrice.toLocaleString('vi-VN')}đ`);
+        alert(`âœ… ÄÃ£ Ã¡p dá»¥ng: ${days} ngÃ y - ${selectedRentalPrice.toLocaleString('vi-VN')}Ä‘`);
     });
 
     $('.payment-method').click(function() {
@@ -1061,32 +1167,32 @@ $(document).ready(function() {
         const email = $('#rental-email').val().trim();
 
         if (!prefix || !email) {
-            alert('Vui lòng điền đầy đủ thông tin!');
+            alert('Vui lÃ²ng Ä‘iá»n Ä‘áº§y Ä‘á»§ thÃ´ng tin!');
             return;
         }
 
         $('#payment-prefix').text(prefix);
-        $('#payment-days').text(`${selectedRentalDays} ngày`);
+        $('#payment-days').text(`${selectedRentalDays} ngÃ y`);
         $('#payment-method').text($('#summary-method').text());
-        $('#payment-amount').text(`${selectedRentalPrice.toLocaleString('vi-VN')}đ`);
+        $('#payment-amount').text(`${selectedRentalPrice.toLocaleString('vi-VN')}Ä‘`);
         
         window.location.href = '/payment/';
     });
 
     $('#payment-confirm').click(function() {
         if (paymentTimer) clearInterval(paymentTimer);
-        $(this).text('⏳ Đang xác nhận...').prop('disabled', true);
+        $(this).text('â³ Äang xÃ¡c nháº­n...').prop('disabled', true);
         
         setTimeout(() => {
-            alert('🎉 Thanh toán thành công!');
+            alert('ðŸŽ‰ Thanh toÃ¡n thÃ nh cÃ´ng!');
             window.location.href = '/home/';
-            $(this).text('✅ Tôi Đã Thanh Toán').prop('disabled', false);
+            $(this).text('âœ… TÃ´i ÄÃ£ Thanh ToÃ¡n').prop('disabled', false);
             $('#rental-prefix, #rental-email').val('');
         }, 2000);
     });
 
     $('#payment-cancel').click(function() {
-        if (confirm('Bạn có chắc muốn hủy?')) {
+        if (confirm('Báº¡n cÃ³ cháº¯c muá»‘n há»§y?')) {
             if (paymentTimer) clearInterval(paymentTimer);
             window.location.href = '/rental/';
         }
@@ -1097,7 +1203,7 @@ $(document).ready(function() {
     $(document).on('click', '.command-item', function() {
         const cmdId = $(this).data('cmd-id');
         if (commandsData[cmdId].count > 0) {
-            alert('Bạn đã mua lệnh này rồi!');
+            alert('Báº¡n Ä‘Ã£ mua lá»‡nh nÃ y rá»“i!');
             return;
         }
         commandsData[cmdId].count = 1;
@@ -1107,18 +1213,18 @@ $(document).ready(function() {
     $('#buy-commands-btn').click(function() {
         const selectedItems = Object.values(commandsData).filter(cmd => cmd.count > 0);
         if (selectedItems.length === 0) {
-            alert('Vui lòng chọn ít nhất 1 lệnh!');
+            alert('Vui lÃ²ng chá»n Ã­t nháº¥t 1 lá»‡nh!');
             return;
         }
         
-        let summary = 'Xác nhận mua:\n\n';
+        let summary = 'XÃ¡c nháº­n mua:\n\n';
         selectedItems.forEach(cmd => {
-            summary += `• ${cmd.name}: ${cmd.price.toLocaleString('vi-VN')}đ\n`;
+            summary += `â€¢ ${cmd.name}: ${cmd.price.toLocaleString('vi-VN')}Ä‘\n`;
         });
-        summary += `\nTổng: ${$('#commands-total').text()}`;
+        summary += `\nTá»•ng: ${$('#commands-total').text()}`;
         
         if (confirm(summary)) {
-            alert('🎉 Đã mua thành công!');
+            alert('ðŸŽ‰ ÄÃ£ mua thÃ nh cÃ´ng!');
         }
     });
 
@@ -1135,14 +1241,14 @@ $(document).ready(function() {
     $('#add-blacklist-btn').click(function() {
         const userId = $('#blacklist-input').val().trim();
         if (!userId) {
-            alert('Vui lòng nhập User ID!');
+            alert('Vui lÃ²ng nháº­p User ID!');
             return;
         }
         
         const item = $(`
             <div class="blacklist-item">
                 <span>${userId}</span>
-                <button class="blacklist-remove" data-id="${userId}">Xóa</button>
+                <button class="blacklist-remove" data-id="${userId}">XÃ³a</button>
             </div>
         `);
         $('#blacklist-container').append(item);
@@ -1150,27 +1256,27 @@ $(document).ready(function() {
     });
 
     $('#save-settings-btn').click(function() {
-        alert('✅ Đã lưu cài đặt thành công!');
+        alert('âœ… ÄÃ£ lÆ°u cÃ i Ä‘áº·t thÃ nh cÃ´ng!');
     });
 
     $('#reset-settings-btn').click(function() {
-        if (confirm('Bạn có chắc muốn đặt lại mặc định?')) {
+        if (confirm('Báº¡n cÃ³ cháº¯c muá»‘n Ä‘áº·t láº¡i máº·c Ä‘á»‹nh?')) {
             $('#setting-prefix').val('!');
             $('#setting-botname').val('Bot Zalo');
             $('#setting-language').val('vi');
-            alert('✅ Đã đặt lại cài đặt mặc định!');
+            alert('âœ… ÄÃ£ Ä‘áº·t láº¡i cÃ i Ä‘áº·t máº·c Ä‘á»‹nh!');
         }
     });
 
     // ==================== HISTORY ====================
     
     $('#export-history-btn').click(function() {
-        alert('📥 Đã xuất lịch sử thành công!\n\nFile: history_export_' + new Date().toISOString().split('T')[0] + '.json');
+        alert('ðŸ“¥ ÄÃ£ xuáº¥t lá»‹ch sá»­ thÃ nh cÃ´ng!\n\nFile: history_export_' + new Date().toISOString().split('T')[0] + '.json');
     });
 
     $('#clear-history-btn').click(function() {
-        if (confirm('⚠️ Bạn có chắc muốn xóa toàn bộ lịch sử?\n\nHành động này không thể hoàn tác!')) {
-            alert('✅ Đã xóa lịch sử thành công!');
+        if (confirm('âš ï¸ Báº¡n cÃ³ cháº¯c muá»‘n xÃ³a toÃ n bá»™ lá»‹ch sá»­?\n\nHÃ nh Ä‘á»™ng nÃ y khÃ´ng thá»ƒ hoÃ n tÃ¡c!')) {
+            alert('âœ… ÄÃ£ xÃ³a lá»‹ch sá»­ thÃ nh cÃ´ng!');
         }
     });
 
@@ -1206,53 +1312,180 @@ $(document).ready(function() {
     });
 
     $('#add-user-btn').click(function() {
-        const userId = prompt('Nhập User ID:');
+        const userId = prompt('Nháº­p User ID:');
         if (userId) {
-            alert('✅ Đã thêm user thành công!\n\nUser ID: ' + userId);
+            alert('âœ… ÄÃ£ thÃªm user thÃ nh cÃ´ng!\n\nUser ID: ' + userId);
         }
     });
 
     $(document).on('click', '.user-action-btn.edit', function() {
         const userId = $(this).data('user-id');
         const userName = $(this).closest('.user-item').find('.user-name').text();
-        const newRole = prompt(`Đổi quyền cho ${userName}:\n\nadmin, mod, user`);
+        const newRole = prompt(`Äá»•i quyá»n cho ${userName}:\n\nadmin, mod, user`);
         if (newRole && ['admin', 'mod', 'user'].includes(newRole)) {
-            alert(`✅ Đã đổi quyền ${userName} thành ${newRole}!`);
+            alert(`âœ… ÄÃ£ Ä‘á»•i quyá»n ${userName} thÃ nh ${newRole}!`);
         }
     });
 
     $(document).on('click', '.user-action-btn.block', function() {
         const userId = $(this).data('user-id');
         const userName = $(this).closest('.user-item').find('.user-name').text();
-        if (confirm(`⚠️ Bạn có chắc muốn chặn ${userName}?`)) {
+        if (confirm(`âš ï¸ Báº¡n cÃ³ cháº¯c muá»‘n cháº·n ${userName}?`)) {
             $(this).closest('.user-item').addClass('blocked');
             $(this).closest('.user-item').find('.user-role').removeClass('admin mod user').addClass('blocked');
-            $(this).closest('.user-item').find('.role-badge').html('🚫 Blocked');
-            alert(`✅ Đã chặn ${userName}!`);
+            $(this).closest('.user-item').find('.role-badge').html('ðŸš« Blocked');
+            alert(`âœ… ÄÃ£ cháº·n ${userName}!`);
         }
     });
 
     $(document).on('click', '.user-action-btn.unblock', function() {
         const userId = $(this).data('user-id');
         const userName = $(this).closest('.user-item').find('.user-name').text();
-        if (confirm(`✅ Bạn có chắc muốn bỏ chặn ${userName}?`)) {
+        if (confirm(`âœ… Báº¡n cÃ³ cháº¯c muá»‘n bá» cháº·n ${userName}?`)) {
             $(this).closest('.user-item').removeClass('blocked');
             $(this).closest('.user-item').find('.user-role').removeClass('blocked').addClass('user');
-            $(this).closest('.user-item').find('.role-badge').html('👤 User');
-            alert(`✅ Đã bỏ chặn ${userName}!`);
+            $(this).closest('.user-item').find('.role-badge').html('ðŸ‘¤ User');
+            alert(`âœ… ÄÃ£ bá» cháº·n ${userName}!`);
         }
     });
 
     $(document).on('click', '.user-action-btn.delete', function() {
         const userId = $(this).data('user-id');
         const userName = $(this).closest('.user-item').find('.user-name').text();
-        if (confirm(`⚠️ Bạn có chắc muốn xóa ${userName}?\n\nHành động này không thể hoàn tác!`)) {
+        if (confirm(`âš ï¸ Báº¡n cÃ³ cháº¯c muá»‘n xÃ³a ${userName}?\n\nHÃ nh Ä‘á»™ng nÃ y khÃ´ng thá»ƒ hoÃ n tÃ¡c!`)) {
             $(this).closest('.user-item').fadeOut(300, function() {
                 $(this).remove();
             });
-            alert(`✅ Đã xóa ${userName}!`);
+            alert(`âœ… ÄÃ£ xÃ³a ${userName}!`);
         }
     });
+
+    // ==================== THEME PAGE SYNC ====================
+    
+    // Sync theme mode selection (light/dark/auto) with app
+    $(document).on('click', '.theme-mode-card', function(){
+        const mode = $(this).data('mode');
+        if (mode === 'light' || mode === 'dark') {
+            setTheme(mode);
+            // Update active state
+            $('.theme-mode-card').removeClass('active');
+            $(this).addClass('active');
+        }
+    });
+    
+    // Sync theme colors - apply to :root if needed
+    $(document).on('click', '.color-scheme', function(){
+        const scheme = $(this).data('scheme');
+        try { localStorage.setItem('site-color-scheme', scheme); } catch(e){}
+        $('.color-scheme').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+    // Handle background option changes
+    $(document).on('click', '.bg-option', function(){
+        const bg = $(this).data('bg');
+        try { localStorage.setItem('site-bg-style', bg); } catch(e){}
+        $('.bg-option').removeClass('active');
+        $(this).addClass('active');
+    });
+    
+    // Handle other theme settings (font, border-radius, etc)
+    $(document).on('change', '#font-family, #font-size, #border-radius, #animation-speed', function(){
+        const id = $(this).attr('id');
+        const val = $(this).val();
+        try { localStorage.setItem('site-' + id, val); } catch(e){}
+    });
+    
+    // Handle blur toggle
+    $(document).on('click', '#toggle-blur', function(){
+        $(this).toggleClass('active');
+        const isActive = $(this).hasClass('active');
+        try { localStorage.setItem('site-blur', isActive ? 'true' : 'false'); } catch(e){}
+    });
+    
+    // Function to sync theme page UI with current theme state
+    function syncThemePageUI() {
+        try {
+            const savedTheme = localStorage.getItem('site-theme') || 'light';
+            $('.theme-mode-card').removeClass('active');
+            $('.theme-mode-card[data-mode="' + savedTheme + '"]').addClass('active');
+            
+            const savedScheme = localStorage.getItem('site-color-scheme');
+            if (savedScheme) {
+                $('.color-scheme').removeClass('active');
+                $('.color-scheme[data-scheme="' + savedScheme + '"]').addClass('active');
+            }
+            
+            const savedBg = localStorage.getItem('site-bg-style');
+            if (savedBg) {
+                $('.bg-option').removeClass('active');
+                $('.bg-option[data-bg="' + savedBg + '"]').addClass('active');
+            }
+            
+            const savedBlur = localStorage.getItem('site-blur');
+            if (savedBlur === 'true') {
+                $('#toggle-blur').addClass('active');
+            } else {
+                $('#toggle-blur').removeClass('active');
+            }
+            
+            const savedFont = localStorage.getItem('site-font-family');
+            if (savedFont) $('#font-family').val(savedFont);
+            
+            const savedSize = localStorage.getItem('site-font-size');
+            if (savedSize) $('#font-size').val(savedSize);
+            
+            const savedRadius = localStorage.getItem('site-border-radius');
+            if (savedRadius) $('#border-radius').val(savedRadius);
+            
+            const savedSpeed = localStorage.getItem('site-animation-speed');
+            if (savedSpeed) $('#animation-speed').val(savedSpeed);
+        } catch(e) {}
+    }
+    
+    // Call on document ready to sync if theme page is active
+    if ($('#theme-page').length) {
+        syncThemePageUI();
+    }
+    
+    // Re-sync when page becomes active (observer pattern)
+    $(document).on('click', 'nav a[href*="/theme"]', function() {
+        setTimeout(syncThemePageUI, 100);
+    });
+    
+    // Listen for theme changes dispatched by setTheme() so the theme page UI updates live
+    try { window.addEventListener('site-theme-changed', syncThemePageUI); } catch(e) {}
+    
+    // Load and apply saved theme settings on theme page  
+    if ($('#theme-page').length && $('#theme-page').hasClass('active')) {
+        try {
+            const savedTheme = localStorage.getItem('site-theme');
+            if (savedTheme === 'dark') {
+                $('.theme-mode-card').removeClass('active');
+                $('.theme-mode-card[data-mode="dark"]').addClass('active');
+            } else if (savedTheme === 'light') {
+                $('.theme-mode-card').removeClass('active');
+                $('.theme-mode-card[data-mode="light"]').addClass('active');
+            }
+            
+            const savedScheme = localStorage.getItem('site-color-scheme');
+            if (savedScheme) {
+                $('.color-scheme').removeClass('active');
+                $('.color-scheme[data-scheme="' + savedScheme + '"]').addClass('active');
+            }
+            
+            const savedBg = localStorage.getItem('site-bg-style');
+            if (savedBg) {
+                $('.bg-option').removeClass('active');
+                $('.bg-option[data-bg="' + savedBg + '"]').addClass('active');
+            }
+            
+            const savedBlur = localStorage.getItem('site-blur');
+            if (savedBlur === 'true') {
+                $('#toggle-blur').addClass('active');
+            }
+        } catch(e) {}
+    }
 
     // ==================== INITIALIZE ====================
     
@@ -1261,12 +1494,17 @@ $(document).ready(function() {
         loadProfileData();
     }
 
+    // Initialize theme page sync
+    if ($('#theme-page').length) {
+        syncThemePageUI();
+    }
+
     // Initialize
     renderBotsManagement();
     renderGroups();
     renderFriends();
-    loadDataFromAPI();
     checkLoginFromServer();
+    loadMyBotsFromAPI(); // Load user's bots instead
     
     // Update rental summary on load
     if ($('#rental-page').length) {

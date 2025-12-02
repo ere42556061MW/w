@@ -4,224 +4,148 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Bot - History</title>
+    <title>Quan Ly Bot - History</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css">
+
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">🤖 Bot Manager</div>
-        <div class="nav-links" id="nav-links">
-            <a class="nav-link" href="/home/">🏠 Home</a>
-            <a class="nav-link" href="/manager/" data-require-login="true">⚙️ Manager</a>
-            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
-            <a class="nav-link" href="/create/" data-require-login="true">➕ Tạo</a>
-            <!-- More pages in dropdown -->
-            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
-            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
-            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
-                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
-                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
-            </div>
-            <div class="user-profile" id="user-profile" style="display: none;">
-                <div class="user-profile-btn" id="user-profile-btn">
-                    <div class="profile-avatar" id="profile-avatar">A</div>
-                    <span class="profile-name" id="profile-name">User</span>
-                    <span style="font-size: 12px;">▼</span>
-                </div>
-                <div class="profile-dropdown" id="profile-dropdown">
-                    <div class="profile-dropdown-item" id="profile-info">
-                        <span>👤</span>
-                        <span>Thông tin cá nhân</span>
-                    </div>
-                    <div class="profile-dropdown-divider"></div>
-                    <div class="profile-dropdown-item" id="profile-settings">
-                        <span>⚙️</span>
-                        <span>Cài đặt tài khoản</span>
-                    </div>
-                    <div class="profile-dropdown-divider"></div>
-                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
-                        <span>🚪</span>
-                        <span>Đăng xuất</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Navigation Dropdown -->
-        <div class="nav-dropdown" id="nav-dropdown">
-            <div class="nav-dropdown-section">
-                <div class="nav-dropdown-title">🎯 Chính</div>
-                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
-                <a class="nav-dropdown-item" href="/manager/" data-require-login="true">⚙️ Manager</a>
-                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
-                <a class="nav-dropdown-item" href="/create/" data-require-login="true">➕ Tạo Bot</a>
-            </div>
-            <div class="nav-dropdown-section">
-                <div class="nav-dropdown-title">💰 Dịch vụ</div>
-                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
-                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
-            </div>
-            <div class="nav-dropdown-section">
-                <div class="nav-dropdown-title">📊 Quản lý</div>
-                <a class="nav-dropdown-item" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
-                <a class="nav-dropdown-item" href="/users/" data-require-login="true">👥 Users</a>
-                <a class="nav-dropdown-item active" href="/history/" data-require-login="true">📝 Lịch Sử</a>
-            </div>
-            <div class="nav-dropdown-section">
-                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
-                <a class="nav-dropdown-item" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
-                <a class="nav-dropdown-item" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="page active" id="history-page">
-        <div class="settings-container">
-            <div class="settings-card">
-                <h2 class="settings-title">📝 Lịch Sử</h2>
-                <p class="settings-subtitle">Xem lại các hoạt động và giao dịch</p>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+<div class="logo-details">
+<i class="bx bxl-c-plus-plus icon"></i>
+<div class="logo_name">Bot Manager</div>
+<i class="bx bx-menu" id="btn"></i>
+</div>
+<ul class="nav-list">
+<li>
+<i class="bx bx-search"></i>
+<input type="text" placeholder="Search..." />
+<span class="tooltip">Search</span>
+</li>
+<li>
+<a href="/home/">
+<i class="bx bx-grid-alt"></i>
+<span class="links_name">Home</span>
+</a>
+<span class="tooltip">Home</span>
+</li>
+<li>
+<a href="/manager/" data-require-login="true">
+<i class="bx bx-cog"></i>
+<span class="links_name">Manager</span>
+</a>
+<span class="tooltip">Manager</span>
+</li>
+<li>
+<a href="/bots/" data-require-login="true">
+<i class="bx bxs-bot"></i>
+<span class="links_name">Bot</span>
+</a>
+<span class="tooltip">Bot</span>
+</li>
+<li>
+<a href="/create/" data-require-login="true">
+<i class="bx bx-plus"></i>
+<span class="links_name">Create</span>
+</a>
+<span class="tooltip">Create</span>
+</li>
+<li>
+<a href="/rental/" data-require-login="true">
+<i class="bx bx-money"></i>
+<span class="links_name">Rental</span>
+</a>
+<span class="tooltip">Rental</span>
+</li>
+<li>
+<a href="/commands/" data-require-login="true">
+<i class="bx bx-command"></i>
+<span class="links_name">Commands</span>
+</a>
+<span class="tooltip">Commands</span>
+</li>
+<li>
+<a href="/statistics/" data-require-login="true">
+<i class="bx bx-pie-chart-alt-2"></i>
+<span class="links_name">Statistics</span>
+</a>
+<span class="tooltip">Statistics</span>
+</li>
+<li>
+<a href="/users/" data-require-login="true">
+<i class="bx bx-user"></i>
+<span class="links_name">Users</span>
+</a>
+<span class="tooltip">Users</span>
+</li>
+<li>
+<a href="/history/" data-require-login="true">
+<i class="bx bx-history"></i>
+<span class="links_name">History</span>
+</a>
+<span class="tooltip">History</span>
+</li>
+<li>
+<a href="/settings/" data-require-login="true">
+<i class="bx bx-slider"></i>
+<span class="links_name">Settings</span>
+</a>
+<span class="tooltip">Settings</span>
+</li>
+<li>
+<a href="/theme/" data-require-login="true">
+<i class="bx bx-palette"></i>
+<span class="links_name">Theme</span>
+</a>
+<span class="tooltip">Theme</span>
+</li>
+<li>
+<a href="#" id="theme-toggle-sidebar">
+<i class="bx bx-moon"></i>
+<span class="links_name">Theme</span>
+</a>
+<span class="tooltip">Toggle Theme</span>
+</li>
+<li>
+<a href="#" id="nav-register-btn">
+<i class="bx bx-user-plus"></i>
+<span class="links_name">Register</span>
+</a>
+<span class="tooltip">Register</span>
+</li>
+<li class="profile">
+<div class="profile-details">
+<img src="/profile.jpg" alt="profileImg" />
+<div class="name_job">
+<div class="name" id="profile-name">User</div>
+<div class="job">Web Manager</div>
+</div>
+</div>
+<i class="bx bx-log-out" id="logout-btn"></i>
+</li>
+</ul>
+</div>
 
-                <!-- Payment History -->
-                <div class="settings-section">
-                    <div class="settings-section-title">💳 Lịch Sử Thanh Toán</div>
-                    <div class="history-list" id="payment-history">
-                        <div class="history-item">
-                            <div class="history-icon">💰</div>
-                            <div class="history-content">
-                                <div class="history-title">Thuê Bot - 30 ngày</div>
-                                <div class="history-desc">Prefix: ! | Email: user@example.com</div>
-                                <div class="history-time">20/11/2024 14:30</div>
-                            </div>
-                            <div class="history-amount success">+150.000đ</div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-icon">🛒</div>
-                            <div class="history-content">
-                                <div class="history-title">Mua Lệnh AI Chat</div>
-                                <div class="history-desc">Command: AI Chat, Image Gen</div>
-                                <div class="history-time">18/11/2024 10:15</div>
-                            </div>
-                            <div class="history-amount success">+120.000đ</div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-icon">💰</div>
-                            <div class="history-content">
-                                <div class="history-title">Thuê Bot - 15 ngày</div>
-                                <div class="history-desc">Prefix: / | Email: test@gmail.com</div>
-                                <div class="history-time">15/11/2024 09:20</div>
-                            </div>
-                            <div class="history-amount success">+90.000đ</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Rental History -->
-                <div class="settings-section">
-                    <div class="settings-section-title">🤖 Lịch Sử Thuê Bot</div>
-                    <div class="history-list" id="rental-history">
-                        <div class="history-item">
-                            <div class="history-icon">✅</div>
-                            <div class="history-content">
-                                <div class="history-title">Bot_! (Đang hoạt động)</div>
-                                <div class="history-desc">Còn lại: 25 ngày | Hết hạn: 15/12/2024</div>
-                                <div class="history-time">Bắt đầu: 20/11/2024</div>
-                            </div>
-                            <div class="history-status active">Active</div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-icon">⏸️</div>
-                            <div class="history-content">
-                                <div class="history-title">Bot_/ (Đã hết hạn)</div>
-                                <div class="history-desc">Thời gian thuê: 15 ngày</div>
-                                <div class="history-time">05/11/2024 - 20/11/2024</div>
-                            </div>
-                            <div class="history-status expired">Expired</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Command Purchase History -->
-                <div class="settings-section">
-                    <div class="settings-section-title">🛒 Lịch Sử Mua Lệnh</div>
-                    <div class="history-list" id="command-history">
-                        <div class="history-item">
-                            <div class="history-icon">🤖</div>
-                            <div class="history-content">
-                                <div class="history-title">AI Chat</div>
-                                <div class="history-desc">Trò chuyện với AI thông minh</div>
-                                <div class="history-time">18/11/2024 10:15</div>
-                            </div>
-                            <div class="history-amount">50.000đ</div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-icon">🎨</div>
-                            <div class="history-content">
-                                <div class="history-title">Image Gen</div>
-                                <div class="history-desc">Tạo ảnh từ văn bản</div>
-                                <div class="history-time">18/11/2024 10:15</div>
-                            </div>
-                            <div class="history-amount">70.000đ</div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-icon">🎵</div>
-                            <div class="history-content">
-                                <div class="history-title">Music</div>
-                                <div class="history-desc">Phát nhạc từ YouTube</div>
-                                <div class="history-time">15/11/2024 14:30</div>
-                            </div>
-                            <div class="history-amount">30.000đ</div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Activity Log -->
-                <div class="settings-section">
-                    <div class="settings-section-title">📊 Nhật Ký Hoạt Động</div>
-                    <div class="history-list" id="activity-log">
-                        <div class="history-item">
-                            <div class="history-icon">🟢</div>
-                            <div class="history-content">
-                                <div class="history-title">Bot Main đã khởi động</div>
-                                <div class="history-desc">Trạng thái: Online</div>
-                                <div class="history-time">20/11/2024 15:45</div>
-                            </div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-icon">🔴</div>
-                            <div class="history-content">
-                                <div class="history-title">Bot Test đã dừng</div>
-                                <div class="history-desc">Trạng thái: Offline</div>
-                                <div class="history-time">20/11/2024 14:20</div>
-                            </div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-icon">➕</div>
-                            <div class="history-content">
-                                <div class="history-title">Tạo bot mới: Bot_!</div>
-                                <div class="history-desc">Phương thức: Cookie | Prefix: !</div>
-                                <div class="history-time">20/11/2024 14:30</div>
-                            </div>
-                        </div>
-                        <div class="history-item">
-                            <div class="history-icon">⚙️</div>
-                            <div class="history-content">
-                                <div class="history-title">Cập nhật cài đặt</div>
-                                <div class="history-desc">Đã lưu cấu hình bot</div>
-                                <div class="history-time">20/11/2024 13:15</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div style="display: flex; gap: 10px;">
-                    <button class="btn btn-primary" id="export-history-btn">📥 Xuất Lịch Sử</button>
-                    <button class="btn btn-warning" id="clear-history-btn">🗑️ Xóa Lịch Sử</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script src="/script.js"></script>
+<section class="home-section">
+<div class="page active" id="history-page">
+<div class="home-container">
+<div class="create-card">
+<h2 class="page-title">📜 Lịch Sử Hoạt Động</h2>
+<div class="history-list" id="history-list">
+<div class="history-item">
+<span class="history-time">Hôm nay</span>
+<span class="history-action">Khởi động hệ thống</span>
+<span class="history-user">Admin</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Boxicons CDN Link -->
+<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+<script src="/sidebar.js"></script>
+<script src="/script.js"></script>
 </body>
 </html>

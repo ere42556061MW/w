@@ -4,236 +4,184 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Bot - Manager</title>
+    <title>Quan Ly Bot - Manager</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.5.4/socket.io.min.js"></script>
-    <link rel="stylesheet" href="/styles.css">
+<link rel="stylesheet" href="/styles.css">
+
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
-        <div class="nav-brand">🤖 Bot Manager</div>
-        <div class="nav-links" id="nav-links">
-            <a class="nav-link" href="/home/">🏠 Home</a>
-            <a class="nav-link active" href="/manager/" data-require-login="true">⚙️ Manager</a>
-            <a class="nav-link" href="/bots/" data-require-login="true">🤖 Bot</a>
-            <a class="nav-link" href="/create/" data-require-login="true">➕ Tạo</a>
-            <!-- More pages in dropdown -->
-            <button class="theme-toggle" id="theme-toggle-nav">🌙</button>
-            <div class="nav-menu-btn" id="nav-menu-btn">☰</div>
-            <div class="auth-buttons" id="auth-buttons" style="display: flex; gap: 5px; align-items: center;">
-                <button class="nav-link" id="nav-login-btn">🔐 Đăng nhập</button>
-                <button class="nav-link active" id="nav-register-btn" style="margin-left: 5px;">📝 Đăng ký</button>
-            </div>
-            <div class="user-profile" id="user-profile" style="display: none;">
-                <div class="user-profile-btn" id="user-profile-btn">
-                    <div class="profile-avatar" id="profile-avatar">A</div>
-                    <span class="profile-name" id="profile-name">User</span>
-                    <span style="font-size: 12px;">▼</span>
-                </div>
-                <div class="profile-dropdown" id="profile-dropdown">
-                    <div class="profile-dropdown-item" id="profile-info">
-                        <span>👤</span>
-                        <span>Thông tin cá nhân</span>
-                    </div>
-                    <div class="profile-dropdown-divider"></div>
-                    <div class="profile-dropdown-item" id="profile-settings">
-                        <span>⚙️</span>
-                        <span>Cài đặt tài khoản</span>
-                    </div>
-                    <div class="profile-dropdown-divider"></div>
-                    <div class="profile-dropdown-item" id="logout-btn" style="color: #ef4444;">
-                        <span>🚪</span>
-                        <span>Đăng xuất</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Navigation Dropdown -->
-        <div class="nav-dropdown" id="nav-dropdown">
-            <div class="nav-dropdown-section">
-                <div class="nav-dropdown-title">🎯 Chính</div>
-                <a class="nav-dropdown-item" href="/home/">🏠 Trang chủ</a>
-                <a class="nav-dropdown-item active" href="/manager/" data-require-login="true">⚙️ Manager</a>
-                <a class="nav-dropdown-item" href="/bots/" data-require-login="true">🤖 Quản lý Bot</a>
-                <a class="nav-dropdown-item" href="/create/" data-require-login="true">➕ Tạo Bot</a>
-            </div>
-            <div class="nav-dropdown-section">
-                <div class="nav-dropdown-title">💰 Dịch vụ</div>
-                <a class="nav-dropdown-item" href="/rental/" data-require-login="true">💰 Thuê Bot</a>
-                <a class="nav-dropdown-item" href="/commands/" data-require-login="true">🛒 Mua Lệnh</a>
-            </div>
-            <div class="nav-dropdown-section">
-                <div class="nav-dropdown-title">📊 Quản lý</div>
-                <a class="nav-dropdown-item" href="/statistics/" data-require-login="true">📊 Thống Kê</a>
-                <a class="nav-dropdown-item" href="/users/" data-require-login="true">👥 Users</a>
-                <a class="nav-dropdown-item" href="/history/" data-require-login="true">📝 Lịch Sử</a>
-            </div>
-            <div class="nav-dropdown-section">
-                <div class="nav-dropdown-title">⚙️ Cài đặt</div>
-                <a class="nav-dropdown-item" href="/settings/" data-require-login="true">⚙️ Cấu Hình</a>
-                <a class="nav-dropdown-item" href="/theme/" data-require-login="true">🎨 Tùy Chỉnh</a>
-            </div>
-        </div>
-    </nav>
-    
-    <div class="page manager-page active" id="manager-page">
-        <div class="container">
-            <!-- Phần 1: Danh sách -->
-            <div class="panel list-panel">
-                <div class="panel-header">
-                    <span>Danh Sách</span>
-                </div>
-                <div class="panel-content">
-                    <div class="tabs">
-                        <button class="tab active" data-tab="groups">Nhóm</button>
-                        <button class="tab" data-tab="friends">Bạn Bè</button>
-                    </div>
-                    <div id="groups-list" class="list-content"></div>
-                    <div id="friends-list" class="list-content" style="display: none;"></div>
-                </div>
-            </div>
+<!-- Sidebar Navigation -->
+<div class="sidebar">
+<div class="logo-details">
+<i class="bx bxl-c-plus-plus icon"></i>
+<div class="logo_name">Bot Manager</div>
+<i class="bx bx-menu" id="btn"></i>
+</div>
+<ul class="nav-list">
+<li>
+<i class="bx bx-search"></i>
+<input type="text" placeholder="Search..." />
+<span class="tooltip">Search</span>
+</li>
+<li>
+<a href="/home/">
+<i class="bx bx-grid-alt"></i>
+<span class="links_name">Home</span>
+</a>
+<span class="tooltip">Home</span>
+</li>
+<li>
+<a href="/manager/" data-require-login="true">
+<i class="bx bx-cog"></i>
+<span class="links_name">Manager</span>
+</a>
+<span class="tooltip">Manager</span>
+</li>
+<li>
+<a href="/bots/" data-require-login="true">
+<i class="bx bxs-bot"></i>
+<span class="links_name">Bot</span>
+</a>
+<span class="tooltip">Bot</span>
+</li>
+<li>
+<a href="/create/" data-require-login="true">
+<i class="bx bx-plus"></i>
+<span class="links_name">Create</span>
+</a>
+<span class="tooltip">Create</span>
+</li>
+<li>
+<a href="/rental/" data-require-login="true">
+<i class="bx bx-money"></i>
+<span class="links_name">Rental</span>
+</a>
+<span class="tooltip">Rental</span>
+</li>
+<li>
+<a href="/commands/" data-require-login="true">
+<i class="bx bx-command"></i>
+<span class="links_name">Commands</span>
+</a>
+<span class="tooltip">Commands</span>
+</li>
+<li>
+<a href="/statistics/" data-require-login="true">
+<i class="bx bx-pie-chart-alt-2"></i>
+<span class="links_name">Statistics</span>
+</a>
+<span class="tooltip">Statistics</span>
+</li>
+<li>
+<a href="/users/" data-require-login="true">
+<i class="bx bx-user"></i>
+<span class="links_name">Users</span>
+</a>
+<span class="tooltip">Users</span>
+</li>
+<li>
+<a href="/history/" data-require-login="true">
+<i class="bx bx-history"></i>
+<span class="links_name">History</span>
+</a>
+<span class="tooltip">History</span>
+</li>
+<li>
+<a href="/settings/" data-require-login="true">
+<i class="bx bx-slider"></i>
+<span class="links_name">Settings</span>
+</a>
+<span class="tooltip">Settings</span>
+</li>
+<li>
+<a href="/theme/" data-require-login="true">
+<i class="bx bx-palette"></i>
+<span class="links_name">Theme</span>
+</a>
+<span class="tooltip">Theme</span>
+</li>
+<li>
+<a href="#" id="theme-toggle-sidebar">
+<i class="bx bx-moon"></i>
+<span class="links_name">Theme</span>
+</a>
+<span class="tooltip">Toggle Theme</span>
+</li>
+<li>
+<a href="#" id="nav-register-btn">
+<i class="bx bx-user-plus"></i>
+<span class="links_name">Register</span>
+</a>
+<span class="tooltip">Register</span>
+</li>
+<li class="profile">
+<div class="profile-details">
+<img src="/profile.jpg" alt="profileImg" />
+<div class="name_job">
+<div class="name" id="profile-name">User</div>
+<div class="job">Web Manager</div>
+</div>
+</div>
+<i class="bx bx-log-out" id="logout-btn"></i>
+</li>
+</ul>
+</div>
 
-            <!-- Phần 2: Log & Composer -->
-            <div class="panel log-panel">
-                <div class="panel-header">
-                    <span>Log Tin Nhắn & Events</span>
-                    <span class="badge" id="log-count">0</span>
-                </div>
-                <div class="log-messages" id="log-content">
-                    <div class="log-entry">
-                        <div class="log-box">
-                            <div class="log-header">
-                                <div>📋 Tin nhắn mới <span class="message-count">#1</span></div>
-                                <span class="account-badge">Acc 1 (V H Đ)</span>
-                            </div>
-                            <div class="log-content-area">
-                                <div class="log-row">
-                                    <span class="log-icon">💬</span>
-                                    <span class="log-label">Message:</span>
-                                    <span class="log-value">Bot đã sẵn sàng nhận lệnh</span>
-                                </div>
-                                <div class="log-row">
-                                    <span class="log-icon">👤</span>
-                                    <span class="log-label">User:</span>
-                                    <span class="log-value">Bot System</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!-- Message Composer -->
-                <div class="message-composer" id="message-composer">
-                    <div class="composer-input-group">
-                        <textarea class="composer-textarea" id="composer-textarea" placeholder="Nhập tin nhắn..." rows="1"></textarea>
-                        <button class="composer-send-btn" id="composer-send-btn">📤 Gửi</button>
-                    </div>
-                    <div class="composer-options">
-                        <div class="composer-option">
-                            <span>TTL:</span>
-                            <input type="number" id="composer-ttl" value="0" min="0" step="1000" placeholder="0ms">
-                        </div>
-                        <div class="composer-option">
-                            <button id="composer-send-all">📢 All</button>
-                        </div>
-                        <div class="composer-option">
-                            <button id="composer-run-cmd">⚡ Lệnh</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <script src="/script.js"></script>
-    <script>
-        // Socket.IO Connection cho Manager page
-        let socket = null;
-        let socketConnected = false;
-        
-        // Khởi tạo Socket.IO connection
-        try {
-            if (typeof io !== 'undefined') {
-                socket = io(window.location.origin, {
-                    transports: ['websocket', 'polling'],
-                    reconnection: true,
-                    reconnectionDelay: 1000,
-                    reconnectionAttempts: 10
-                });
-
-                // Connection handlers
-                socket.on('connect', function() {
-                    console.log('✅ Manager: Connected to server');
-                    socketConnected = true;
-                    if (typeof window.addLog === 'function') {
-                        window.addLog('event', '🔗 SYSTEM', 'Đã kết nối với bot server');
-                    }
-                });
-
-                socket.on('disconnect', function() {
-                    console.log('❌ Manager: Disconnected from server');
-                    socketConnected = false;
-                    if (typeof window.addLog === 'function') {
-                        window.addLog('event', '⚠️ SYSTEM', 'Mất kết nối với bot server');
-                    }
-                });
-
-                // Nhận log từ bot
-                socket.on('new_log', function(logData) {
-                    console.log('📨 Manager: New log:', logData);
-                    handleNewLog(logData);
-                });
-
-                // Nhận bot updates
-                socket.on('bot_update', function(botData) {
-                    console.log('🤖 Manager: Bot update:', botData);
-                });
-
-                // Nhận connection established
-                socket.on('connection_established', function(data) {
-                    console.log('✅ Manager: Connection established:', data);
-                });
-            } else {
-                console.warn('⚠️ Socket.IO library not loaded');
-            }
-        } catch (error) {
-            console.error('❌ Manager: Socket.IO connection error:', error);
-        }
-
-        // Hàm xử lý log từ bot
-        function handleNewLog(logData) {
-            const { type, message, timestamp, metadata } = logData;
-            
-            // Đợi script.js load xong (có thể mất vài giây)
-            if (typeof window.addLog !== 'function') {
-                console.warn('addLog function not available yet, retrying...');
-                setTimeout(() => handleNewLog(logData), 500);
-                return;
-            }
-            
-            if (type === 'message' && metadata) {
-                // Log tin nhắn
-                window.addLog('message', metadata.author_name || 'User', message, {
-                    userId: metadata.author_id,
-                    userName: metadata.author_name,
-                    threadId: metadata.thread_id,
-                    threadName: metadata.group_name || 'Unknown Group',
-                    threadType: metadata.thread_type || 'ThreadType.GROUP',
-                    messageId: metadata.message_id || '',
-                    account: metadata.bot_name || 'Bot'
-                });
-            } else if (type === 'command' && metadata) {
-                // Log command
-                const status = metadata.success ? '✅' : '❌';
-                window.addLog('event', status + ' COMMAND', message, metadata);
-            } else if (type === 'event') {
-                // Log event
-                window.addLog('event', '⚙️ EVENT', message, metadata);
-            } else if (type === 'error') {
-                // Log error
-                window.addLog('event', '❌ ERROR', message, metadata);
-            }
-        }
-    </script>
+<section class="home-section">
+<div class="page manager-page active" id="manager-page">
+<div class="container">
+<!-- Phần 1: Danh sách -->
+<div class="panel list-panel">
+<div class="panel-header"><span>Danh sách</span></div>
+<div class="panel-content">
+<div class="tabs">
+<button class="tab active" data-tab="groups">Nhóm</button>
+<button class="tab" data-tab="friends">Bạn bè</button>
+</div>
+<div id="groups-list" class="list-content"></div>
+<div id="friends-list" class="list-content" style="display: none;"></div>
+</div>
+</div>
+<!-- Phần 2: Log & Composer -->
+<div class="panel log-panel">
+<div class="panel-header">
+<span>Log Tin Nhắn & Events</span>
+<span class="badge" id="log-count">0</span>
+</div>
+<div class="log-messages" id="log-content">
+<div class="log-entry">
+<div class="log-box">
+<div class="log-header">
+<div>Tin nhắn mới <span class="message-count">#1</span></div>
+<span class="account-badge">Acc 1</span>
+</div>
+<div class="log-content-area">
+<div class="log-row"><span class="log-icon">📨</span><span class="log-label">Message:</span><span class="log-value">Bot đã sẵn sàng nhận lệnh</span></div>
+<div class="log-row"><span class="log-icon">👤</span><span class="log-label">User:</span><span class="log-value">Bot System</span></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Message Composer -->
+<div class="message-composer" id="message-composer">
+<div class="composer-input-group">
+<textarea class="composer-textarea" id="composer-textarea" placeholder="Nhập tin nhắn..." rows="1"></textarea>
+<button class="composer-send-btn" id="composer-send-btn">Gửi</button>
+</div>
+<div class="composer-options">
+<div class="composer-option"><span>TTL:</span><input type="number" id="composer-ttl" value="0" min="0" step="1000" placeholder="0ms"></div>
+<div class="composer-option"><button id="composer-send-all">Gửi tất cả</button></div>
+<div class="composer-option"><button id="composer-run-cmd">Gửi Lệnh</button></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Boxicons CDN Link -->
+<link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
+<script src="/sidebar.js"></script>
+<script src="/script.js"></script>
 </body>
 </html>
