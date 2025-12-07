@@ -6,153 +6,1015 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quan Ly Bot - Theme</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="/styles.css">
-
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <!-- Sidebar Navigation -->
 <div class="sidebar">
-<div class="logo-details">
-<i class="bx bxl-c-plus-plus icon"></i>
-<div class="logo_name">Bot Manager</div>
-<i class="bx bx-menu" id="btn"></i>
-</div>
-<ul class="nav-list">
-<li>
-<i class="bx bx-search"></i>
-<input type="text" placeholder="Search..." />
-<span class="tooltip">Search</span>
-</li>
-<li>
-<a href="/home/">
-<i class="bx bx-grid-alt"></i>
-<span class="links_name">Home</span>
-</a>
-<span class="tooltip">Home</span>
-</li>
-<li>
-<a href="/manager/" data-require-login="true">
-<i class="bx bx-cog"></i>
-<span class="links_name">Manager</span>
-</a>
-<span class="tooltip">Manager</span>
-</li>
-<li>
-<a href="/bots/" data-require-login="true">
-<i class="bx bxs-bot"></i>
-<span class="links_name">Bot</span>
-</a>
-<span class="tooltip">Bot</span>
-</li>
-<li>
-<a href="/create/" data-require-login="true">
-<i class="bx bx-plus"></i>
-<span class="links_name">Create</span>
-</a>
-<span class="tooltip">Create</span>
-</li>
-<li>
-<a href="/rental/" data-require-login="true">
-<i class="bx bx-money"></i>
-<span class="links_name">Rental</span>
-</a>
-<span class="tooltip">Rental</span>
-</li>
-<li>
-<a href="/commands/" data-require-login="true">
-<i class="bx bx-command"></i>
-<span class="links_name">Commands</span>
-</a>
-<span class="tooltip">Commands</span>
-</li>
-<li>
-<a href="/statistics/" data-require-login="true">
-<i class="bx bx-pie-chart-alt-2"></i>
-<span class="links_name">Statistics</span>
-</a>
-<span class="tooltip">Statistics</span>
-</li>
-<li>
-<a href="/users/" data-require-login="true">
-<i class="bx bx-user"></i>
-<span class="links_name">Users</span>
-</a>
-<span class="tooltip">Users</span>
-</li>
-<li>
-<a href="/history/" data-require-login="true">
-<i class="bx bx-history"></i>
-<span class="links_name">History</span>
-</a>
-<span class="tooltip">History</span>
-</li>
-<li>
-<a href="/settings/" data-require-login="true">
-<i class="bx bx-slider"></i>
-<span class="links_name">Settings</span>
-</a>
-<span class="tooltip">Settings</span>
-</li>
-<li>
-<a href="/theme/" data-require-login="true">
-<i class="bx bx-palette"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Theme</span>
-</li>
-<li>
-<a href="#" id="theme-toggle-sidebar">
-<i class="bx bx-moon"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Toggle Theme</span>
-</li>
-<li>
-<a href="#" id="nav-register-btn">
-<i class="bx bx-user-plus"></i>
-<span class="links_name">Register</span>
-</a>
-<span class="tooltip">Register</span>
-</li>
-<li class="profile">
-<div class="profile-details">
-<img src="/profile.jpg" alt="profileImg" />
-<div class="name_job">
-<div class="name" id="profile-name">User</div>
-<div class="job">Web Manager</div>
-</div>
-</div>
-<i class="bx bx-log-out" id="logout-btn"></i>
-</li>
-</ul>
+    <div class="logo-details">
+        <i class="bx bxl-c-plus-plus icon"></i>
+        <div class="logo_name">Bot Manager</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search..." />
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/home/">
+                <i class="bx bx-grid-alt"></i>
+                <span class="links_name">Home</span>
+            </a>
+            <span class="tooltip">Home</span>
+        </li>
+        <li>
+            <a href="/manager/" data-require-login="true">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Manager</span>
+            </a>
+            <span class="tooltip">Manager</span>
+        </li>
+        <li>
+            <a href="/bots/" data-require-login="true">
+                <i class="bx bxs-bot"></i>
+                <span class="links_name">Bot</span>
+            </a>
+            <span class="tooltip">Bot</span>
+        </li>
+        <li>
+            <a href="/create/" data-require-login="true">
+                <i class="bx bx-plus"></i>
+                <span class="links_name">Create</span>
+            </a>
+            <span class="tooltip">Create</span>
+        </li>
+        <li>
+            <a href="/rental/" data-require-login="true">
+                <i class="bx bx-money"></i>
+                <span class="links_name">Rental</span>
+            </a>
+            <span class="tooltip">Rental</span>
+        </li>
+        <li>
+            <a href="/commands/" data-require-login="true">
+                <i class="bx bx-command"></i>
+                <span class="links_name">Commands</span>
+            </a>
+            <span class="tooltip">Commands</span>
+        </li>
+        <li>
+            <a href="/statistics/" data-require-login="true">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="links_name">Statistics</span>
+            </a>
+            <span class="tooltip">Statistics</span>
+        </li>
+        <li>
+            <a href="/users/" data-require-login="true">
+                <i class="bx bx-user"></i>
+                <span class="links_name">Users</span>
+            </a>
+            <span class="tooltip">Users</span>
+        </li>
+        <li>
+            <a href="/history/" data-require-login="true">
+                <i class="bx bx-history"></i>
+                <span class="links_name">History</span>
+            </a>
+            <span class="tooltip">History</span>
+        </li>
+        <li>
+            <a href="/settings/" data-require-login="true">
+                <i class="bx bx-slider"></i>
+                <span class="links_name">Settings</span>
+            </a>
+            <span class="tooltip">Settings</span>
+        </li>
+        <li>
+            <a href="/theme/" data-require-login="true">
+                <i class="bx bx-palette"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Theme</span>
+        </li>
+        <li>
+            <a href="#" id="theme-toggle-sidebar">
+                <i class="bx bx-moon"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Toggle Theme</span>
+        </li>
+        <li id="auth-buttons" style="display: none;">
+            <a href="/login/">
+                <i class="bx bx-log-in"></i>
+                <span class="links_name">Login</span>
+            </a>
+            <span class="tooltip">Login</span>
+        </li>
+        <li id="register-button" style="display: none;">
+            <a href="/register/">
+                <i class="bx bx-user-plus"></i>
+                <span class="links_name">Register</span>
+            </a>
+            <span class="tooltip">Register</span>
+        </li>
+        <li class="profile" id="user-profile">
+            <div class="profile-details">
+                <img src="/profile.jpg" alt="profileImg" />
+                <div class="name_job">
+                    <div class="name" id="profile-name">User</div>
+                    <div class="job">Web Manager</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="logout-btn"></i>
+        </li>
+    </ul>
 </div>
 
 <section class="home-section">
-<div class="page active" id="theme-page">
-<div class="home-container">
-<div class="create-card">
-<h2 class="page-title">🎨 Giao Diện</h2>
-<div class="theme-options">
-<label>
-<input type="radio" name="theme" value="light" checked>
-<span>Sáng</span>
-</label>
-<label>
-<input type="radio" name="theme" value="dark">
-<span>Tối</span>
-</label>
-<label>
-<input type="radio" name="theme" value="auto">
-<span>Tự động</span>
-</label>
-</div>
-</div>
-</div>
-</div>
+    <div class="page active" id="theme-page">
+        <div class="theme-container">
+            <!-- Header -->
+            <div class="theme-header">
+                <h2 class="theme-title">🎨 Tùy Chỉnh Giao Diện</h2>
+                <p class="theme-subtitle">Cá nhân hóa giao diện theo phong cách của bạn</p>
+            </div>
+
+            <!-- Theme Selection -->
+            <div class="theme-section">
+                <h3 class="section-title">Chọn Chế Độ</h3>
+                <div class="theme-modes">
+                    <div class="theme-mode-card" data-theme="light">
+                        <div class="mode-preview light-preview">
+                            <div class="preview-header"></div>
+                            <div class="preview-content">
+                                <div class="preview-card"></div>
+                                <div class="preview-card"></div>
+                            </div>
+                        </div>
+                        <div class="mode-info">
+                            <i class="bx bx-sun mode-icon"></i>
+                            <div class="mode-name">Sáng</div>
+                        </div>
+                    </div>
+
+                    <div class="theme-mode-card" data-theme="dark">
+                        <div class="mode-preview dark-preview">
+                            <div class="preview-header"></div>
+                            <div class="preview-content">
+                                <div class="preview-card"></div>
+                                <div class="preview-card"></div>
+                            </div>
+                        </div>
+                        <div class="mode-info">
+                            <i class="bx bx-moon mode-icon"></i>
+                            <div class="mode-name">Tối</div>
+                        </div>
+                    </div>
+
+                    <div class="theme-mode-card" data-theme="auto">
+                        <div class="mode-preview auto-preview">
+                            <div class="preview-split">
+                                <div class="preview-half light"></div>
+                                <div class="preview-half dark"></div>
+                            </div>
+                        </div>
+                        <div class="mode-info">
+                            <i class="bx bx-adjust mode-icon"></i>
+                            <div class="mode-name">Tự động</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accent Colors -->
+            <div class="theme-section">
+                <h3 class="section-title">Màu Nhấn</h3>
+                <p class="section-description">Chọn màu chủ đạo cho giao diện</p>
+                <div class="color-grid">
+                    <div class="color-option" data-color="purple" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+                        <i class="bx bx-check color-check"></i>
+                    </div>
+                    <div class="color-option" data-color="blue" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                        <i class="bx bx-check color-check"></i>
+                    </div>
+                    <div class="color-option" data-color="green" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                        <i class="bx bx-check color-check"></i>
+                    </div>
+                    <div class="color-option" data-color="orange" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);">
+                        <i class="bx bx-check color-check"></i>
+                    </div>
+                    <div class="color-option" data-color="red" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                        <i class="bx bx-check color-check"></i>
+                    </div>
+                    <div class="color-option" data-color="pink" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);">
+                        <i class="bx bx-check color-check"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Font Size -->
+            <div class="theme-section">
+                <h3 class="section-title">Kích Thước Font</h3>
+                <div class="font-size-control">
+                    <div class="font-preview" id="font-preview">
+                        <p>Aa</p>
+                        <span>Văn bản mẫu</span>
+                    </div>
+                    <div class="font-slider-container">
+                        <span class="font-label">Nhỏ</span>
+                        <input type="range" class="font-slider" id="font-slider" min="12" max="20" value="16" step="1" />
+                        <span class="font-label">Lớn</span>
+                    </div>
+                    <div class="font-value" id="font-value">16px</div>
+                </div>
+            </div>
+
+            <!-- Animation Speed -->
+            <div class="theme-section">
+                <h3 class="section-title">Tốc Độ Hiệu Ứng</h3>
+                <div class="animation-options">
+                    <label class="animation-option">
+                        <input type="radio" name="animation" value="slow" />
+                        <span class="option-label">
+                            <i class="bx bx-hourglass"></i>
+                            Chậm
+                        </span>
+                    </label>
+                    <label class="animation-option">
+                        <input type="radio" name="animation" value="normal" checked />
+                        <span class="option-label">
+                            <i class="bx bx-time"></i>
+                            Bình thường
+                        </span>
+                    </label>
+                    <label class="animation-option">
+                        <input type="radio" name="animation" value="fast" />
+                        <span class="option-label">
+                            <i class="bx bx-bolt"></i>
+                            Nhanh
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Preview Section -->
+            <div class="theme-section">
+                <h3 class="section-title">Xem Trước</h3>
+                <div class="theme-preview">
+                    <div class="preview-window">
+                        <div class="preview-topbar">
+                            <div class="preview-dots">
+                                <span></span>
+                                <span></span>
+                                <span></span>
+                            </div>
+                            <div class="preview-title">Bot Manager</div>
+                        </div>
+                        <div class="preview-body">
+                            <div class="preview-sidebar-mini"></div>
+                            <div class="preview-content-area">
+                                <div class="preview-header-bar"></div>
+                                <div class="preview-cards">
+                                    <div class="preview-mini-card"></div>
+                                    <div class="preview-mini-card"></div>
+                                    <div class="preview-mini-card"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="theme-actions">
+                <button class="btn btn-secondary" id="reset-theme">
+                    <i class="bx bx-reset"></i> Đặt lại mặc định
+                </button>
+                <button class="btn btn-primary" id="save-theme">
+                    <i class="bx bx-save"></i> Lưu thay đổi
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Boxicons CDN Link -->
 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
 <script src="/sidebar.js"></script>
-<script src="/script.js"></script>
+
+<style>
+/* Theme Container */
+.theme-container {
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+/* Header */
+.theme-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.theme-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 10px 0;
+}
+
+.theme-subtitle {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0;
+}
+
+/* Section */
+.theme-section {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 25px;
+    margin-bottom: 25px;
+}
+
+.section-title {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+}
+
+.section-description {
+    font-size: 14px;
+    color: #6b7280;
+    margin: 0 0 20px 0;
+}
+
+/* Theme Modes */
+.theme-modes {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.theme-mode-card {
+    border: 3px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 15px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.theme-mode-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+.theme-mode-card.active {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+}
+
+.mode-preview {
+    width: 100%;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    margin-bottom: 12px;
+}
+
+.light-preview {
+    background: #f9fafb;
+}
+
+.light-preview .preview-header {
+    height: 20px;
+    background: #e5e7eb;
+}
+
+.light-preview .preview-content {
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.light-preview .preview-card {
+    flex: 1;
+    height: 60px;
+    background: white;
+    border-radius: 6px;
+}
+
+.dark-preview {
+    background: #1f2937;
+}
+
+.dark-preview .preview-header {
+    height: 20px;
+    background: #374151;
+}
+
+.dark-preview .preview-content {
+    padding: 8px;
+    display: flex;
+    gap: 8px;
+}
+
+.dark-preview .preview-card {
+    flex: 1;
+    height: 60px;
+    background: #2d3748;
+    border-radius: 6px;
+}
+
+.auto-preview {
+    background: #f9fafb;
+}
+
+.preview-split {
+    display: flex;
+    height: 100%;
+}
+
+.preview-half {
+    flex: 1;
+}
+
+.preview-half.light {
+    background: linear-gradient(135deg, #ffffff 0%, #f9fafb 100%);
+}
+
+.preview-half.dark {
+    background: linear-gradient(135deg, #1f2937 0%, #111827 100%);
+}
+
+.mode-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.mode-icon {
+    font-size: 24px;
+    color: #667eea;
+}
+
+.mode-name {
+    font-size: 16px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Color Grid */
+.color-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    max-width: 800px;
+}
+
+.color-option {
+    width: 100%;
+    aspect-ratio: 1;
+    border-radius: 12px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    border: 3px solid transparent;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.active {
+    border-color: #1f2937;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+}
+
+.color-check {
+    font-size: 28px;
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.color-option.active .color-check {
+    opacity: 1;
+}
+
+/* Font Size Control */
+.font-size-control {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.font-preview {
+    width: 120px;
+    height: 120px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: #f9fafb;
+}
+
+.font-preview p {
+    font-size: 36px;
+    font-weight: 700;
+    color: #667eea;
+    margin: 0;
+}
+
+.font-preview span {
+    font-size: 14px;
+    color: #6b7280;
+    margin-top: 5px;
+}
+
+.font-slider-container {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.font-label {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 600;
+}
+
+.font-slider {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #e5e7eb;
+    outline: none;
+    -webkit-appearance: none;
+}
+
+.font-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    cursor: pointer;
+}
+
+.font-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #667eea;
+    min-width: 50px;
+    text-align: center;
+}
+
+/* Animation Options */
+.animation-options {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+}
+
+.animation-option {
+    position: relative;
+    cursor: pointer;
+}
+
+.animation-option input {
+    position: absolute;
+    opacity: 0;
+}
+
+.option-label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 20px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+
+.animation-option input:checked + .option-label {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+}
+
+.option-label i {
+    font-size: 28px;
+    color: #667eea;
+}
+
+.option-label {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Theme Preview */
+.theme-preview {
+    background: #f9fafb;
+    padding: 30px;
+    border-radius: 12px;
+}
+
+.preview-window {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+}
+
+.preview-topbar {
+    background: #e5e7eb;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.preview-dots {
+    display: flex;
+    gap: 6px;
+}
+
+.preview-dots span {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #9ca3af;
+}
+
+.preview-title {
+    font-size: 13px;
+    font-weight: 600;
+    color: #4b5563;
+}
+
+.preview-body {
+    display: flex;
+    height: 200px;
+}
+
+.preview-sidebar-mini {
+    width: 60px;
+    background: #667eea;
+}
+
+.preview-content-area {
+    flex: 1;
+    padding: 15px;
+}
+
+.preview-header-bar {
+    height: 30px;
+    background: #e5e7eb;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.preview-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.preview-mini-card {
+    height: 60px;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+}
+
+/* Actions */
+.theme-actions {
+    display: flex;
+    gap: 15px;
+    justify-content: center;
+    margin-top: 30px;
+}
+
+.btn {
+    padding: 14px 30px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-secondary {
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+}
+
+.btn-secondary:hover {
+    background: #667eea;
+    color: white;
+}
+
+/* Dark Mode */
+body.dark .theme-title {
+    color: #f3f4f6;
+}
+
+body.dark .theme-subtitle {
+    color: #9ca3af;
+}
+
+body.dark .theme-section {
+    background: #2d3748;
+    border-color: #4b5563;
+}
+
+body.dark .section-title {
+    color: #f3f4f6;
+}
+
+body.dark .section-description {
+    color: #9ca3af;
+}
+
+body.dark .theme-mode-card {
+    border-color: #4b5563;
+}
+
+body.dark .theme-mode-card.active {
+    background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
+}
+
+body.dark .mode-name {
+    color: #e5e7eb;
+}
+
+body.dark .color-option.active {
+    border-color: #f3f4f6;
+}
+
+body.dark .font-preview {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+body.dark .font-slider {
+    background: #4b5563;
+}
+
+body.dark .option-label {
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark .animation-option input:checked + .option-label {
+    background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
+}
+
+body.dark .theme-preview {
+    background: #374151;
+}
+
+body.dark .preview-window {
+    background: #2d3748;
+}
+
+body.dark .btn-secondary {
+    background: #374151;
+    border-color: #667eea;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .theme-modes {
+        grid-template-columns: 1fr;
+    }
+    
+    .color-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+    
+    .font-size-control {
+        flex-direction: column;
+    }
+    
+    .font-slider-container {
+        width: 100%;
+    }
+    
+    .animation-options {
+        grid-template-columns: 1fr;
+    }
+    
+    .theme-actions {
+        flex-direction: column;
+    }
+    
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+</style>
+
+<script>
+$(document).ready(function() {
+    // Load saved theme settings
+    function loadThemeSettings() {
+        const theme = localStorage.getItem('theme') || 'light';
+        const accentColor = localStorage.getItem('accentColor') || 'purple';
+        const fontSize = localStorage.getItem('fontSize') || '16';
+        const animationSpeed = localStorage.getItem('animationSpeed') || 'normal';
+        
+        // Apply theme mode
+        $(`.theme-mode-card[data-theme="${theme}"]`).addClass('active');
+        applyTheme(theme);
+        
+        // Apply accent color
+        $(`.color-option[data-color="${accentColor}"]`).addClass('active');
+        
+        // Apply font size
+        $('#font-slider').val(fontSize);
+        $('#font-value').text(`${fontSize}px`);
+        updateFontPreview(fontSize);
+        
+        // Apply animation speed
+        $(`input[name="animation"][value="${animationSpeed}"]`).prop('checked', true);
+    }
+
+    // Theme mode selection
+    $('.theme-mode-card').click(function() {
+        $('.theme-mode-card').removeClass('active');
+        $(this).addClass('active');
+        
+        const theme = $(this).data('theme');
+        applyTheme(theme);
+    });
+
+    // Color selection
+    $('.color-option').click(function() {
+        $('.color-option').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    // Font size slider
+    $('#font-slider').on('input', function() {
+        const size = $(this).val();
+        $('#font-value').text(`${size}px`);
+        updateFontPreview(size);
+    });
+
+    function updateFontPreview(size) {
+        const baseSize = parseInt(size);
+        $('#font-preview p').css('font-size', `${baseSize * 2.25}px`);
+        $('#font-preview span').css('font-size', `${baseSize * 0.875}px`);
+    }
+
+    // Sidebar position
+    $('.position-option').click(function() {
+        $('.position-option').removeClass('active');
+        $(this).addClass('active');
+    });
+
+    // Apply theme
+    function applyTheme(theme) {
+        if (theme === 'dark') {
+            $('body').addClass('dark');
+            localStorage.setItem('theme', 'dark');
+        } else if (theme === 'light') {
+            $('body').removeClass('dark');
+            localStorage.setItem('theme', 'light');
+        } else if (theme === 'auto') {
+            const isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            if (isDark) {
+                $('body').addClass('dark');
+            } else {
+                $('body').removeClass('dark');
+            }
+            localStorage.setItem('theme', 'auto');
+        }
+    }
+
+    // Save theme settings
+    $('#save-theme').click(function() {
+        const theme = $('.theme-mode-card.active').data('theme');
+        const accentColor = $('.color-option.active').data('color');
+        const fontSize = $('#font-slider').val();
+        const sidebarPosition = $('.position-option.active').data('position');
+        const animationSpeed = $('input[name="animation"]:checked').val();
+
+        localStorage.setItem('theme', theme);
+        localStorage.setItem('accentColor', accentColor);
+        localStorage.setItem('fontSize', fontSize);
+        localStorage.setItem('sidebarPosition', sidebarPosition);
+        localStorage.setItem('animationSpeed', animationSpeed);
+
+        applyTheme(theme);
+
+        // Show success message
+        const $btn = $(this);
+        const originalText = $btn.html();
+        $btn.html('<i class="bx bx-check"></i> Đã lưu!');
+        
+        setTimeout(() => {
+            $btn.html(originalText);
+        }, 2000);
+
+        // Apply to page
+        $('body').css('font-size', `${fontSize}px`);
+        
+        alert('✅ Đã lưu cài đặt giao diện thành công!');
+    });
+
+    // Reset to default
+    $('#reset-theme').click(function() {
+        if (confirm('Bạn có chắc muốn đặt lại tất cả cài đặt về mặc định?')) {
+            localStorage.removeItem('theme');
+            localStorage.removeItem('accentColor');
+            localStorage.removeItem('fontSize');
+            localStorage.removeItem('sidebarPosition');
+            localStorage.removeItem('animationSpeed');
+
+            // Reset UI
+            $('.theme-mode-card').removeClass('active');
+            $('.theme-mode-card[data-theme="light"]').addClass('active');
+            
+            $('.color-option').removeClass('active');
+            $('.color-option[data-color="purple"]').addClass('active');
+            
+            $('#font-slider').val(16);
+            $('#font-value').text('16px');
+            updateFontPreview(16);
+            
+            $('.position-option').removeClass('active');
+            $('.position-option[data-position="left"]').addClass('active');
+            
+            $('input[name="animation"][value="normal"]').prop('checked', true);
+
+            applyTheme('light');
+            $('body').css('font-size', '16px');
+
+            alert('✅ Đã đặt lại cài đặt về mặc định!');
+        }
+    });
+
+    // Theme sync from sidebar
+    $('#theme-toggle-sidebar').click(function(e) {
+        e.preventDefault();
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        
+        $('.theme-mode-card').removeClass('active');
+        $(`.theme-mode-card[data-theme="${newTheme}"]`).addClass('active');
+        
+        applyTheme(newTheme);
+    });
+
+    // Listen for storage changes (sync across tabs)
+    $(window).on('storage', function(e) {
+        if (e.originalEvent.key === 'theme') {
+            loadThemeSettings();
+        }
+    });
+
+    // Auto theme detection
+    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'auto') {
+            applyTheme('auto');
+        }
+    });
+
+    // Initialize
+    loadThemeSettings();
+});
+</script>
 </body>
 </html>

@@ -62,3 +62,24 @@ if (sidebar) {
     e.stopPropagation();
   }, { passive: true });
 }
+
+// Profile click handler - navigate to profile page
+const profileDetails = document.querySelector('.profile-details');
+if (profileDetails) {
+  profileDetails.addEventListener('click', () => {
+    window.location.href = '/profile/';
+  });
+  profileDetails.style.cursor = 'pointer';
+}
+
+// Logout button handler
+const logoutBtn = document.querySelector('#logout-btn');
+if (logoutBtn) {
+  logoutBtn.addEventListener('click', () => {
+    // Clear session/token
+    localStorage.removeItem('token');
+    sessionStorage.removeItem('token');
+    // Redirect to login
+    window.location.href = '/login/';
+  });
+}

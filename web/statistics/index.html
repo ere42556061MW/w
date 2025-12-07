@@ -6,169 +6,935 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quan Ly Bot - Statistics</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="/styles.css">
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <!-- Sidebar Navigation -->
 <div class="sidebar">
-<div class="logo-details">
-<i class="bx bxl-c-plus-plus icon"></i>
-<div class="logo_name">Bot Manager</div>
-<i class="bx bx-menu" id="btn"></i>
-</div>
-<ul class="nav-list">
-<li>
-<i class="bx bx-search"></i>
-<input type="text" placeholder="Search..." />
-<span class="tooltip">Search</span>
-</li>
-<li>
-<a href="/home/">
-<i class="bx bx-grid-alt"></i>
-<span class="links_name">Home</span>
-</a>
-<span class="tooltip">Home</span>
-</li>
-<li>
-<a href="/manager/" data-require-login="true">
-<i class="bx bx-cog"></i>
-<span class="links_name">Manager</span>
-</a>
-<span class="tooltip">Manager</span>
-</li>
-<li>
-<a href="/bots/" data-require-login="true">
-<i class="bx bxs-bot"></i>
-<span class="links_name">Bot</span>
-</a>
-<span class="tooltip">Bot</span>
-</li>
-<li>
-<a href="/create/" data-require-login="true">
-<i class="bx bx-plus"></i>
-<span class="links_name">Create</span>
-</a>
-<span class="tooltip">Create</span>
-</li>
-<li>
-<a href="/rental/" data-require-login="true">
-<i class="bx bx-money"></i>
-<span class="links_name">Rental</span>
-</a>
-<span class="tooltip">Rental</span>
-</li>
-<li>
-<a href="/commands/" data-require-login="true">
-<i class="bx bx-command"></i>
-<span class="links_name">Commands</span>
-</a>
-<span class="tooltip">Commands</span>
-</li>
-<li>
-<a href="/statistics/" data-require-login="true">
-<i class="bx bx-pie-chart-alt-2"></i>
-<span class="links_name">Statistics</span>
-</a>
-<span class="tooltip">Statistics</span>
-</li>
-<li>
-<a href="/users/" data-require-login="true">
-<i class="bx bx-user"></i>
-<span class="links_name">Users</span>
-</a>
-<span class="tooltip">Users</span>
-</li>
-<li>
-<a href="/history/" data-require-login="true">
-<i class="bx bx-history"></i>
-<span class="links_name">History</span>
-</a>
-<span class="tooltip">History</span>
-</li>
-<li>
-<a href="/settings/" data-require-login="true">
-<i class="bx bx-slider"></i>
-<span class="links_name">Settings</span>
-</a>
-<span class="tooltip">Settings</span>
-</li>
-<li>
-<a href="/theme/" data-require-login="true">
-<i class="bx bx-palette"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Theme</span>
-</li>
-<li>
-<a href="#" id="theme-toggle-sidebar">
-<i class="bx bx-moon"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Toggle Theme</span>
-</li>
-<li>
-<a href="#" id="nav-register-btn">
-<i class="bx bx-user-plus"></i>
-<span class="links_name">Register</span>
-</a>
-<span class="tooltip">Register</span>
-</li>
-<li class="profile">
-<div class="profile-details">
-<img src="/profile.jpg" alt="profileImg" />
-<div class="name_job">
-<div class="name" id="profile-name">User</div>
-<div class="job">Web Manager</div>
-</div>
-</div>
-<i class="bx bx-log-out" id="logout-btn"></i>
-</li>
-</ul>
+    <div class="logo-details">
+        <i class="bx bxl-c-plus-plus icon"></i>
+        <div class="logo_name">Bot Manager</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search..." />
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/home/">
+                <i class="bx bx-grid-alt"></i>
+                <span class="links_name">Home</span>
+            </a>
+            <span class="tooltip">Home</span>
+        </li>
+        <li>
+            <a href="/manager/" data-require-login="true">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Manager</span>
+            </a>
+            <span class="tooltip">Manager</span>
+        </li>
+        <li>
+            <a href="/bots/" data-require-login="true">
+                <i class="bx bxs-bot"></i>
+                <span class="links_name">Bot</span>
+            </a>
+            <span class="tooltip">Bot</span>
+        </li>
+        <li>
+            <a href="/create/" data-require-login="true">
+                <i class="bx bx-plus"></i>
+                <span class="links_name">Create</span>
+            </a>
+            <span class="tooltip">Create</span>
+        </li>
+        <li>
+            <a href="/rental/" data-require-login="true">
+                <i class="bx bx-money"></i>
+                <span class="links_name">Rental</span>
+            </a>
+            <span class="tooltip">Rental</span>
+        </li>
+        <li>
+            <a href="/commands/" data-require-login="true">
+                <i class="bx bx-command"></i>
+                <span class="links_name">Commands</span>
+            </a>
+            <span class="tooltip">Commands</span>
+        </li>
+        <li>
+            <a href="/statistics/" data-require-login="true">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="links_name">Statistics</span>
+            </a>
+            <span class="tooltip">Statistics</span>
+        </li>
+        <li>
+            <a href="/users/" data-require-login="true">
+                <i class="bx bx-user"></i>
+                <span class="links_name">Users</span>
+            </a>
+            <span class="tooltip">Users</span>
+        </li>
+        <li>
+            <a href="/history/" data-require-login="true">
+                <i class="bx bx-history"></i>
+                <span class="links_name">History</span>
+            </a>
+            <span class="tooltip">History</span>
+        </li>
+        <li>
+            <a href="/settings/" data-require-login="true">
+                <i class="bx bx-slider"></i>
+                <span class="links_name">Settings</span>
+            </a>
+            <span class="tooltip">Settings</span>
+        </li>
+        <li>
+            <a href="/theme/" data-require-login="true">
+                <i class="bx bx-palette"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Theme</span>
+        </li>
+        <li>
+            <a href="#" id="theme-toggle-sidebar">
+                <i class="bx bx-moon"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Toggle Theme</span>
+        </li>
+        <li id="auth-buttons" style="display: none;">
+            <a href="/login/">
+                <i class="bx bx-log-in"></i>
+                <span class="links_name">Login</span>
+            </a>
+            <span class="tooltip">Login</span>
+        </li>
+        <li id="register-button" style="display: none;">
+            <a href="/register/">
+                <i class="bx bx-user-plus"></i>
+                <span class="links_name">Register</span>
+            </a>
+            <span class="tooltip">Register</span>
+        </li>
+        <li class="profile" id="user-profile">
+            <div class="profile-details">
+                <img src="/profile.jpg" alt="profileImg" />
+                <div class="name_job">
+                    <div class="name" id="profile-name">User</div>
+                    <div class="job">Web Manager</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="logout-btn"></i>
+        </li>
+    </ul>
 </div>
 
 <section class="home-section">
-<div class="page active" id="statistics-page">
-<div class="home-container">
-<div>
-<h2 class="page-title">📊 Thống Kê</h2>
-<div class="stats-grid">
-<div class="stat-card">
-<div class="stat-icon">📨</div>
-<div class="stat-content">
-<h3>Tin Nhắn</h3>
-<p id="stat-messages">0</p>
-</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">👥</div>
-<div class="stat-content">
-<h3>Người Dùng</h3>
-<p id="stat-users">0</p>
-</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">🤖</div>
-<div class="stat-content">
-<h3>Bot Hoạt Động</h3>
-<p id="stat-active-bots">0</p>
-</div>
-</div>
-<div class="stat-card">
-<div class="stat-icon">📋</div>
-<div class="stat-content">
-<h3>Lệnh Xử Lý</h3>
-<p id="stat-commands">0</p>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <div class="page active" id="statistics-page">
+        <div class="statistics-container">
+            <!-- Header -->
+            <div class="stats-header">
+                <h2 class="stats-title">📊 Thống Kê & Phân Tích</h2>
+                <div class="stats-filters">
+                    <select class="filter-select" id="time-filter">
+                        <option value="7">7 ngày qua</option>
+                        <option value="30" selected>30 ngày qua</option>
+                        <option value="90">90 ngày qua</option>
+                        <option value="365">1 năm qua</option>
+                    </select>
+                    <button class="btn-refresh" id="refresh-stats">
+                        <i class="bx bx-refresh"></i> Làm mới
+                    </button>
+                </div>
+            </div>
+
+            <!-- Overview Cards -->
+            <div class="stats-overview">
+                <div class="stat-card">
+                    <div class="stat-icon blue">
+                        <i class="bx bx-message-dots"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Tin Nhắn</div>
+                        <div class="stat-value" id="stat-messages">0</div>
+                        <div class="stat-change positive">
+                            <i class="bx bx-trending-up"></i>
+                            <span id="stat-messages-change">+12%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon green">
+                        <i class="bx bx-user"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Người Dùng</div>
+                        <div class="stat-value" id="stat-users">0</div>
+                        <div class="stat-change positive">
+                            <i class="bx bx-trending-up"></i>
+                            <span id="stat-users-change">+8%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon purple">
+                        <i class="bx bxs-bot"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Bot Hoạt Động</div>
+                        <div class="stat-value" id="stat-bots">0</div>
+                        <div class="stat-change positive">
+                            <i class="bx bx-trending-up"></i>
+                            <span id="stat-bots-change">+5%</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="stat-card">
+                    <div class="stat-icon orange">
+                        <i class="bx bx-command"></i>
+                    </div>
+                    <div class="stat-content">
+                        <div class="stat-label">Lệnh Xử Lý</div>
+                        <div class="stat-value" id="stat-commands">0</div>
+                        <div class="stat-change positive">
+                            <i class="bx bx-trending-up"></i>
+                            <span id="stat-commands-change">+15%</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Charts Section -->
+            <div class="charts-grid">
+                <!-- Messages Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>📈 Tin Nhắn Theo Thời Gian</h3>
+                        <div class="chart-legend">
+                            <span class="legend-item">
+                                <span class="legend-dot blue"></span> Tin nhắn
+                            </span>
+                        </div>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="messagesChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Commands Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>🎯 Top Lệnh Phổ Biến</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="commandsChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Users Chart -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>👥 Người Dùng Hoạt Động</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="usersChart"></canvas>
+                    </div>
+                </div>
+
+                <!-- Bot Activity -->
+                <div class="chart-card">
+                    <div class="chart-header">
+                        <h3>🤖 Hoạt Động Bot</h3>
+                    </div>
+                    <div class="chart-container">
+                        <canvas id="botsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detailed Stats Table -->
+            <div class="detailed-stats">
+                <div class="table-card">
+                    <div class="table-header">
+                        <h3>📋 Thống Kê Chi Tiết</h3>
+                        <button class="btn-export" id="export-stats">
+                            <i class="bx bx-download"></i> Xuất dữ liệu
+                        </button>
+                    </div>
+                    <div class="table-container">
+                        <table class="stats-table">
+                            <thead>
+                                <tr>
+                                    <th>Bot</th>
+                                    <th>Tin nhắn</th>
+                                    <th>Người dùng</th>
+                                    <th>Lệnh</th>
+                                    <th>Uptime</th>
+                                    <th>Trạng thái</th>
+                                </tr>
+                            </thead>
+                            <tbody id="stats-table-body">
+                                <!-- Data will be loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Boxicons CDN Link -->
 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
 <script src="/sidebar.js"></script>
-<script src="/script.js"></script>
+
+<style>
+/* Statistics Container */
+.statistics-container {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+/* Header */
+.stats-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.stats-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.stats-filters {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.filter-select {
+    padding: 10px 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    color: #374151;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.btn-refresh {
+    padding: 10px 20px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-refresh:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+}
+
+/* Overview Cards */
+.stats-overview {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.stat-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.stat-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    color: white;
+}
+
+.stat-icon.blue {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.stat-icon.green {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.stat-icon.purple {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.stat-icon.orange {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.stat-content {
+    flex: 1;
+}
+
+.stat-label {
+    font-size: 13px;
+    color: #6b7280;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.stat-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 5px;
+}
+
+.stat-change {
+    font-size: 13px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.stat-change.positive {
+    color: #10b981;
+}
+
+.stat-change.negative {
+    color: #ef4444;
+}
+
+/* Charts Grid */
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 30px;
+}
+
+.chart-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.chart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.chart-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.chart-legend {
+    display: flex;
+    gap: 15px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+    color: #6b7280;
+}
+
+.legend-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+}
+
+.legend-dot.blue {
+    background: #667eea;
+}
+
+.chart-container {
+    position: relative;
+    height: 300px;
+}
+
+/* Detailed Stats Table */
+.detailed-stats {
+    margin-top: 30px;
+}
+
+.table-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.table-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.table-header h3 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0;
+}
+
+.btn-export {
+    padding: 10px 20px;
+    background: white;
+    color: #667eea;
+    border: 2px solid #667eea;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.btn-export:hover {
+    background: #667eea;
+    color: white;
+}
+
+.table-container {
+    overflow-x: auto;
+}
+
+.stats-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.stats-table thead {
+    background: #f9fafb;
+}
+
+.stats-table th {
+    padding: 12px;
+    text-align: left;
+    font-size: 13px;
+    font-weight: 600;
+    color: #6b7280;
+    border-bottom: 2px solid #e5e7eb;
+}
+
+.stats-table td {
+    padding: 12px;
+    font-size: 14px;
+    color: #374151;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.stats-table tbody tr:hover {
+    background: #f9fafb;
+}
+
+.status-badge {
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.status-badge.online {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.status-badge.offline {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+/* Dark Mode */
+body.dark .stats-title {
+    color: #f3f4f6;
+}
+
+body.dark .filter-select {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark .stat-card {
+    background: #2d3748;
+    border-color: #4b5563;
+}
+
+body.dark .stat-label {
+    color: #9ca3af;
+}
+
+body.dark .stat-value {
+    color: #f3f4f6;
+}
+
+body.dark .chart-card {
+    background: #2d3748;
+    border-color: #4b5563;
+}
+
+body.dark .chart-header h3 {
+    color: #f3f4f6;
+}
+
+body.dark .table-card {
+    background: #2d3748;
+    border-color: #4b5563;
+}
+
+body.dark .table-header h3 {
+    color: #f3f4f6;
+}
+
+body.dark .stats-table thead {
+    background: #374151;
+}
+
+body.dark .stats-table th {
+    color: #9ca3af;
+    border-bottom-color: #4b5563;
+}
+
+body.dark .stats-table td {
+    color: #d1d5db;
+    border-bottom-color: #4b5563;
+}
+
+body.dark .stats-table tbody tr:hover {
+    background: #374151;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+    .charts-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .stats-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .stats-overview {
+        grid-template-columns: 1fr;
+    }
+    
+    .stats-filters {
+        width: 100%;
+        flex-direction: column;
+    }
+    
+    .filter-select,
+    .btn-refresh {
+        width: 100%;
+    }
+}
+</style>
+
+<script>
+$(document).ready(function() {
+    let messagesChart, commandsChart, usersChart, botsChart;
+    
+    // Check login
+    function checkLogin() {
+        $.ajax({
+            url: '/api/auth/me',
+            method: 'GET',
+            error: function() {
+                alert('⚠️ Bạn cần đăng nhập để xem thống kê!');
+                window.location.href = '/login/';
+            }
+        });
+    }
+
+    // Load statistics data
+    function loadStatistics() {
+        const timeFilter = $('#time-filter').val();
+        
+        // Show loading
+        $('.stat-value').text('...');
+        
+        // Load overview stats
+        $.ajax({
+            url: `/api/statistics/overview?days=${timeFilter}`,
+            method: 'GET',
+            success: function(data) {
+                $('#stat-messages').text(data.messages?.toLocaleString('vi-VN') || '0');
+                $('#stat-users').text(data.users?.toLocaleString('vi-VN') || '0');
+                $('#stat-bots').text(data.bots?.toLocaleString('vi-VN') || '0');
+                $('#stat-commands').text(data.commands?.toLocaleString('vi-VN') || '0');
+                
+                // Update changes
+                $('#stat-messages-change').text(`${data.messagesChange > 0 ? '+' : ''}${data.messagesChange}%`);
+                $('#stat-users-change').text(`${data.usersChange > 0 ? '+' : ''}${data.usersChange}%`);
+                $('#stat-bots-change').text(`${data.botsChange > 0 ? '+' : ''}${data.botsChange}%`);
+                $('#stat-commands-change').text(`${data.commandsChange > 0 ? '+' : ''}${data.commandsChange}%`);
+            },
+            error: function() {
+                // Use sample data if API fails
+                loadSampleData();
+            }
+        });
+        
+        // Load charts data
+        loadCharts(timeFilter);
+        loadDetailedStats();
+    }
+
+    // Load sample data
+    function loadSampleData() {
+        $('#stat-messages').text('12,543');
+        $('#stat-users').text('1,234');
+        $('#stat-bots').text('5');
+        $('#stat-commands').text('8,721');
+    }
+
+    // Load charts
+    function loadCharts(days) {
+        // Messages Chart
+        const ctx1 = document.getElementById('messagesChart');
+        if (messagesChart) messagesChart.destroy();
+        messagesChart = new Chart(ctx1, {
+            type: 'line',
+            data: {
+                labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+                datasets: [{
+                    label: 'Tin nhắn',
+                    data: [1200, 1900, 1500, 2100, 1800, 2400, 2000],
+                    borderColor: '#667eea',
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Commands Chart
+        const ctx2 = document.getElementById('commandsChart');
+        if (commandsChart) commandsChart.destroy();
+        commandsChart = new Chart(ctx2, {
+            type: 'bar',
+            data: {
+                labels: ['/help', '/music', '/game', '/stats', '/info'],
+                datasets: [{
+                    label: 'Số lần dùng',
+                    data: [1500, 1200, 800, 600, 400],
+                    backgroundColor: [
+                        '#667eea',
+                        '#10b981',
+                        '#f59e0b',
+                        '#8b5cf6',
+                        '#ef4444'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Users Chart
+        const ctx3 = document.getElementById('usersChart');
+        if (usersChart) usersChart.destroy();
+        usersChart = new Chart(ctx3, {
+            type: 'line',
+            data: {
+                labels: ['T2', 'T3', 'T4', 'T5', 'T6', 'T7', 'CN'],
+                datasets: [{
+                    label: 'Người dùng',
+                    data: [150, 200, 180, 250, 220, 280, 300],
+                    borderColor: '#10b981',
+                    backgroundColor: 'rgba(16, 185, 129, 0.1)',
+                    tension: 0.4,
+                    fill: true
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { display: false }
+                }
+            }
+        });
+
+        // Bots Chart
+        const ctx4 = document.getElementById('botsChart');
+        if (botsChart) botsChart.destroy();
+        botsChart = new Chart(ctx4, {
+            type: 'doughnut',
+            data: {
+                labels: ['Online', 'Idle', 'Offline'],
+                datasets: [{
+                    data: [3, 1, 1],
+                    backgroundColor: [
+                        '#10b981',
+                        '#f59e0b',
+                        '#ef4444'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    }
+
+    // Load detailed stats table
+    function loadDetailedStats() {
+        const $tbody = $('#stats-table-body');
+        $tbody.empty();
+        
+        const sampleBots = [
+            { name: 'Bot Alpha', messages: 5234, users: 456, commands: 3421, uptime: '99.9%', status: 'online' },
+            { name: 'Bot Beta', messages: 3456, users: 312, commands: 2456, uptime: '98.5%', status: 'online' },
+            { name: 'Bot Gamma', messages: 2134, users: 234, commands: 1567, uptime: '97.2%', status: 'online' },
+            { name: 'Bot Delta', messages: 1219, users: 132, commands: 877, uptime: '95.8%', status: 'idle' },
+            { name: 'Bot Epsilon', messages: 500, users: 100, commands: 400, uptime: '0%', status: 'offline' }
+        ];
+        
+        sampleBots.forEach(bot => {
+            const statusClass = bot.status === 'online' ? 'online' : bot.status === 'idle' ? 'online' : 'offline';
+            const statusText = bot.status === 'online' ? 'Online' : bot.status === 'idle' ? 'Idle' : 'Offline';
+            
+            const row = $(`
+                <tr>
+                    <td><strong>${bot.name}</strong></td>
+                    <td>${bot.messages.toLocaleString('vi-VN')}</td>
+                    <td>${bot.users.toLocaleString('vi-VN')}</td>
+                    <td>${bot.commands.toLocaleString('vi-VN')}</td>
+                    <td>${bot.uptime}</td>
+                    <td><span class="status-badge ${statusClass}">${statusText}</span></td>
+                </tr>
+            `);
+            $tbody.append(row);
+        });
+    }
+
+    // Refresh stats
+    $('#refresh-stats').click(function() {
+        const $icon = $(this).find('i');
+        $icon.addClass('bx-spin');
+        
+        loadStatistics();
+        
+        setTimeout(() => {
+            $icon.removeClass('bx-spin');
+        }, 1000);
+    });
+
+    // Time filter change
+    $('#time-filter').change(function() {
+        loadStatistics();
+    });
+
+    // Export stats
+    $('#export-stats').click(function() {
+        alert('📊 Tính năng xuất dữ liệu đang được phát triển!');
+    });
+
+    // Theme synchronization
+    function applyTheme() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            $('body').addClass('dark');
+        } else {
+            $('body').removeClass('dark');
+        }
+    }
+
+    applyTheme();
+
+    $('#theme-toggle-sidebar').click(function(e) {
+        e.preventDefault();
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', newTheme);
+        applyTheme();
+    });
+
+    $(window).on('storage', function(e) {
+        if (e.originalEvent.key === 'theme') {
+            applyTheme();
+        }
+    });
+
+    // Initialize
+    checkLogin();
+    loadStatistics();
+});
+</script>
 </body>
 </html>

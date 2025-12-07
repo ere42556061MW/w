@@ -121,6 +121,7 @@ $(document).ready(function() {
 
     function showUserProfile(user) {
         $('#auth-buttons').hide();
+        $('#register-button').hide();
         $('#user-profile').show();
         $('#profile-name').text(user.username || user.fullname || 'User');
         $('#profile-avatar').text((user.username || user.fullname || 'U').charAt(0).toUpperCase());
@@ -128,6 +129,7 @@ $(document).ready(function() {
 
     function showAuthButtons() {
         $('#auth-buttons').show();
+        $('#register-button').show();
         $('#user-profile').hide();
     }
 

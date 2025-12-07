@@ -4,143 +4,1782 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quan Ly Bot - Commands</title>
+    <title>Quan Ly Bot - Commands Store</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="/styles.css">
-
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <!-- Sidebar Navigation -->
 <div class="sidebar">
-<div class="logo-details">
-<i class="bx bxl-c-plus-plus icon"></i>
-<div class="logo_name">Bot Manager</div>
-<i class="bx bx-menu" id="btn"></i>
-</div>
-<ul class="nav-list">
-<li>
-<i class="bx bx-search"></i>
-<input type="text" placeholder="Search..." />
-<span class="tooltip">Search</span>
-</li>
-<li>
-<a href="/home/">
-<i class="bx bx-grid-alt"></i>
-<span class="links_name">Home</span>
-</a>
-<span class="tooltip">Home</span>
-</li>
-<li>
-<a href="/manager/" data-require-login="true">
-<i class="bx bx-cog"></i>
-<span class="links_name">Manager</span>
-</a>
-<span class="tooltip">Manager</span>
-</li>
-<li>
-<a href="/bots/" data-require-login="true">
-<i class="bx bxs-bot"></i>
-<span class="links_name">Bot</span>
-</a>
-<span class="tooltip">Bot</span>
-</li>
-<li>
-<a href="/create/" data-require-login="true">
-<i class="bx bx-plus"></i>
-<span class="links_name">Create</span>
-</a>
-<span class="tooltip">Create</span>
-</li>
-<li>
-<a href="/rental/" data-require-login="true">
-<i class="bx bx-money"></i>
-<span class="links_name">Rental</span>
-</a>
-<span class="tooltip">Rental</span>
-</li>
-<li>
-<a href="/commands/" data-require-login="true">
-<i class="bx bx-command"></i>
-<span class="links_name">Commands</span>
-</a>
-<span class="tooltip">Commands</span>
-</li>
-<li>
-<a href="/statistics/" data-require-login="true">
-<i class="bx bx-pie-chart-alt-2"></i>
-<span class="links_name">Statistics</span>
-</a>
-<span class="tooltip">Statistics</span>
-</li>
-<li>
-<a href="/users/" data-require-login="true">
-<i class="bx bx-user"></i>
-<span class="links_name">Users</span>
-</a>
-<span class="tooltip">Users</span>
-</li>
-<li>
-<a href="/history/" data-require-login="true">
-<i class="bx bx-history"></i>
-<span class="links_name">History</span>
-</a>
-<span class="tooltip">History</span>
-</li>
-<li>
-<a href="/settings/" data-require-login="true">
-<i class="bx bx-slider"></i>
-<span class="links_name">Settings</span>
-</a>
-<span class="tooltip">Settings</span>
-</li>
-<li>
-<a href="/theme/" data-require-login="true">
-<i class="bx bx-palette"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Theme</span>
-</li>
-<li>
-<a href="#" id="theme-toggle-sidebar">
-<i class="bx bx-moon"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Toggle Theme</span>
-</li>
-<li>
-<a href="#" id="nav-register-btn">
-<i class="bx bx-user-plus"></i>
-<span class="links_name">Register</span>
-</a>
-<span class="tooltip">Register</span>
-</li>
-<li class="profile">
-<div class="profile-details">
-<img src="/profile.jpg" alt="profileImg" />
-<div class="name_job">
-<div class="name" id="profile-name">User</div>
-<div class="job">Web Manager</div>
-</div>
-</div>
-<i class="bx bx-log-out" id="logout-btn"></i>
-</li>
-</ul>
+    <div class="logo-details">
+        <i class="bx bxl-c-plus-plus icon"></i>
+        <div class="logo_name">Bot Manager</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search..." />
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/home/">
+                <i class="bx bx-grid-alt"></i>
+                <span class="links_name">Home</span>
+            </a>
+            <span class="tooltip">Home</span>
+        </li>
+        <li>
+            <a href="/manager/" data-require-login="true">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Manager</span>
+            </a>
+            <span class="tooltip">Manager</span>
+        </li>
+        <li>
+            <a href="/bots/" data-require-login="true">
+                <i class="bx bxs-bot"></i>
+                <span class="links_name">Bot</span>
+            </a>
+            <span class="tooltip">Bot</span>
+        </li>
+        <li>
+            <a href="/create/" data-require-login="true">
+                <i class="bx bx-plus"></i>
+                <span class="links_name">Create</span>
+            </a>
+            <span class="tooltip">Create</span>
+        </li>
+        <li>
+            <a href="/rental/" data-require-login="true">
+                <i class="bx bx-money"></i>
+                <span class="links_name">Rental</span>
+            </a>
+            <span class="tooltip">Rental</span>
+        </li>
+        <li>
+            <a href="/commands/" data-require-login="true">
+                <i class="bx bx-command"></i>
+                <span class="links_name">Commands</span>
+            </a>
+            <span class="tooltip">Commands</span>
+        </li>
+        <li>
+            <a href="/statistics/" data-require-login="true">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="links_name">Statistics</span>
+            </a>
+            <span class="tooltip">Statistics</span>
+        </li>
+        <li>
+            <a href="/users/" data-require-login="true">
+                <i class="bx bx-user"></i>
+                <span class="links_name">Users</span>
+            </a>
+            <span class="tooltip">Users</span>
+        </li>
+        <li>
+            <a href="/history/" data-require-login="true">
+                <i class="bx bx-history"></i>
+                <span class="links_name">History</span>
+            </a>
+            <span class="tooltip">History</span>
+        </li>
+        <li>
+            <a href="/settings/" data-require-login="true">
+                <i class="bx bx-slider"></i>
+                <span class="links_name">Settings</span>
+            </a>
+            <span class="tooltip">Settings</span>
+        </li>
+        <li>
+            <a href="/theme/" data-require-login="true">
+                <i class="bx bx-palette"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Theme</span>
+        </li>
+        <li>
+            <a href="#" id="theme-toggle-sidebar">
+                <i class="bx bx-moon"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Toggle Theme</span>
+        </li>
+        <li id="auth-buttons" style="display: none;">
+            <a href="/login/">
+                <i class="bx bx-log-in"></i>
+                <span class="links_name">Login</span>
+            </a>
+            <span class="tooltip">Login</span>
+        </li>
+        <li id="register-button" style="display: none;">
+            <a href="/register/">
+                <i class="bx bx-user-plus"></i>
+                <span class="links_name">Register</span>
+            </a>
+            <span class="tooltip">Register</span>
+        </li>
+        <li class="profile" id="user-profile">
+            <div class="profile-details">
+                <div class="avatar" id="profile-avatar">U</div>
+                <div class="name_job">
+                    <div class="name" id="profile-name">User</div>
+                    <div class="job">Web Manager</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="logout-btn"></i>
+        </li>
+    </ul>
 </div>
 
 <section class="home-section">
-<div class="page active" id="commands-page">
-<div class="home-container">
-<div class="commands-card">
-<h2 class="page-title">📋 Danh Sách Lệnh</h2>
-<div class="commands-list" id="commands-list"></div>
-<button class="btn btn-primary" id="add-command-btn" style="margin-top: 20px;">➕ Thêm Lệnh</button>
-</div>
-</div>
-</div>
+    <div class="page active" id="commands-page">
+        <div class="commands-store-container">
+            <!-- Header -->
+            <div class="store-header">
+                <div class="header-top">
+                    <div>
+                        <h2 class="store-title">🛒 Cửa Hàng Lệnh</h2>
+                        <p class="store-subtitle">Mua lệnh để mở khóa tính năng cho bot của bạn</p>
+                    </div>
+                </div>
+                <div class="store-tabs">
+                    <button class="tab-btn active" data-tab="available">Khả dụng</button>
+                    <button class="tab-btn" data-tab="owned">Đã sở hữu</button>
+                </div>
+            </div>
+
+            <!-- Available Commands Tab -->
+            <div class="tab-content active" id="available-tab">
+                <div class="commands-grid" id="commands-grid">
+                    <!-- Commands will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Owned Commands Tab -->
+            <div class="tab-content" id="owned-tab">
+                <div class="owned-commands-list" id="owned-commands-list">
+                    <!-- Owned commands will be loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- Checkout Section -->
+            <div class="checkout-section" id="checkout-section">
+                <div class="checkout-card">
+                    <h3 class="checkout-title">🛒 Giỏ hàng của bạn</h3>
+                    
+                    <div class="cart-items-checkout" id="cart-items-checkout">
+                        <p class="empty-cart-text">Chưa có sản phẩm trong giỏ</p>
+                    </div>
+
+                    <!-- Bot Selection -->
+                    <div class="action-group">
+                        <label>Chọn Bot cần thêm lệnh:</label>
+                        <select class="input-field" id="checkout-bot-select">
+                            <option value="">-- Chọn bot --</option>
+                        </select>
+                    </div>
+
+                    <!-- Contact Info -->
+                    <div class="action-group">
+                        <label>Email liên hệ:</label>
+                        <input type="email" class="input-field" id="checkout-email" placeholder="email@example.com" />
+                    </div>
+
+                    <!-- Summary -->
+                    <div class="rental-summary">
+                        <div class="summary-row">
+                            <span>Số lượng lệnh:</span>
+                            <span id="checkout-count">0 lệnh</span>
+                        </div>
+                        <div class="summary-row total">
+                            <span>Tổng cộng:</span>
+                            <span id="checkout-total">0đ</span>
+                        </div>
+                    </div>
+
+                    <!-- Payment Methods -->
+                    <div class="payment-methods">
+                        <div class="payment-method active" data-method="momo">
+                            <div class="payment-icon">📱</div>
+                            <div class="payment-name">MoMo</div>
+                        </div>
+                        <div class="payment-method" data-method="bank">
+                            <div class="payment-icon">🏦</div>
+                            <div class="payment-name">Banking</div>
+                        </div>
+                        <div class="payment-method" data-method="card">
+                            <div class="payment-icon">💳</div>
+                            <div class="payment-name">Thẻ</div>
+                        </div>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button class="btn btn-primary" id="checkout-submit-btn" disabled>
+                        💳 Tiến hành thanh toán
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
+<!-- Cart Modal -->
+<div class="modal" id="cart-modal">
+    <div class="modal-content" style="max-width: 700px;">
+        <span class="modal-close">&times;</span>
+        <h3 class="modal-title">🛒 Giỏ hàng của bạn</h3>
+        
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be loaded here -->
+        </div>
+
+        <div class="cart-summary">
+            <div class="summary-row">
+                <span>Tổng số lệnh:</span>
+                <span id="cart-total-items">0</span>
+            </div>
+            <div class="summary-row total">
+                <span>Tổng tiền:</span>
+                <span id="cart-total-price">0đ</span>
+            </div>
+        </div>
+
+        <div class="cart-actions">
+            <button class="btn btn-secondary" id="clear-cart-btn">🗑️ Xóa tất cả</button>
+            <button class="btn btn-primary" id="checkout-cart-btn">💳 Thanh toán</button>
+        </div>
+    </div>
+</div>
+
+<!-- Purchase Modal -->
+<div class="modal" id="purchase-modal">
+    <div class="modal-content">
+        <span class="modal-close">&times;</span>
+        <h3 class="modal-title">Mua Lệnh</h3>
+        
+        <div class="command-preview" id="command-preview">
+            <!-- Command details will be filled here -->
+        </div>
+
+        <div class="purchase-form">
+            <div class="form-group">
+                <label>Chọn Bot:</label>
+                <select class="input-field" id="purchase-bot-select">
+                    <option value="">-- Chọn bot --</option>
+                </select>
+            </div>
+
+            <div class="purchase-summary">
+                <div class="summary-row">
+                    <span>Tên lệnh:</span>
+                    <span id="purchase-command-name">-</span>
+                </div>
+                <div class="summary-row">
+                    <span>Giá:</span>
+                    <span id="purchase-price">0đ</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Tổng cộng:</span>
+                    <span id="purchase-total">0đ</span>
+                </div>
+            </div>
+
+            <div class="payment-methods">
+                <div class="payment-method active" data-method="momo">
+                    <div class="payment-icon">📱</div>
+                    <div class="payment-name">MoMo</div>
+                </div>
+                <div class="payment-method" data-method="bank">
+                    <div class="payment-icon">🏦</div>
+                    <div class="payment-name">Banking</div>
+                </div>
+                <div class="payment-method" data-method="card">
+                    <div class="payment-icon">💳</div>
+                    <div class="payment-name">Thẻ</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" id="confirm-purchase-btn">
+                💳 Xác nhận mua
+            </button>
+        </div>
+    </div>
+</div>
+
 <!-- Boxicons CDN Link -->
 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
 <script src="/sidebar.js"></script>
-<script src="/script.js"></script>
+
+<style>
+/* Commands Store Styles */
+.commands-store-container {
+    padding: 30px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.store-header {
+    margin-bottom: 40px;
+}
+
+.header-top {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.store-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 10px;
+}
+
+.store-subtitle {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.store-tabs {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.tab-btn {
+    padding: 10px 30px;
+    border: 2px solid #e5e7eb;
+    background: white;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.tab-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.tab-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* Commands Grid */
+.commands-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+@media (max-width: 1400px) {
+    .commands-grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 1024px) {
+    .commands-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .commands-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.command-card {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+}
+
+.command-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    border-color: #667eea;
+}
+
+.command-card.selected {
+    border-color: #10b981;
+    border-width: 3px;
+    background: linear-gradient(135deg, #ecfdf5 0%, #ffffff 100%);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.2);
+}
+
+.command-card.selected::after {
+    content: '✓';
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    width: 35px;
+    height: 35px;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 20px;
+    font-weight: bold;
+    box-shadow: 0 4px 10px rgba(16, 185, 129, 0.3);
+}
+
+.command-card.premium {
+    border-color: #f59e0b;
+    background: linear-gradient(135deg, #fff9e6 0%, #ffffff 100%);
+}
+
+.command-card.premium.selected {
+    border-color: #10b981;
+    background: linear-gradient(135deg, #ecfdf5 0%, #fff9e6 100%);
+}
+
+.command-card.premium::before {
+    content: '⭐ Premium';
+    position: absolute;
+    top: -10px;
+    right: 15px;
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.command-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.command-name {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 8px;
+}
+
+.command-description {
+    font-size: 14px;
+    color: #6b7280;
+    margin-bottom: 15px;
+    line-height: 1.5;
+    flex-grow: 1;
+}
+
+.command-features {
+    list-style: none;
+    padding: 0;
+    margin: 15px 0;
+}
+
+.command-features li {
+    font-size: 13px;
+    color: #4b5563;
+    padding: 5px 0;
+    padding-left: 20px;
+    position: relative;
+}
+
+.command-features li::before {
+    content: '✓';
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: bold;
+}
+
+.command-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: auto;
+    padding-top: 15px;
+    border-top: 1px solid #e5e7eb;
+}
+
+.command-price {
+    font-size: 22px;
+    font-weight: 700;
+    color: #10b981;
+}
+
+.command-actions {
+    display: none;
+}
+
+/* Owned Commands List */
+.owned-commands-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 15px;
+}
+
+.owned-command-item {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.owned-command-icon {
+    font-size: 40px;
+}
+
+.owned-command-info {
+    flex: 1;
+}
+
+.owned-command-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 5px;
+}
+
+.owned-command-bot {
+    font-size: 14px;
+    color: #6b7280;
+}
+
+.owned-command-date {
+    font-size: 12px;
+    color: #9ca3af;
+    margin-top: 5px;
+}
+
+.owned-badge {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: white;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+/* Modal Styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    backdrop-filter: blur(5px);
+}
+
+.modal.active {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-close {
+    position: absolute;
+    right: 20px;
+    top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: #9ca3af;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.modal-close:hover {
+    color: #ef4444;
+}
+
+.modal-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 20px;
+}
+
+.command-preview {
+    background: #f9fafb;
+    padding: 20px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.purchase-summary {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    font-size: 14px;
+    color: #4b5563;
+}
+
+.summary-row.total {
+    border-top: 2px solid #e5e7eb;
+    margin-top: 10px;
+    padding-top: 10px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 10px;
+    margin: 20px 0;
+}
+
+.payment-method {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.payment-method:hover {
+    border-color: #667eea;
+}
+
+.payment-method.active {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+}
+
+.payment-icon {
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.payment-name {
+    font-size: 12px;
+    font-weight: 600;
+    color: #374151;
+}
+
+/* Cart Styles */
+.cart-items {
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f9fafb;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+.cart-item-icon {
+    font-size: 40px;
+}
+
+.cart-item-info {
+    flex: 1;
+}
+
+.cart-item-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 5px;
+}
+
+.cart-item-price {
+    font-size: 18px;
+    font-weight: 600;
+    color: #10b981;
+}
+
+.cart-item-remove {
+    padding: 8px 16px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cart-item-remove:hover {
+    background: #dc2626;
+}
+
+.cart-summary {
+    background: #f9fafb;
+    padding: 15px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+}
+
+.cart-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-secondary {
+    flex: 1;
+    padding: 12px;
+    background: #6b7280;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-secondary:hover {
+    background: #4b5563;
+}
+
+.cart-empty {
+    text-align: center;
+    padding: 60px 20px;
+    color: #9ca3af;
+}
+
+.cart-empty-icon {
+    font-size: 80px;
+    margin-bottom: 20px;
+}
+
+.cart-empty-text {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+/* Checkout Section */
+.checkout-section {
+    margin-top: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+    border-radius: 16px;
+}
+
+.checkout-card {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+}
+
+.checkout-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.cart-items-checkout {
+    margin-bottom: 25px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.empty-cart-text {
+    text-align: center;
+    color: #9ca3af;
+    padding: 40px;
+    margin: 0;
+}
+
+.cart-item-checkout {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 15px;
+    background: #f9fafb;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 10px;
+    transition: all 0.3s ease;
+}
+
+.cart-item-checkout:hover {
+    border-color: #667eea;
+}
+
+.cart-item-checkout-icon {
+    font-size: 40px;
+}
+
+.cart-item-checkout-info {
+    flex: 1;
+}
+
+.cart-item-checkout-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: #1f2937;
+    margin-bottom: 5px;
+}
+
+.cart-item-checkout-price {
+    font-size: 16px;
+    font-weight: 600;
+    color: #10b981;
+}
+
+.cart-item-checkout-remove {
+    padding: 8px 16px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cart-item-checkout-remove:hover {
+    background: #dc2626;
+    transform: scale(1.05);
+}
+
+.action-group {
+    margin-bottom: 20px;
+}
+
+.action-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 8px;
+}
+
+.input-field {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    transition: border-color 0.3s ease;
+}
+
+.input-field:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.rental-summary {
+    background: #f9fafb;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 20px 0;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    font-size: 15px;
+    color: #4b5563;
+}
+
+.summary-row.total {
+    border-top: 2px solid #e5e7eb;
+    margin-top: 10px;
+    padding-top: 15px;
+    font-size: 20px;
+    font-weight: 700;
+    color: #667eea;
+}
+
+.payment-methods {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+}
+
+.payment-method {
+    flex: 1;
+    padding: 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.payment-method:hover {
+    border-color: #667eea;
+    transform: translateY(-2px);
+}
+
+.payment-method.active {
+    border-color: #667eea;
+    background: linear-gradient(135deg, #f0f4ff 0%, #ffffff 100%);
+    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.2);
+}
+
+.payment-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+}
+
+.payment-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+}
+
+.btn {
+    width: 100%;
+    padding: 15px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.btn-primary:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(102, 126, 234, 0.4);
+}
+
+.btn-primary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Dark Mode */
+body.dark .commands-store-container {
+    color: #e5e7eb;
+}
+
+body.dark .store-title {
+    color: #f3f4f6;
+}
+
+body.dark .store-subtitle {
+    color: #9ca3af;
+}
+
+body.dark .tab-btn {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark .command-card {
+    background: linear-gradient(135deg, #374151 0%, #2d3748 100%);
+    border-color: #4b5563;
+}
+
+body.dark .command-card.premium {
+    background: linear-gradient(135deg, #4b3f1f 0%, #374151 100%);
+    border-color: #f59e0b;
+}
+
+body.dark .command-card.selected {
+    border-color: #10b981;
+    background: linear-gradient(135deg, #064e3b 0%, #374151 100%);
+    box-shadow: 0 8px 25px rgba(16, 185, 129, 0.3);
+}
+
+body.dark .command-card.premium.selected {
+    background: linear-gradient(135deg, #064e3b 0%, #4b3f1f 100%);
+}
+
+body.dark .command-name {
+    color: #f3f4f6;
+}
+
+body.dark .command-description {
+    color: #d1d5db;
+}
+
+body.dark .command-features li {
+    color: #d1d5db;
+}
+
+body.dark .command-footer {
+    border-top-color: #4b5563;
+}
+
+body.dark .owned-command-item {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+body.dark .owned-command-name {
+    color: #f3f4f6;
+}
+
+body.dark .owned-command-bot {
+    color: #d1d5db;
+}
+
+body.dark .modal-content {
+    background: #2d3748;
+}
+
+body.dark .modal-title {
+    color: #f3f4f6;
+}
+
+body.dark .command-preview {
+    background: #374151;
+}
+
+body.dark .form-group label {
+    color: #f3f4f6;
+}
+
+body.dark .input-field {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark .purchase-summary {
+    background: #374151;
+}
+
+body.dark .summary-row {
+    color: #d1d5db;
+}
+
+body.dark .payment-method {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+body.dark .payment-name {
+    color: #d1d5db;
+}
+
+body.dark .cart-item {
+    background: #374151;
+}
+
+body.dark .cart-item-name {
+    color: #f3f4f6;
+}
+
+body.dark .cart-summary {
+    background: #374151;
+}
+
+body.dark .cart-empty {
+    color: #6b7280;
+}
+
+body.dark .checkout-section {
+    background: linear-gradient(135deg, #1e293b 0%, #2d3748 100%);
+}
+
+body.dark .checkout-card {
+    background: #2d3748;
+}
+
+body.dark .checkout-title {
+    color: #f3f4f6;
+}
+
+body.dark .cart-item-checkout {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+body.dark .cart-item-checkout-name {
+    color: #f3f4f6;
+}
+
+body.dark .action-group label {
+    color: #f3f4f6;
+}
+
+body.dark .input-field {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark .input-field:focus {
+    border-color: #667eea;
+}
+
+body.dark .rental-summary {
+    background: #374151;
+    color: #e5e7eb;
+}
+
+body.dark .summary-row {
+    color: #d1d5db;
+}
+
+body.dark .summary-row.total {
+    border-top-color: #4b5563;
+    color: #818cf8;
+}
+
+body.dark .payment-method {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+body.dark .payment-method.active {
+    background: linear-gradient(135deg, #1e293b 0%, #374151 100%);
+    border-color: #667eea;
+}
+
+body.dark .payment-name {
+    color: #d1d5db;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .owned-commands-list {
+        grid-template-columns: 1fr;
+    }
+    
+    .store-tabs {
+        flex-direction: column;
+    }
+    
+    .header-top {
+        text-align: center;
+    }
+    
+    .cart-actions {
+        flex-direction: column;
+    }
+    
+    .payment-methods {
+        flex-direction: column;
+    }
+    
+    .checkout-section {
+        padding: 15px;
+    }
+    
+    .checkout-card {
+        padding: 20px;
+    }
+}
+</style>
+
+<script>
+$(document).ready(function() {
+    let currentUser = null;
+    let selectedCommand = null;
+    let selectedPaymentMethod = 'momo';
+    let cart = JSON.parse(localStorage.getItem('commandsCart')) || [];
+    
+    // Sample commands data
+    const availableCommands = [
+        {
+            id: 'cmd_music',
+            name: '/music',
+            icon: '🎵',
+            description: 'Phát nhạc từ YouTube, Spotify và nhiều nền tảng khác',
+            features: ['Hỗ trợ playlist', 'Điều khiển phát nhạc', 'Chất lượng cao'],
+            price: 99000,
+            premium: true
+        },
+        {
+            id: 'cmd_moderation',
+            name: '/moderation',
+            icon: '🛡️',
+            description: 'Công cụ quản lý và kiểm duyệt server',
+            features: ['Ban/Kick user', 'Mute/Unmute', 'Clear messages'],
+            price: 79000,
+            premium: false
+        },
+        {
+            id: 'cmd_economy',
+            name: '/economy',
+            icon: '💰',
+            description: 'Hệ thống kinh tế ảo cho server',
+            features: ['Tiền tệ ảo', 'Cửa hàng', 'Xổ số'],
+            price: 129000,
+            premium: true
+        },
+        {
+            id: 'cmd_games',
+            name: '/games',
+            icon: '🎮',
+            description: 'Mini games vui nhộn cho thành viên',
+            features: ['Nhiều game', 'Bảng xếp hạng', 'Phần thưởng'],
+            price: 89000,
+            premium: false
+        },
+        {
+            id: 'cmd_ai',
+            name: '/ai',
+            icon: '🤖',
+            description: 'Trò chuyện với AI thông minh',
+            features: ['ChatGPT integration', 'Đa ngôn ngữ', 'Học từ context'],
+            price: 149000,
+            premium: true
+        },
+        {
+            id: 'cmd_leveling',
+            name: '/leveling',
+            icon: '⭐',
+            description: 'Hệ thống cấp độ và kinh nghiệm',
+            features: ['XP rewards', 'Level roles', 'Leaderboard'],
+            price: 69000,
+            premium: false
+        },
+        {
+            id: 'cmd_tickets',
+            name: '/tickets',
+            icon: '🎫',
+            description: 'Hệ thống ticket hỗ trợ khách hàng',
+            features: ['Tạo ticket', 'Quản lý', 'Thông báo'],
+            price: 79000,
+            premium: false
+        },
+        {
+            id: 'cmd_welcome',
+            name: '/welcome',
+            icon: '👋',
+            description: 'Chào mừng thành viên mới',
+            features: ['Custom message', 'Auto role', 'Welcome image'],
+            price: 49000,
+            premium: false
+        }
+    ];
+
+    // Check login status
+    function checkLogin() {
+        $.ajax({
+            url: '/api/auth/me',
+            method: 'GET',
+            success: function(response) {
+                if (response.user) {
+                    currentUser = response.user;
+                    loadUserBots();
+                    loadOwnedCommands();
+                    $('#checkout-email').val(response.user.email || '');
+                }
+            },
+            error: function() {
+                alert('⚠️ Bạn cần đăng nhập để sử dụng tính năng này!');
+                window.location.href = '/login/';
+            }
+        });
+    }
+
+    // Load user's bots
+    function loadUserBots() {
+        $.ajax({
+            url: '/api/my-bots',
+            method: 'GET',
+            success: function(response) {
+                const $select = $('#purchase-bot-select, #checkout-bot-select');
+                $select.empty().append('<option value="">-- Chọn bot --</option>');
+                
+                if (response.bots && response.bots.length > 0) {
+                    response.bots.forEach(bot => {
+                        $select.append(`<option value="${bot.id}">${bot.name}</option>`);
+                    });
+                } else {
+                    $select.append('<option value="">Bạn chưa có bot nào</option>');
+                }
+            }
+        });
+    }
+
+    // Render available commands
+    function renderAvailableCommands() {
+        const $grid = $('#commands-grid');
+        $grid.empty();
+        
+        availableCommands.forEach(cmd => {
+            const premiumClass = cmd.premium ? 'premium' : '';
+            const featuresHTML = cmd.features.map(f => `<li>${f}</li>`).join('');
+            const inCart = cart.some(item => item.id === cmd.id);
+            const selectedClass = inCart ? 'selected' : '';
+            
+            const card = $(`
+                <div class="command-card ${premiumClass} ${selectedClass}" data-command-id="${cmd.id}">
+                    <div class="command-icon">${cmd.icon}</div>
+                    <div class="command-name">${cmd.name}</div>
+                    <div class="command-description">${cmd.description}</div>
+                    <ul class="command-features">
+                        ${featuresHTML}
+                    </ul>
+                    <div class="command-footer">
+                        <div class="command-price">${cmd.price.toLocaleString('vi-VN')}đ</div>
+                    </div>
+                </div>
+            `);
+            
+            $grid.append(card);
+        });
+    }
+
+    // Update cart count
+    function updateCartCount() {
+        localStorage.setItem('commandsCart', JSON.stringify(cart));
+        
+        // Update checkout section
+        updateCheckoutSection();
+    }
+
+    // Update checkout section
+    function updateCheckoutSection() {
+        const $cartItems = $('#cart-items-checkout');
+        $cartItems.empty();
+        
+        if (cart.length === 0) {
+            $cartItems.html('<p class="empty-cart-text">Chưa có sản phẩm trong giỏ</p>');
+            $('#checkout-count').text('0 lệnh');
+            $('#checkout-total').text('0đ');
+            $('#checkout-submit-btn').prop('disabled', true);
+            return;
+        }
+        
+        let total = 0;
+        cart.forEach(cmd => {
+            total += cmd.price;
+            const item = $(`
+                <div class="cart-item-checkout">
+                    <div class="cart-item-checkout-icon">${cmd.icon}</div>
+                    <div class="cart-item-checkout-info">
+                        <div class="cart-item-checkout-name">${cmd.name}</div>
+                        <div class="cart-item-checkout-price">${cmd.price.toLocaleString('vi-VN')}đ</div>
+                    </div>
+                    <button class="cart-item-checkout-remove" data-command-id="${cmd.id}">Xóa</button>
+                </div>
+            `);
+            $cartItems.append(item);
+        });
+        
+        $('#checkout-count').text(`${cart.length} lệnh`);
+        $('#checkout-total').text(`${total.toLocaleString('vi-VN')}đ`);
+        $('#checkout-submit-btn').prop('disabled', false);
+    }
+
+    // Render cart items
+    function renderCartItems() {
+        const $cartItems = $('#cart-items');
+        $cartItems.empty();
+        
+        if (cart.length === 0) {
+            $cartItems.html(`
+                <div class="cart-empty">
+                    <div class="cart-empty-icon">🛒</div>
+                    <div class="cart-empty-text">Giỏ hàng trống</div>
+                </div>
+            `);
+            $('#cart-total-items').text('0');
+            $('#cart-total-price').text('0đ');
+            return;
+        }
+        
+        let total = 0;
+        cart.forEach(cmd => {
+            total += cmd.price;
+            const item = $(`
+                <div class="cart-item">
+                    <div class="cart-item-icon">${cmd.icon}</div>
+                    <div class="cart-item-info">
+                        <div class="cart-item-name">${cmd.name}</div>
+                        <div class="cart-item-price">${cmd.price.toLocaleString('vi-VN')}đ</div>
+                    </div>
+                    <button class="cart-item-remove" data-command-id="${cmd.id}">Xóa</button>
+                </div>
+            `);
+            $cartItems.append(item);
+        });
+        
+        $('#cart-total-items').text(cart.length);
+        $('#cart-total-price').text(`${total.toLocaleString('vi-VN')}đ`);
+    }
+
+    // Add to cart
+    $(document).on('click', '.command-card', function(e) {
+        // Don't trigger if clicking on remove button in checkout
+        if ($(e.target).hasClass('cart-item-checkout-remove')) return;
+        
+        const commandId = $(this).data('command-id');
+        const command = availableCommands.find(c => c.id === commandId);
+        
+        if (!command) return;
+        
+        // Check if already in cart
+        const inCart = cart.some(item => item.id === command.id);
+        
+        if (inCart) {
+            // Remove from cart
+            cart = cart.filter(item => item.id !== command.id);
+            $(this).removeClass('selected');
+        } else {
+            // Add to cart
+            cart.push(command);
+            $(this).addClass('selected');
+        }
+        
+        updateCartCount();
+    });
+
+    // Remove from cart
+    $(document).on('click', '.cart-item-checkout-remove', function(e) {
+        e.stopPropagation();
+        const commandId = $(this).data('command-id');
+        cart = cart.filter(item => item.id !== commandId);
+        updateCartCount();
+        renderAvailableCommands();
+    });
+
+    // Clear cart
+    $('#clear-cart-btn').click(function() {
+        if (cart.length === 0) return;
+        if (confirm('Xóa tất cả sản phẩm trong giỏ hàng?')) {
+            cart = [];
+            updateCartCount();
+            renderCartItems();
+            renderAvailableCommands();
+        }
+    });
+
+    // Open cart modal (removed - no longer needed)
+    
+    // Checkout cart
+    $(document).on('click', '#checkout-submit-btn', function() {
+        if (cart.length === 0) {
+            alert('⚠️ Giỏ hàng trống!');
+            return;
+        }
+        
+        if (!currentUser) {
+            alert('⚠️ Vui lòng đăng nhập!');
+            return;
+        }
+
+        const botId = $('#checkout-bot-select').val();
+        const email = $('#checkout-email').val().trim();
+
+        if (!botId) {
+            alert('⚠️ Vui lòng chọn bot!');
+            return;
+        }
+
+        if (!email) {
+            alert('⚠️ Vui lòng nhập email!');
+            return;
+        }
+        
+        const paymentMethod = $('.payment-method.active').data('method') || 'momo';
+        const total = cart.reduce((sum, cmd) => sum + cmd.price, 0);
+        
+        const $btn = $(this);
+        const originalText = $btn.text();
+        $btn.prop('disabled', true).text('⏳ Đang xử lý...');
+        
+        // Create batch order
+        $.ajax({
+            url: '/api/commands/purchase-batch',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                bot_id: botId,
+                commands: cart.map(c => c.id),
+                payment_method: paymentMethod,
+                email: email,
+                total_price: total
+            }),
+            success: function(response) {
+                if (response.success) {
+                    alert('✅ Đặt hàng thành công! Chuyển đến trang thanh toán...');
+                    
+                    // Store order info
+                    sessionStorage.setItem('commandOrder', JSON.stringify({
+                        order_id: response.order_id,
+                        commands: cart,
+                        bot_id: botId,
+                        total: total,
+                        payment_method: paymentMethod
+                    }));
+                    
+                    // Clear cart
+                    cart = [];
+                    updateCartCount();
+                    localStorage.setItem('commandsCart', JSON.stringify(cart));
+                    
+                    // Redirect to payment page
+                    window.location.href = '/payment/';
+                }
+            },
+            error: function(xhr) {
+                const error = xhr.responseJSON?.error || 'Không thể tạo đơn hàng';
+                alert('❌ ' + error);
+            },
+            complete: function() {
+                $btn.prop('disabled', false).text(originalText);
+            }
+        });
+    });
+
+    // Load owned commands
+    function loadOwnedCommands() {
+        $.ajax({
+            url: '/api/my-commands',
+            method: 'GET',
+            success: function(response) {
+                const $list = $('#owned-commands-list');
+                $list.empty();
+                
+                if (response.commands && response.commands.length > 0) {
+                    response.commands.forEach(cmd => {
+                        const item = $(`
+                            <div class="owned-command-item">
+                                <div class="owned-command-icon">${cmd.icon || '📦'}</div>
+                                <div class="owned-command-info">
+                                    <div class="owned-command-name">${cmd.name}</div>
+                                    <div class="owned-command-bot">Bot: ${cmd.bot_name}</div>
+                                    <div class="owned-command-date">Mua ngày: ${new Date(cmd.purchased_at).toLocaleDateString('vi-VN')}</div>
+                                </div>
+                                <div class="owned-badge">Đã sở hữu</div>
+                            </div>
+                        `);
+                        $list.append(item);
+                    });
+                } else {
+                    $list.html('<p style="text-align: center; color: #9ca3af; padding: 40px;">Bạn chưa sở hữu lệnh nào</p>');
+                }
+            }
+        });
+    }
+
+    // Tab switching
+    $('.tab-btn').click(function() {
+        const tab = $(this).data('tab');
+        
+        $('.tab-btn').removeClass('active');
+        $(this).addClass('active');
+        
+        $('.tab-content').removeClass('active');
+        $(`#${tab}-tab`).addClass('active');
+    });
+
+    // Open purchase modal
+    $(document).on('click', '.btn-buy', function(e) {
+        e.stopPropagation();
+        const card = $(this).closest('.command-card');
+        const commandId = card.data('command-id');
+        selectedCommand = availableCommands.find(c => c.id === commandId);
+        
+        if (selectedCommand) {
+            // Fill preview
+            $('#command-preview').html(`
+                <div class="command-icon" style="font-size: 60px;">${selectedCommand.icon}</div>
+                <div class="command-name" style="font-size: 24px; margin: 10px 0;">${selectedCommand.name}</div>
+                <div class="command-description">${selectedCommand.description}</div>
+            `);
+            
+            // Fill summary
+            $('#purchase-command-name').text(selectedCommand.name);
+            $('#purchase-price').text(`${selectedCommand.price.toLocaleString('vi-VN')}đ`);
+            $('#purchase-total').text(`${selectedCommand.price.toLocaleString('vi-VN')}đ`);
+            
+            $('#purchase-modal').addClass('active');
+        }
+    });
+
+    // Close modal
+    $('.modal-close, .modal').click(function(e) {
+        if (e.target === this) {
+            $('.modal').removeClass('active');
+        }
+    });
+
+    // Payment method selection
+    $(document).on('click', '.payment-method', function() {
+        $('.payment-method').removeClass('active');
+        $(this).addClass('active');
+        selectedPaymentMethod = $(this).data('method');
+    });
+
+    // Confirm purchase
+    $('#confirm-purchase-btn').click(function() {
+        const botId = $('#purchase-bot-select').val();
+
+        if (!botId) {
+            alert('⚠️ Vui lòng chọn bot!');
+            return;
+        }
+
+        if (!selectedCommand) {
+            alert('⚠️ Không tìm thấy thông tin lệnh!');
+            return;
+        }
+
+        const $btn = $(this);
+        $btn.prop('disabled', true).text('⏳ Đang xử lý...');
+
+        // Create purchase order
+        $.ajax({
+            url: '/api/commands/purchase',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                command_id: selectedCommand.id,
+                bot_id: botId,
+                price: selectedCommand.price,
+                payment_method: selectedPaymentMethod
+            }),
+            success: function(response) {
+                if (response.success) {
+                    alert('✅ Đặt hàng thành công! Chuyển đến trang thanh toán...');
+                    
+                    // Store order info
+                    sessionStorage.setItem('commandOrder', JSON.stringify({
+                        order_id: response.order_id,
+                        command_id: selectedCommand.id,
+                        bot_id: botId,
+                        price: selectedCommand.price,
+                        payment_method: selectedPaymentMethod
+                    }));
+                    
+                    // Redirect to payment page
+                    window.location.href = '/payment/';
+                }
+            },
+            error: function(xhr) {
+                const error = xhr.responseJSON?.error || 'Không thể tạo đơn mua';
+                alert('❌ ' + error);
+            },
+            complete: function() {
+                $btn.prop('disabled', false).text('💳 Xác nhận mua');
+            }
+        });
+    });
+
+    // Toggle cart summary
+    // (removed - no longer needed)
+
+    // Theme synchronization
+    function applyTheme() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            $('body').addClass('dark');
+        } else {
+            $('body').removeClass('dark');
+        }
+    }
+
+    // Apply theme on page load
+    applyTheme();
+
+    // Listen for theme changes from sidebar
+    $('#theme-toggle-sidebar').click(function(e) {
+        e.preventDefault();
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', newTheme);
+        applyTheme();
+    });
+
+    // Listen for storage changes (when theme changed in another tab)
+    $(window).on('storage', function(e) {
+        if (e.originalEvent.key === 'theme') {
+            applyTheme();
+        }
+    });
+
+    // Initialize
+    checkLogin();
+    renderAvailableCommands();
+    updateCartCount();
+});
+</script>
 </body>
 </html>

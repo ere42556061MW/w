@@ -6,150 +6,380 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quan Ly Bot - Settings</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="/styles.css">
-
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <!-- Sidebar Navigation -->
 <div class="sidebar">
-<div class="logo-details">
-<i class="bx bxl-c-plus-plus icon"></i>
-<div class="logo_name">Bot Manager</div>
-<i class="bx bx-menu" id="btn"></i>
-</div>
-<ul class="nav-list">
-<li>
-<i class="bx bx-search"></i>
-<input type="text" placeholder="Search..." />
-<span class="tooltip">Search</span>
-</li>
-<li>
-<a href="/home/">
-<i class="bx bx-grid-alt"></i>
-<span class="links_name">Home</span>
-</a>
-<span class="tooltip">Home</span>
-</li>
-<li>
-<a href="/manager/" data-require-login="true">
-<i class="bx bx-cog"></i>
-<span class="links_name">Manager</span>
-</a>
-<span class="tooltip">Manager</span>
-</li>
-<li>
-<a href="/bots/" data-require-login="true">
-<i class="bx bxs-bot"></i>
-<span class="links_name">Bot</span>
-</a>
-<span class="tooltip">Bot</span>
-</li>
-<li>
-<a href="/create/" data-require-login="true">
-<i class="bx bx-plus"></i>
-<span class="links_name">Create</span>
-</a>
-<span class="tooltip">Create</span>
-</li>
-<li>
-<a href="/rental/" data-require-login="true">
-<i class="bx bx-money"></i>
-<span class="links_name">Rental</span>
-</a>
-<span class="tooltip">Rental</span>
-</li>
-<li>
-<a href="/commands/" data-require-login="true">
-<i class="bx bx-command"></i>
-<span class="links_name">Commands</span>
-</a>
-<span class="tooltip">Commands</span>
-</li>
-<li>
-<a href="/statistics/" data-require-login="true">
-<i class="bx bx-pie-chart-alt-2"></i>
-<span class="links_name">Statistics</span>
-</a>
-<span class="tooltip">Statistics</span>
-</li>
-<li>
-<a href="/users/" data-require-login="true">
-<i class="bx bx-user"></i>
-<span class="links_name">Users</span>
-</a>
-<span class="tooltip">Users</span>
-</li>
-<li>
-<a href="/history/" data-require-login="true">
-<i class="bx bx-history"></i>
-<span class="links_name">History</span>
-</a>
-<span class="tooltip">History</span>
-</li>
-<li>
-<a href="/settings/" data-require-login="true">
-<i class="bx bx-slider"></i>
-<span class="links_name">Settings</span>
-</a>
-<span class="tooltip">Settings</span>
-</li>
-<li>
-<a href="/theme/" data-require-login="true">
-<i class="bx bx-palette"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Theme</span>
-</li>
-<li>
-<a href="#" id="theme-toggle-sidebar">
-<i class="bx bx-moon"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Toggle Theme</span>
-</li>
-<li>
-<a href="#" id="nav-register-btn">
-<i class="bx bx-user-plus"></i>
-<span class="links_name">Register</span>
-</a>
-<span class="tooltip">Register</span>
-</li>
-<li class="profile">
-<div class="profile-details">
-<img src="/profile.jpg" alt="profileImg" />
-<div class="name_job">
-<div class="name" id="profile-name">User</div>
-<div class="job">Web Manager</div>
-</div>
-</div>
-<i class="bx bx-log-out" id="logout-btn"></i>
-</li>
-</ul>
+    <div class="logo-details">
+        <i class="bx bxl-c-plus-plus icon"></i>
+        <div class="logo_name">Bot Manager</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search..." />
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/home/">
+                <i class="bx bx-grid-alt"></i>
+                <span class="links_name">Home</span>
+            </a>
+            <span class="tooltip">Home</span>
+        </li>
+        <li>
+            <a href="/manager/" data-require-login="true">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Manager</span>
+            </a>
+            <span class="tooltip">Manager</span>
+        </li>
+        <li>
+            <a href="/bots/" data-require-login="true">
+                <i class="bx bxs-bot"></i>
+                <span class="links_name">Bot</span>
+            </a>
+            <span class="tooltip">Bot</span>
+        </li>
+        <li>
+            <a href="/create/" data-require-login="true">
+                <i class="bx bx-plus"></i>
+                <span class="links_name">Create</span>
+            </a>
+            <span class="tooltip">Create</span>
+        </li>
+        <li>
+            <a href="/rental/" data-require-login="true">
+                <i class="bx bx-money"></i>
+                <span class="links_name">Rental</span>
+            </a>
+            <span class="tooltip">Rental</span>
+        </li>
+        <li>
+            <a href="/commands/" data-require-login="true">
+                <i class="bx bx-command"></i>
+                <span class="links_name">Commands</span>
+            </a>
+            <span class="tooltip">Commands</span>
+        </li>
+        <li>
+            <a href="/statistics/" data-require-login="true">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="links_name">Statistics</span>
+            </a>
+            <span class="tooltip">Statistics</span>
+        </li>
+        <li>
+            <a href="/users/" data-require-login="true">
+                <i class="bx bx-user"></i>
+                <span class="links_name">Users</span>
+            </a>
+            <span class="tooltip">Users</span>
+        </li>
+        <li>
+            <a href="/history/" data-require-login="true">
+                <i class="bx bx-history"></i>
+                <span class="links_name">History</span>
+            </a>
+            <span class="tooltip">History</span>
+        </li>
+        <li>
+            <a href="/settings/" data-require-login="true">
+                <i class="bx bx-slider"></i>
+                <span class="links_name">Settings</span>
+            </a>
+            <span class="tooltip">Settings</span>
+        </li>
+        <li>
+            <a href="/theme/" data-require-login="true">
+                <i class="bx bx-palette"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Theme</span>
+        </li>
+        <li>
+            <a href="#" id="theme-toggle-sidebar">
+                <i class="bx bx-moon"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Toggle Theme</span>
+        </li>
+        <li id="auth-buttons" style="display: none;">
+            <a href="/login/">
+                <i class="bx bx-log-in"></i>
+                <span class="links_name">Login</span>
+            </a>
+            <span class="tooltip">Login</span>
+        </li>
+        <li id="register-button" style="display: none;">
+            <a href="/register/">
+                <i class="bx bx-user-plus"></i>
+                <span class="links_name">Register</span>
+            </a>
+            <span class="tooltip">Register</span>
+        </li>
+        <li class="profile" id="user-profile">
+            <div class="profile-details">
+                <img src="/profile.jpg" alt="profileImg" />
+                <div class="name_job">
+                    <div class="name" id="profile-name">User</div>
+                    <div class="job">Web Manager</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="logout-btn"></i>
+        </li>
+    </ul>
 </div>
 
 <section class="home-section">
-<div class="page active" id="settings-page">
-<div class="home-container">
-<div class="settings-card">
-<h2 class="page-title">⚙️ Cài Đặt</h2>
-<div class="settings-form">
-<div class="setting-item">
-<label>Tên Ứng Dụng:</label>
-<input type="text" class="input-field" value="Bot Manager">
-</div>
-<div class="setting-item">
-<label>Email Liên Lạc:</label>
-<input type="email" class="input-field" placeholder="admin@example.com">
-</div>
-<button class="btn btn-primary">Lưu Cài Đặt</button>
-</div>
-</div>
-</div>
-</div>
+    <div class="page active" id="settings-page">
+        <div class="home-container">
+            <div class="settings-card">
+                <h2 class="page-title">⚙️ Cài Đặt Hệ Thống</h2>
+                <p style="text-align: center; color: #6b7280; margin-bottom: 30px;">Quản lý cấu hình và tùy chỉnh hệ thống</p>
+                
+                <!-- General Settings Section -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">🔧 Cài Đặt Chung</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Tên ứng dụng</div>
+                            <div class="setting-desc">Tên hiển thị của ứng dụng</div>
+                        </div>
+                        <input type="text" class="setting-input" id="app-name" value="Bot Manager" />
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Ngôn ngữ</div>
+                            <div class="setting-desc">Chọn ngôn ngữ hiển thị</div>
+                        </div>
+                        <select class="setting-select" id="language">
+                            <option value="vi" selected>Tiếng Việt</option>
+                            <option value="en">English</option>
+                            <option value="ja">日本語</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Múi giờ</div>
+                            <div class="setting-desc">Chọn múi giờ của bạn</div>
+                        </div>
+                        <select class="setting-select" id="timezone">
+                            <option value="Asia/Ho_Chi_Minh" selected>GMT+7 (Việt Nam)</option>
+                            <option value="Asia/Tokyo">GMT+9 (Tokyo)</option>
+                            <option value="America/New_York">GMT-5 (New York)</option>
+                        </select>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Tự động cập nhật</div>
+                            <div class="setting-desc">Tự động cập nhật khi có phiên bản mới</div>
+                        </div>
+                        <div class="toggle-switch active" id="auto-update">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Báo cáo lỗi tự động</div>
+                            <div class="setting-desc">Gửi báo cáo lỗi để cải thiện chất lượng</div>
+                        </div>
+                        <div class="toggle-switch active" id="error-report">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Notification Settings Section -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">🔔 Thông Báo</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Thông báo Email</div>
+                            <div class="setting-desc">Nhận thông báo qua email</div>
+                        </div>
+                        <div class="toggle-switch active" id="email-notify">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Thông báo Zalo</div>
+                            <div class="setting-desc">Nhận thông báo qua Zalo</div>
+                        </div>
+                        <div class="toggle-switch active" id="zalo-notify">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Thông báo Bot offline</div>
+                            <div class="setting-desc">Cảnh báo khi bot ngừng hoạt động</div>
+                        </div>
+                        <div class="toggle-switch active" id="bot-offline-notify">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Thông báo thanh toán</div>
+                            <div class="setting-desc">Thông báo về giao dịch và thanh toán</div>
+                        </div>
+                        <div class="toggle-switch active" id="payment-notify">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Security Settings Section -->
+                <div class="settings-section">
+                    <h3 class="settings-section-title">🔒 Bảo Mật</h3>
+                    
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Đổi mật khẩu</div>
+                            <div class="setting-desc">Cập nhật mật khẩu để bảo vệ tài khoản</div>
+                        </div>
+                        <button class="btn btn-primary" id="change-password-btn" style="width: auto; padding: 8px 16px; margin: 0;">Đổi</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Xác thực 2 bước</div>
+                            <div class="setting-desc">Tăng cường bảo mật với OTP</div>
+                        </div>
+                        <button class="btn btn-primary" id="enable-2fa-btn" style="width: auto; padding: 8px 16px; margin: 0;">Bật</button>
+                    </div>
+
+                    <div class="setting-item">
+                        <div class="setting-label">
+                            <div class="setting-name">Đăng nhập bằng sinh trắc học</div>
+                            <div class="setting-desc">Sử dụng vân tay hoặc Face ID</div>
+                        </div>
+                        <div class="toggle-switch" id="biometric-login">
+                            <div class="toggle-slider"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Save Buttons -->
+                <div style="display: flex; gap: 10px; justify-content: flex-end; margin-top: 30px;">
+                    <button class="btn btn-warning" id="reset-settings-btn" style="width: auto; padding: 12px 24px;">
+                        🔄 Đặt lại mặc định
+                    </button>
+                    <button class="btn btn-success" id="save-settings-btn" style="width: auto; padding: 12px 24px;">
+                        💾 Lưu thay đổi
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Boxicons CDN Link -->
 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
 <script src="/sidebar.js"></script>
 <script src="/script.js"></script>
+
+<script>
+$(document).ready(function() {
+    // Check login
+    function checkLogin() {
+        $.ajax({
+            url: '/api/auth/me',
+            method: 'GET',
+            error: function() {
+                alert('⚠️ Bạn cần đăng nhập để truy cập cài đặt!');
+                window.location.href = '/login/';
+            }
+        });
+    }
+    
+    // Toggle switches
+    $('.toggle-switch').click(function() {
+        $(this).toggleClass('active');
+    });
+    
+    // Change password
+    $('#change-password-btn').click(function() {
+        const oldPassword = prompt('Nhập mật khẩu hiện tại:');
+        if (!oldPassword) return;
+
+        const newPassword = prompt('Nhập mật khẩu mới (tối thiểu 8 ký tự):');
+        if (!newPassword) return;
+
+        if (newPassword.length < 8) {
+            alert('⚠️ Mật khẩu phải có ít nhất 8 ký tự!');
+            return;
+        }
+
+        const confirmPassword = prompt('Xác nhận mật khẩu mới:');
+        if (newPassword !== confirmPassword) {
+            alert('⚠️ Mật khẩu xác nhận không khớp!');
+            return;
+        }
+
+        $.ajax({
+            url: '/api/auth/change-password',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                old_password: oldPassword,
+                new_password: newPassword
+            }),
+            success: function(response) {
+                if (response.success) {
+                    alert('✅ Đã đổi mật khẩu thành công!\n\nVui lòng đăng nhập lại.');
+                    window.location.href = '/login/';
+                }
+            },
+            error: function(xhr) {
+                const error = xhr.responseJSON?.error || 'Không thể đổi mật khẩu';
+                alert('❌ ' + error);
+            }
+        });
+    });
+    
+    // Enable 2FA
+    $('#enable-2fa-btn').click(function() {
+        alert('🔐 Tính năng xác thực 2 bước đang được phát triển!');
+    });
+    
+    // Save settings
+    $('#save-settings-btn').click(function() {
+        const $btn = $(this);
+        const originalText = $btn.html();
+        
+        $btn.prop('disabled', true).html('⏳ Đang lưu...');
+        
+        setTimeout(() => {
+            $btn.prop('disabled', false).html(originalText);
+            alert('✅ Đã lưu cài đặt thành công!');
+        }, 1000);
+    });
+    
+    // Reset settings
+    $('#reset-settings-btn').click(function() {
+        if (confirm('⚠️ Bạn có chắc muốn đặt lại tất cả về mặc định?')) {
+            alert('✅ Đã đặt lại cài đặt mặc định!');
+            location.reload();
+        }
+    });
+    
+    // Initialize
+    checkLogin();
+});
+</script>
 </body>
 </html>

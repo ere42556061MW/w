@@ -851,6 +851,354 @@ def api_ack_command(command_id):
     
     return jsonify({'status': 'ok', 'command': command})
 
+# ==================== USER MANAGEMENT APIS ====================
+
+@app.route('/api/users', methods=['GET'])
+@require_auth
+def api_get_users(user):
+    """Get all users (admin only)"""
+    # Check if user is admin
+    if user.get('role') != 'admin':
+        return jsonify({'error': 'Admin access required'}), 403
+    
+    conn = auth_db.get_connection()
+    cursor = conn.cursor()
+    cursor.execute('SELECT id, username, email, fullname, created_at, role FROM users')
+    users = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    
+    return jsonify({'users': users, 'count': len(users)})
+
+@app.route('/api/users/<int:user_id>', methods=['GET'])
+@require_auth
+def api_get_user(user, user_id):
+    """Get user details"""
+    # Users can only view their own profile or admins can view any
+    if user['id'] != user_id and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    target_user = auth_db.get_user_by_id(user_id)
+    
+    if not target_user:
+        return jsonify({'error': 'User not found'}), 404
+    
+    return jsonify({'user': target_user})
+
+@app.route('/api/users/<int:user_id>/bots', methods=['GET'])
+@require_auth
+def api_get_user_bots(user, user_id):
+    """Get all bots of a user"""
+    if user['id'] != user_id and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    bots = auth_db.get_user_bots(user_id)
+    return jsonify({'bots': bots, 'count': len(bots)})
+
+@app.route('/api/users/search', methods=['GET'])
+@require_auth
+def api_search_users(user):
+    """Search users by username or email"""
+    if user.get('role') != 'admin':
+        return jsonify({'error': 'Admin access required'}), 403
+    
+    query = request.args.get('q', '').strip()
+    
+    if not query or len(query) < 2:
+        return jsonify({'error': 'Search query too short'}), 400
+    
+    conn = auth_db.get_connection()
+    cursor = conn.cursor()
+    search_pattern = f'%{query}%'
+    cursor.execute(
+        'SELECT id, username, email, fullname, created_at FROM users WHERE username LIKE ? OR email LIKE ? LIMIT 20',
+        (search_pattern, search_pattern)
+    )
+    users = [dict(row) for row in cursor.fetchall()]
+    conn.close()
+    
+    return jsonify({'users': users, 'count': len(users)})
+
+# ==================== BOT MANAGEMENT APIS ====================
+
+@app.route('/api/admin/bots', methods=['GET'])
+@require_auth
+def api_admin_get_all_bots(user):
+    """Get all bots (admin only)"""
+    if user.get('role') != 'admin':
+        return jsonify({'error': 'Admin access required'}), 403
+    
+    bots = auth_db.get_all_bots()
+    return jsonify({'bots': bots, 'count': len(bots)})
+
+@app.route('/api/bot/<bot_id>/info', methods=['GET'])
+@require_auth
+def api_get_bot_info(user, bot_id):
+    """Get detailed bot information"""
+    # Only owner or admin can view
+    if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    bot = auth_db.get_bot(bot_id)
+    if not bot:
+        return jsonify({'error': 'Bot not found'}), 404
+    
+    # Get bot stats
+    with commands_lock:
+        bot_commands = list(commands_by_bot.get(bot_id, []))
+    
+    stats = {
+        'total_commands': len(bot_commands),
+        'pending_commands': len([c for c in bot_commands if c['status'] == 'pending']),
+        'completed_commands': len([c for c in bot_commands if c['status'] == 'completed']),
+        'failed_commands': len([c for c in bot_commands if c['status'] == 'failed'])
+    }
+    
+    return jsonify({
+        'bot': bot,
+        'stats': stats,
+        'online': bot.get('status') == 'online'
+    })
+
+@app.route('/api/bot/<bot_id>/commands-history', methods=['GET'])
+@require_auth
+def api_get_bot_commands_history(user, bot_id):
+    """Get bot command execution history"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    limit = int(request.args.get('limit', 50))
+    
+    with commands_lock:
+        commands = list(commands_by_bot.get(bot_id, []))[-limit:]
+    
+    return jsonify({'commands': commands, 'count': len(commands)})
+
+@app.route('/api/bot/<bot_id>/send-command', methods=['POST'])
+@require_auth
+def api_send_bot_command(user, bot_id):
+    """Send a command to bot"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    payload = request.get_json(silent=True) or {}
+    
+    command_type = payload.get('type')
+    command_payload = payload.get('payload', {})
+    
+    if not command_type:
+        return jsonify({'error': 'Command type is required'}), 400
+    
+    command = _enqueue_command(bot_id, command_type, command_payload, source='api')
+    
+    add_log('event', f'Command sent to bot: {command_type}', {
+        'bot_id': bot_id,
+        'command_id': command['id'],
+        'command_type': command_type
+    })
+    
+    return jsonify({'status': 'ok', 'command': command})
+
+@app.route('/api/bot/<bot_id>/restart', methods=['POST'])
+@require_auth
+def api_restart_bot(user, bot_id):
+    """Send restart command to bot"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    command = _enqueue_command(bot_id, 'restart', {}, source='api')
+    
+    add_log('event', f'Bot restart requested: {bot_id}', {'bot_id': bot_id})
+    
+    return jsonify({'status': 'ok', 'command': command})
+
+@app.route('/api/bot/<bot_id>/stop', methods=['POST'])
+@require_auth
+def api_stop_bot(user, bot_id):
+    """Send stop command to bot"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    command = _enqueue_command(bot_id, 'stop', {}, source='api')
+    
+    add_log('event', f'Bot stop requested: {bot_id}', {'bot_id': bot_id})
+    
+    return jsonify({'status': 'ok', 'command': command})
+
+@app.route('/api/bot/<bot_id>/settings', methods=['GET', 'PUT'])
+@require_auth
+def api_bot_settings(user, bot_id):
+    """Get or update bot settings"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    bot = auth_db.get_bot(bot_id)
+    if not bot:
+        return jsonify({'error': 'Bot not found'}), 404
+    
+    if request.method == 'GET':
+        return jsonify({'settings': bot.get('metadata', {})})
+    
+    # PUT - Update settings
+    payload = request.get_json(silent=True) or {}
+    
+    result = auth_db.update_bot_info(bot_id, user['id'], metadata=payload)
+    
+    if not result['success']:
+        return jsonify({'error': result.get('error', 'Update failed')}), 400
+    
+    add_log('event', f'Bot settings updated: {bot_id}', {'bot_id': bot_id})
+    
+    return jsonify({'success': True, 'settings': payload})
+
+# ==================== STATISTICS & ANALYTICS APIS ====================
+
+@app.route('/api/stats/overview', methods=['GET'])
+@require_auth
+def api_stats_overview(user):
+    """Get overview statistics"""
+    conn = auth_db.get_connection()
+    cursor = conn.cursor()
+    
+    # Count users
+    cursor.execute('SELECT COUNT(*) as count FROM users')
+    total_users = cursor.fetchone()['count']
+    
+    # Count bots
+    cursor.execute('SELECT COUNT(*) as count FROM bots')
+    total_bots = cursor.fetchone()['count']
+    
+    # Count user bots
+    cursor.execute('SELECT COUNT(*) as count FROM bots WHERE user_id = ?', (user['id'],))
+    user_bots = cursor.fetchone()['count']
+    
+    conn.close()
+    
+    with commands_lock:
+        total_commands = len(commands_by_id)
+        pending_commands = len([c for c in commands_by_id.values() if c['status'] == 'pending'])
+    
+    return jsonify({
+        'total_users': total_users,
+        'total_bots': total_bots,
+        'user_bots': user_bots,
+        'total_commands': total_commands,
+        'pending_commands': pending_commands,
+        'total_logs': len(logs_storage),
+        'total_messages': len(messages_storage),
+        'connected_clients': len(connected_clients)
+    })
+
+@app.route('/api/stats/bot/<bot_id>', methods=['GET'])
+@require_auth
+def api_stats_bot(user, bot_id):
+    """Get bot statistics"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    with commands_lock:
+        bot_commands = list(commands_by_bot.get(bot_id, []))
+    
+    # Count logs
+    bot_logs = [log for log in logs_storage if log.get('bot_id') == bot_id]
+    
+    # Count messages
+    bot_messages = [msg for msg in messages_storage if msg.get('bot_id') == bot_id]
+    
+    stats = {
+        'total_commands': len(bot_commands),
+        'pending_commands': len([c for c in bot_commands if c['status'] == 'pending']),
+        'completed_commands': len([c for c in bot_commands if c['status'] == 'completed']),
+        'failed_commands': len([c for c in bot_commands if c['status'] == 'failed']),
+        'total_logs': len(bot_logs),
+        'total_messages': len(bot_messages),
+        'command_types': {}
+    }
+    
+    # Count by command type
+    for cmd in bot_commands:
+        cmd_type = cmd['type']
+        stats['command_types'][cmd_type] = stats['command_types'].get(cmd_type, 0) + 1
+    
+    return jsonify(stats)
+
+# ==================== DATA EXPORT APIS ====================
+
+@app.route('/api/export/logs', methods=['GET'])
+@require_auth
+def api_export_logs(user):
+    """Export logs as JSON"""
+    bot_id = request.args.get('bot_id')
+    limit = int(request.args.get('limit', 1000))
+    
+    if bot_id:
+        # Check authorization
+        if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+            return jsonify({'error': 'Not authorized'}), 403
+        
+        logs = [log for log in logs_storage if log.get('bot_id') == bot_id]
+    else:
+        logs = list(logs_storage)
+    
+    logs = logs[-limit:]
+    
+    return jsonify({
+        'exported_at': _current_time_iso(),
+        'count': len(logs),
+        'logs': logs
+    })
+
+@app.route('/api/export/messages', methods=['GET'])
+@require_auth
+def api_export_messages(user):
+    """Export messages as JSON"""
+    bot_id = request.args.get('bot_id')
+    limit = int(request.args.get('limit', 1000))
+    
+    if bot_id:
+        # Check authorization
+        if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+            return jsonify({'error': 'Not authorized'}), 403
+        
+        messages = [msg for msg in messages_storage if msg.get('bot_id') == bot_id]
+    else:
+        messages = list(messages_storage)
+    
+    messages = messages[-limit:]
+    
+    return jsonify({
+        'exported_at': _current_time_iso(),
+        'count': len(messages),
+        'messages': messages
+    })
+
+@app.route('/api/export/bot-data/<bot_id>', methods=['GET'])
+@require_auth
+def api_export_bot_data(user, bot_id):
+    """Export bot data"""
+    if not auth_db.verify_bot_ownership(user['id'], bot_id) and user.get('role') != 'admin':
+        return jsonify({'error': 'Not authorized'}), 403
+    
+    bot = auth_db.get_bot(bot_id)
+    if not bot:
+        return jsonify({'error': 'Bot not found'}), 404
+    
+    bot_data = auth_db.get_bot_data(bot_id)
+    
+    with commands_lock:
+        commands = list(commands_by_bot.get(bot_id, []))
+    
+    logs = [log for log in logs_storage if log.get('bot_id') == bot_id]
+    messages = [msg for msg in messages_storage if msg.get('bot_id') == bot_id]
+    
+    return jsonify({
+        'exported_at': _current_time_iso(),
+        'bot': bot,
+        'data': bot_data,
+        'commands': commands,
+        'logs': list(logs),
+        'messages': list(messages)
+    })
+
 # ==================== SOCKETIO HANDLERS ====================
 
 @socketio.on('connect')

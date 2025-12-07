@@ -1,4 +1,3 @@
-<!-- rental/index.html -->
 <!DOCTYPE html>
 <html lang="vi">
 <head>
@@ -6,143 +5,567 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quan Ly Bot - Rental</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="/styles.css">
-
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <!-- Sidebar Navigation -->
 <div class="sidebar">
-<div class="logo-details">
-<i class="bx bxl-c-plus-plus icon"></i>
-<div class="logo_name">Bot Manager</div>
-<i class="bx bx-menu" id="btn"></i>
-</div>
-<ul class="nav-list">
-<li>
-<i class="bx bx-search"></i>
-<input type="text" placeholder="Search..." />
-<span class="tooltip">Search</span>
-</li>
-<li>
-<a href="/home/">
-<i class="bx bx-grid-alt"></i>
-<span class="links_name">Home</span>
-</a>
-<span class="tooltip">Home</span>
-</li>
-<li>
-<a href="/manager/" data-require-login="true">
-<i class="bx bx-cog"></i>
-<span class="links_name">Manager</span>
-</a>
-<span class="tooltip">Manager</span>
-</li>
-<li>
-<a href="/bots/" data-require-login="true">
-<i class="bx bxs-bot"></i>
-<span class="links_name">Bot</span>
-</a>
-<span class="tooltip">Bot</span>
-</li>
-<li>
-<a href="/create/" data-require-login="true">
-<i class="bx bx-plus"></i>
-<span class="links_name">Create</span>
-</a>
-<span class="tooltip">Create</span>
-</li>
-<li>
-<a href="/rental/" data-require-login="true">
-<i class="bx bx-money"></i>
-<span class="links_name">Rental</span>
-</a>
-<span class="tooltip">Rental</span>
-</li>
-<li>
-<a href="/commands/" data-require-login="true">
-<i class="bx bx-command"></i>
-<span class="links_name">Commands</span>
-</a>
-<span class="tooltip">Commands</span>
-</li>
-<li>
-<a href="/statistics/" data-require-login="true">
-<i class="bx bx-pie-chart-alt-2"></i>
-<span class="links_name">Statistics</span>
-</a>
-<span class="tooltip">Statistics</span>
-</li>
-<li>
-<a href="/users/" data-require-login="true">
-<i class="bx bx-user"></i>
-<span class="links_name">Users</span>
-</a>
-<span class="tooltip">Users</span>
-</li>
-<li>
-<a href="/history/" data-require-login="true">
-<i class="bx bx-history"></i>
-<span class="links_name">History</span>
-</a>
-<span class="tooltip">History</span>
-</li>
-<li>
-<a href="/settings/" data-require-login="true">
-<i class="bx bx-slider"></i>
-<span class="links_name">Settings</span>
-</a>
-<span class="tooltip">Settings</span>
-</li>
-<li>
-<a href="/theme/" data-require-login="true">
-<i class="bx bx-palette"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Theme</span>
-</li>
-<li>
-<a href="#" id="theme-toggle-sidebar">
-<i class="bx bx-moon"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Toggle Theme</span>
-</li>
-<li>
-<a href="#" id="nav-register-btn">
-<i class="bx bx-user-plus"></i>
-<span class="links_name">Register</span>
-</a>
-<span class="tooltip">Register</span>
-</li>
-<li class="profile">
-<div class="profile-details">
-<img src="/profile.jpg" alt="profileImg" />
-<div class="name_job">
-<div class="name" id="profile-name">User</div>
-<div class="job">Web Manager</div>
-</div>
-</div>
-<i class="bx bx-log-out" id="logout-btn"></i>
-</li>
-</ul>
+    <div class="logo-details">
+        <i class="bx bxl-c-plus-plus icon"></i>
+        <div class="logo_name">Bot Manager</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search..." />
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/home/">
+                <i class="bx bx-grid-alt"></i>
+                <span class="links_name">Home</span>
+            </a>
+            <span class="tooltip">Home</span>
+        </li>
+        <li>
+            <a href="/manager/" data-require-login="true">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Manager</span>
+            </a>
+            <span class="tooltip">Manager</span>
+        </li>
+        <li>
+            <a href="/bots/" data-require-login="true">
+                <i class="bx bxs-bot"></i>
+                <span class="links_name">Bot</span>
+            </a>
+            <span class="tooltip">Bot</span>
+        </li>
+        <li>
+            <a href="/create/" data-require-login="true">
+                <i class="bx bx-plus"></i>
+                <span class="links_name">Create</span>
+            </a>
+            <span class="tooltip">Create</span>
+        </li>
+        <li>
+            <a href="/rental/" data-require-login="true">
+                <i class="bx bx-money"></i>
+                <span class="links_name">Rental</span>
+            </a>
+            <span class="tooltip">Rental</span>
+        </li>
+        <li>
+            <a href="/commands/" data-require-login="true">
+                <i class="bx bx-command"></i>
+                <span class="links_name">Commands</span>
+            </a>
+            <span class="tooltip">Commands</span>
+        </li>
+        <li>
+            <a href="/statistics/" data-require-login="true">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="links_name">Statistics</span>
+            </a>
+            <span class="tooltip">Statistics</span>
+        </li>
+        <li>
+            <a href="/users/" data-require-login="true">
+                <i class="bx bx-user"></i>
+                <span class="links_name">Users</span>
+            </a>
+            <span class="tooltip">Users</span>
+        </li>
+        <li>
+            <a href="/history/" data-require-login="true">
+                <i class="bx bx-history"></i>
+                <span class="links_name">History</span>
+            </a>
+            <span class="tooltip">History</span>
+        </li>
+        <li>
+            <a href="/settings/" data-require-login="true">
+                <i class="bx bx-slider"></i>
+                <span class="links_name">Settings</span>
+            </a>
+            <span class="tooltip">Settings</span>
+        </li>
+        <li>
+            <a href="/theme/" data-require-login="true">
+                <i class="bx bx-palette"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Theme</span>
+        </li>
+        <li>
+            <a href="#" id="theme-toggle-sidebar">
+                <i class="bx bx-moon"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Toggle Theme</span>
+        </li>
+        <li id="auth-buttons" style="display: none;">
+            <a href="/login/">
+                <i class="bx bx-log-in"></i>
+                <span class="links_name">Login</span>
+            </a>
+            <span class="tooltip">Login</span>
+        </li>
+        <li id="register-button" style="display: none;">
+            <a href="/register/">
+                <i class="bx bx-user-plus"></i>
+                <span class="links_name">Register</span>
+            </a>
+            <span class="tooltip">Register</span>
+        </li>
+        <li class="profile" id="user-profile">
+            <div class="profile-details">
+                <img src="/profile.jpg" alt="profileImg" />
+                <div class="name_job">
+                    <div class="name" id="profile-name">User</div>
+                    <div class="job">Web Manager</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="logout-btn"></i>
+        </li>
+    </ul>
 </div>
 
 <section class="home-section">
-<div class="page active" id="rental-page">
-<div class="home-container">
-<div class="rental-container">
-<div class="rental-card">
-<h2 class="page-title">💰 Cho Thuê Bot</h2>
-<div class="rental-list" id="rental-list"></div>
-<button class="btn btn-primary" id="add-rental-btn" style="margin-top: 20px;">➕ Thêm Gói Cho Thuê</button>
-</div>
-</div>
-</div>
-</div>
+    <div class="page active" id="rental-page">
+        <div class="rental-container">
+            <div class="rental-card">
+                <h2 class="rental-title">Cho Thuê Bot</h2>
+                <p class="rental-subtitle">Chọn gói thuê phù hợp với nhu cầu của bạn</p>
+
+                <!-- Pricing Grid -->
+                <div class="pricing-grid" id="pricing-grid">
+                    <!-- Prices will be loaded dynamically -->
+                </div>
+
+                <!-- Custom Days Input -->
+                <div class="action-group">
+                    <label>Hoặc nhập số ngày tùy chỉnh:</label>
+                    <div style="display: flex; gap: 10px;">
+                        <input type="number" class="input-field" id="custom-days" placeholder="Nhập số ngày" min="1" style="flex: 1;" />
+                        <button class="btn btn-primary" id="apply-custom-days" style="width: auto; margin: 0;">Áp dụng</button>
+                    </div>
+                </div>
+
+                <!-- Rental Info -->
+                <div class="rental-info">
+                    <div class="rental-info-title">Thông tin gói thuê:</div>
+                    <ul class="rental-info-list">
+                        <li>Không giới hạn số lượng tin nhắn</li>
+                        <li>Hỗ trợ 24/7 qua Telegram</li>
+                        <li>Cập nhật tính năng mới miễn phí</li>
+                        <li>Backup dữ liệu hàng ngày</li>
+                        <li>Thời gian hoạt động: 99.9%</li>
+                    </ul>
+                </div>
+
+                <!-- Bot Selection -->
+                <div class="action-group">
+                    <label>Chọn Bot cần thuê:</label>
+                    <select class="input-field" id="bot-select">
+                        <option value="">-- Chọn bot --</option>
+                    </select>
+                </div>
+
+                <!-- Contact Info -->
+                <div class="action-group">
+                    <label>Email liên hệ:</label>
+                    <input type="email" class="input-field" id="rental-email" placeholder="email@example.com" />
+                </div>
+
+                <!-- Summary -->
+                <div class="rental-summary">
+                    <div class="summary-row">
+                        <span>Số ngày:</span>
+                        <span id="summary-days">0 ngày</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Đơn giá:</span>
+                        <span id="summary-price">0đ</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Tổng cộng:</span>
+                        <span id="summary-total">0đ</span>
+                    </div>
+                </div>
+
+                <!-- Payment Methods -->
+                <div class="payment-methods">
+                    <div class="payment-method active" data-method="momo">
+                        <div class="payment-icon">📱</div>
+                        <div class="payment-name">MoMo</div>
+                    </div>
+                    <div class="payment-method" data-method="bank">
+                        <div class="payment-icon">🏦</div>
+                        <div class="payment-name">Banking</div>
+                    </div>
+                    <div class="payment-method" data-method="card">
+                        <div class="payment-icon">💳</div>
+                        <div class="payment-name">Thẻ</div>
+                    </div>
+                </div>
+
+                <!-- Submit Button -->
+                <button class="btn btn-primary" id="rental-submit">
+                    Tiến hành thanh toán
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Boxicons CDN Link -->
 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
 <script src="/sidebar.js"></script>
-<script src="/script.js"></script>
+
+<style>
+/* Popular badge fix */
+.price-card.popular::before {
+    content: 'Phổ biến';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+body.dark .price-card.popular::before {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+    color: white;
+}
+
+/* Override rental info list style to remove emoji */
+.rental-info-list li::before {
+    content: '✓ ' !important;
+    color: #10b981;
+    font-weight: bold;
+    margin-right: 5px;
+}
+
+body.dark .rental-info-list li::before {
+    color: #34d399;
+}
+
+/* Dark mode for action-group label */
+body.dark .action-group label {
+    color: #f3f4f6;
+}
+
+/* Dark mode for input fields */
+body.dark .input-field {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark .input-field:focus {
+    border-color: #667eea;
+}
+
+/* Dark mode for select */
+body.dark select.input-field {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+/* Dark mode for price cards */
+body.dark .price-card {
+    background: linear-gradient(135deg, #374151 0%, #2d3748 100%);
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark .price-days {
+    color: #818cf8;
+}
+
+body.dark .price-label {
+    color: #9ca3af;
+}
+
+body.dark .price-amount {
+    color: #34d399;
+}
+
+/* Dark mode for summary */
+body.dark .rental-summary {
+    background: #374151;
+    color: #e5e7eb;
+}
+
+body.dark .summary-row.total {
+    border-top-color: #4b5563;
+    color: #818cf8;
+}
+
+/* Dark mode for payment methods */
+body.dark .payment-method {
+    background: #374151;
+    border-color: #4b5563;
+}
+
+body.dark .payment-name {
+    color: #d1d5db;
+}
+
+/* Dark mode for rental card and title */
+body.dark .rental-card {
+    background: #2d3748;
+}
+
+body.dark .rental-title {
+    color: #f3f4f6;
+}
+
+body.dark .rental-subtitle {
+    color: #9ca3af;
+}
+</style>
+
+<script>
+$(document).ready(function() {
+    let selectedRentalDays = 0;
+    let selectedRentalPrice = 0;
+    let selectedPaymentMethod = 'momo';
+    let currentUser = null;
+    
+    // Pricing data
+    const pricingPlans = [
+        { days: 7, price: 49000, pricePerDay: 7000, save: 0, popular: false },
+        { days: 15, price: 90000, pricePerDay: 6000, save: 15000, popular: true },
+        { days: 30, price: 150000, pricePerDay: 5000, save: 60000, popular: false },
+        { days: 90, price: 405000, pricePerDay: 4500, save: 225000, popular: false }
+    ];
+
+    // Check login status
+    function checkLogin() {
+        $.ajax({
+            url: '/api/auth/me',
+            method: 'GET',
+            success: function(response) {
+                if (response.user) {
+                    currentUser = response.user;
+                    loadUserBots();
+                    $('#rental-email').val(response.user.email || '');
+                }
+            },
+            error: function() {
+                alert('⚠️ Bạn cần đăng nhập để sử dụng tính năng này!');
+                window.location.href = '/login/';
+            }
+        });
+    }
+
+    // Load user's bots
+    function loadUserBots() {
+        $.ajax({
+            url: '/api/my-bots',
+            method: 'GET',
+            success: function(response) {
+                const $select = $('#bot-select');
+                $select.empty().append('<option value="">-- Chọn bot --</option>');
+                
+                if (response.bots && response.bots.length > 0) {
+                    response.bots.forEach(bot => {
+                        $select.append(`<option value="${bot.id}">${bot.name}</option>`);
+                    });
+                } else {
+                    $select.append('<option value="">Bạn chưa có bot nào</option>');
+                }
+            },
+            error: function() {
+                console.error('Không thể tải danh sách bot');
+            }
+        });
+    }
+
+    // Render pricing cards
+    function renderPricingCards() {
+        const $grid = $('#pricing-grid');
+        $grid.empty();
+        
+        pricingPlans.forEach(plan => {
+            const saveText = plan.save > 0 ? `<div class="price-save">Tiết kiệm ${plan.save.toLocaleString('vi-VN')}đ</div>` : '';
+            const popularClass = plan.popular ? 'popular' : '';
+            
+            const card = $(`
+                <div class="price-card ${popularClass}" data-days="${plan.days}" data-price="${plan.price}">
+                    <div class="price-days">${plan.days}</div>
+                    <div class="price-label">ngày</div>
+                    <div class="price-amount">${plan.price.toLocaleString('vi-VN')}đ</div>
+                    <div class="price-label">${plan.pricePerDay.toLocaleString('vi-VN')}đ/ngày</div>
+                    ${saveText}
+                </div>
+            `);
+            
+            $grid.append(card);
+        });
+        
+        // Auto select first plan
+        $('.price-card').first().addClass('active');
+        selectedRentalDays = pricingPlans[0].days;
+        selectedRentalPrice = pricingPlans[0].price;
+        $('#custom-days').val(selectedRentalDays); // Auto fill input
+        updateSummary();
+    }
+
+    // Update summary
+    function updateSummary() {
+        $('#summary-days').text(`${selectedRentalDays} ngày`);
+        $('#summary-price').text(`${selectedRentalPrice.toLocaleString('vi-VN')}đ`);
+        $('#summary-total').text(`${selectedRentalPrice.toLocaleString('vi-VN')}đ`);
+    }
+
+    // Price card click handler
+    $(document).on('click', '.price-card', function() {
+        $('.price-card').removeClass('active');
+        $(this).addClass('active');
+        
+        selectedRentalDays = $(this).data('days');
+        selectedRentalPrice = $(this).data('price');
+        
+        // Auto fill custom days input
+        $('#custom-days').val(selectedRentalDays);
+        
+        updateSummary();
+    });
+
+    // Custom days handler
+    $('#apply-custom-days').click(function() {
+        const days = parseInt($('#custom-days').val());
+        
+        if (!days || days < 1) {
+            alert('⚠️ Vui lòng nhập số ngày hợp lệ!');
+            return;
+        }
+        
+        $('.price-card').removeClass('active');
+        selectedRentalDays = days;
+        
+        // Calculate price based on days
+        let pricePerDay = 7000;
+        if (days >= 90) pricePerDay = 4500;
+        else if (days >= 30) pricePerDay = 5000;
+        else if (days >= 15) pricePerDay = 6000;
+        
+        selectedRentalPrice = days * pricePerDay;
+        updateSummary();
+        
+        alert(`✅ Đã áp dụng: ${days} ngày - ${selectedRentalPrice.toLocaleString('vi-VN')}đ`);
+    });
+
+    // Payment method selection
+    $('.payment-method').click(function() {
+        $('.payment-method').removeClass('active');
+        $(this).addClass('active');
+        selectedPaymentMethod = $(this).data('method');
+    });
+
+    // Submit rental
+    $('#rental-submit').click(function() {
+        const botId = $('#bot-select').val();
+        const email = $('#rental-email').val().trim();
+
+        if (!botId) {
+            alert('⚠️ Vui lòng chọn bot cần thuê!');
+            return;
+        }
+
+        if (!email) {
+            alert('⚠️ Vui lòng nhập email!');
+            return;
+        }
+
+        if (!selectedRentalDays || !selectedRentalPrice) {
+            alert('⚠️ Vui lòng chọn gói thuê!');
+            return;
+        }
+
+        const $btn = $(this);
+        $btn.prop('disabled', true).text('⏳ Đang xử lý...');
+
+        // Create rental order
+        $.ajax({
+            url: '/api/rentals',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify({
+                bot_id: botId,
+                days: selectedRentalDays,
+                price: selectedRentalPrice,
+                payment_method: selectedPaymentMethod,
+                email: email
+            }),
+            success: function(response) {
+                if (response.success) {
+                    // Store order info in sessionStorage
+                    sessionStorage.setItem('rentalOrder', JSON.stringify({
+                        order_id: response.order_id,
+                        bot_id: botId,
+                        days: selectedRentalDays,
+                        price: selectedRentalPrice,
+                        payment_method: selectedPaymentMethod
+                    }));
+                    
+                    // Redirect to payment page
+                    window.location.href = '/payment/';
+                }
+            },
+            error: function(xhr) {
+                const error = xhr.responseJSON?.error || 'Không thể tạo đơn thuê';
+                alert('❌ ' + error);
+            },
+            complete: function() {
+                $btn.prop('disabled', false).text('🚀 Tiến hành thanh toán');
+            }
+        });
+    });
+
+    // Initialize
+    checkLogin();
+    renderPricingCards();
+    updateSummary();
+});
+
+function applyTheme() {
+    const theme = localStorage.getItem('theme') || 'light';
+    if (theme === 'dark') {
+        $('body').addClass('dark');
+    } else {
+        $('body').removeClass('dark');
+    }
+}
+
+// Apply theme on page load
+applyTheme();
+
+// Listen for theme changes from sidebar
+$('#theme-toggle-sidebar').click(function(e) {
+    e.preventDefault();
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+    localStorage.setItem('theme', newTheme);
+    applyTheme();
+});
+
+// Listen for storage changes (when theme changed in another tab)
+$(window).on('storage', function(e) {
+    if (e.originalEvent.key === 'theme') {
+        applyTheme();
+    }
+});
+</script>
 </body>
 </html>

@@ -6,146 +6,810 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quan Ly Bot - History</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-<link rel="stylesheet" href="/styles.css">
-
+    <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
 <!-- Sidebar Navigation -->
 <div class="sidebar">
-<div class="logo-details">
-<i class="bx bxl-c-plus-plus icon"></i>
-<div class="logo_name">Bot Manager</div>
-<i class="bx bx-menu" id="btn"></i>
-</div>
-<ul class="nav-list">
-<li>
-<i class="bx bx-search"></i>
-<input type="text" placeholder="Search..." />
-<span class="tooltip">Search</span>
-</li>
-<li>
-<a href="/home/">
-<i class="bx bx-grid-alt"></i>
-<span class="links_name">Home</span>
-</a>
-<span class="tooltip">Home</span>
-</li>
-<li>
-<a href="/manager/" data-require-login="true">
-<i class="bx bx-cog"></i>
-<span class="links_name">Manager</span>
-</a>
-<span class="tooltip">Manager</span>
-</li>
-<li>
-<a href="/bots/" data-require-login="true">
-<i class="bx bxs-bot"></i>
-<span class="links_name">Bot</span>
-</a>
-<span class="tooltip">Bot</span>
-</li>
-<li>
-<a href="/create/" data-require-login="true">
-<i class="bx bx-plus"></i>
-<span class="links_name">Create</span>
-</a>
-<span class="tooltip">Create</span>
-</li>
-<li>
-<a href="/rental/" data-require-login="true">
-<i class="bx bx-money"></i>
-<span class="links_name">Rental</span>
-</a>
-<span class="tooltip">Rental</span>
-</li>
-<li>
-<a href="/commands/" data-require-login="true">
-<i class="bx bx-command"></i>
-<span class="links_name">Commands</span>
-</a>
-<span class="tooltip">Commands</span>
-</li>
-<li>
-<a href="/statistics/" data-require-login="true">
-<i class="bx bx-pie-chart-alt-2"></i>
-<span class="links_name">Statistics</span>
-</a>
-<span class="tooltip">Statistics</span>
-</li>
-<li>
-<a href="/users/" data-require-login="true">
-<i class="bx bx-user"></i>
-<span class="links_name">Users</span>
-</a>
-<span class="tooltip">Users</span>
-</li>
-<li>
-<a href="/history/" data-require-login="true">
-<i class="bx bx-history"></i>
-<span class="links_name">History</span>
-</a>
-<span class="tooltip">History</span>
-</li>
-<li>
-<a href="/settings/" data-require-login="true">
-<i class="bx bx-slider"></i>
-<span class="links_name">Settings</span>
-</a>
-<span class="tooltip">Settings</span>
-</li>
-<li>
-<a href="/theme/" data-require-login="true">
-<i class="bx bx-palette"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Theme</span>
-</li>
-<li>
-<a href="#" id="theme-toggle-sidebar">
-<i class="bx bx-moon"></i>
-<span class="links_name">Theme</span>
-</a>
-<span class="tooltip">Toggle Theme</span>
-</li>
-<li>
-<a href="#" id="nav-register-btn">
-<i class="bx bx-user-plus"></i>
-<span class="links_name">Register</span>
-</a>
-<span class="tooltip">Register</span>
-</li>
-<li class="profile">
-<div class="profile-details">
-<img src="/profile.jpg" alt="profileImg" />
-<div class="name_job">
-<div class="name" id="profile-name">User</div>
-<div class="job">Web Manager</div>
-</div>
-</div>
-<i class="bx bx-log-out" id="logout-btn"></i>
-</li>
-</ul>
+    <div class="logo-details">
+        <i class="bx bxl-c-plus-plus icon"></i>
+        <div class="logo_name">Bot Manager</div>
+        <i class="bx bx-menu" id="btn"></i>
+    </div>
+    <ul class="nav-list">
+        <li>
+            <i class="bx bx-search"></i>
+            <input type="text" placeholder="Search..." />
+            <span class="tooltip">Search</span>
+        </li>
+        <li>
+            <a href="/home/">
+                <i class="bx bx-grid-alt"></i>
+                <span class="links_name">Home</span>
+            </a>
+            <span class="tooltip">Home</span>
+        </li>
+        <li>
+            <a href="/manager/" data-require-login="true">
+                <i class="bx bx-cog"></i>
+                <span class="links_name">Manager</span>
+            </a>
+            <span class="tooltip">Manager</span>
+        </li>
+        <li>
+            <a href="/bots/" data-require-login="true">
+                <i class="bx bxs-bot"></i>
+                <span class="links_name">Bot</span>
+            </a>
+            <span class="tooltip">Bot</span>
+        </li>
+        <li>
+            <a href="/create/" data-require-login="true">
+                <i class="bx bx-plus"></i>
+                <span class="links_name">Create</span>
+            </a>
+            <span class="tooltip">Create</span>
+        </li>
+        <li>
+            <a href="/rental/" data-require-login="true">
+                <i class="bx bx-money"></i>
+                <span class="links_name">Rental</span>
+            </a>
+            <span class="tooltip">Rental</span>
+        </li>
+        <li>
+            <a href="/commands/" data-require-login="true">
+                <i class="bx bx-command"></i>
+                <span class="links_name">Commands</span>
+            </a>
+            <span class="tooltip">Commands</span>
+        </li>
+        <li>
+            <a href="/statistics/" data-require-login="true">
+                <i class="bx bx-pie-chart-alt-2"></i>
+                <span class="links_name">Statistics</span>
+            </a>
+            <span class="tooltip">Statistics</span>
+        </li>
+        <li>
+            <a href="/users/" data-require-login="true">
+                <i class="bx bx-user"></i>
+                <span class="links_name">Users</span>
+            </a>
+            <span class="tooltip">Users</span>
+        </li>
+        <li>
+            <a href="/history/" data-require-login="true">
+                <i class="bx bx-history"></i>
+                <span class="links_name">History</span>
+            </a>
+            <span class="tooltip">History</span>
+        </li>
+        <li>
+            <a href="/settings/" data-require-login="true">
+                <i class="bx bx-slider"></i>
+                <span class="links_name">Settings</span>
+            </a>
+            <span class="tooltip">Settings</span>
+        </li>
+        <li>
+            <a href="/theme/" data-require-login="true">
+                <i class="bx bx-palette"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Theme</span>
+        </li>
+        <li>
+            <a href="#" id="theme-toggle-sidebar">
+                <i class="bx bx-moon"></i>
+                <span class="links_name">Theme</span>
+            </a>
+            <span class="tooltip">Toggle Theme</span>
+        </li>
+        <li id="auth-buttons" style="display: none;">
+            <a href="/login/">
+                <i class="bx bx-log-in"></i>
+                <span class="links_name">Login</span>
+            </a>
+            <span class="tooltip">Login</span>
+        </li>
+        <li id="register-button" style="display: none;">
+            <a href="/register/">
+                <i class="bx bx-user-plus"></i>
+                <span class="links_name">Register</span>
+            </a>
+            <span class="tooltip">Register</span>
+        </li>
+        <li class="profile" id="user-profile">
+            <div class="profile-details">
+                <img src="/profile.jpg" alt="profileImg" />
+                <div class="name_job">
+                    <div class="name" id="profile-name">User</div>
+                    <div class="job">Web Manager</div>
+                </div>
+            </div>
+            <i class="bx bx-log-out" id="logout-btn"></i>
+        </li>
+    </ul>
 </div>
 
 <section class="home-section">
-<div class="page active" id="history-page">
-<div class="home-container">
-<div class="create-card">
-<h2 class="page-title">📜 Lịch Sử Hoạt Động</h2>
-<div class="history-list" id="history-list">
-<div class="history-item">
-<span class="history-time">Hôm nay</span>
-<span class="history-action">Khởi động hệ thống</span>
-<span class="history-user">Admin</span>
-</div>
-</div>
-</div>
-</div>
-</div>
+    <div class="page active" id="history-page">
+        <div class="history-container">
+            <!-- Header -->
+            <div class="history-header">
+                <div class="header-left">
+                    <h2 class="history-title">📜 Lịch Sử Hoạt Động</h2>
+                    <p class="history-subtitle">Theo dõi toàn bộ hoạt động của hệ thống</p>
+                </div>
+                <button class="btn-clear-history" id="clear-history-btn">
+                    <i class="bx bx-trash"></i> Xóa Lịch Sử
+                </button>
+            </div>
+
+            <!-- Filters -->
+            <div class="history-filters">
+                <div class="filter-group">
+                    <label>Loại hoạt động:</label>
+                    <div class="filter-buttons">
+                        <button class="filter-btn active" data-filter="all">
+                            <i class="bx bx-globe"></i> Tất cả
+                        </button>
+                        <button class="filter-btn" data-filter="user">
+                            <i class="bx bx-user"></i> User
+                        </button>
+                        <button class="filter-btn" data-filter="bot">
+                            <i class="bx bxs-bot"></i> Bot
+                        </button>
+                        <button class="filter-btn" data-filter="system">
+                            <i class="bx bx-cog"></i> Hệ thống
+                        </button>
+                        <button class="filter-btn" data-filter="payment">
+                            <i class="bx bx-money"></i> Thanh toán
+                        </button>
+                    </div>
+                </div>
+                <div class="filter-group">
+                    <label>Thời gian:</label>
+                    <select class="time-select" id="time-filter">
+                        <option value="today">Hôm nay</option>
+                        <option value="week">7 ngày qua</option>
+                        <option value="month" selected>30 ngày qua</option>
+                        <option value="all">Tất cả</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Timeline -->
+            <div class="timeline" id="timeline">
+                <!-- Timeline items will be loaded here -->
+            </div>
+
+            <!-- Load More Button -->
+            <div class="load-more-container">
+                <button class="btn-load-more" id="load-more-btn">
+                    <i class="bx bx-down-arrow-circle"></i> Xem thêm
+                </button>
+            </div>
+        </div>
+    </div>
 </section>
+
 <!-- Boxicons CDN Link -->
 <link href="https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css" rel="stylesheet" />
 <script src="/sidebar.js"></script>
-<script src="/script.js"></script>
+
+<style>
+/* History Container */
+.history-container {
+    padding: 30px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+/* Header */
+.history-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 30px;
+    gap: 20px;
+}
+
+.header-left {
+    flex: 1;
+}
+
+.history-title {
+    font-size: 32px;
+    font-weight: 700;
+    color: #1f2937;
+    margin: 0 0 8px 0;
+}
+
+.history-subtitle {
+    font-size: 16px;
+    color: #6b7280;
+    margin: 0;
+}
+
+.btn-clear-history {
+    padding: 12px 24px;
+    background: white;
+    color: #ef4444;
+    border: 2px solid #ef4444;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-clear-history:hover {
+    background: #ef4444;
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(239, 68, 68, 0.3);
+}
+
+/* Filters */
+.history-filters {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 30px;
+}
+
+.filter-group {
+    margin-bottom: 15px;
+}
+
+.filter-group:last-child {
+    margin-bottom: 0;
+}
+
+.filter-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    margin-bottom: 10px;
+}
+
+.filter-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.filter-btn {
+    padding: 8px 16px;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    color: #6b7280;
+}
+
+.filter-btn:hover {
+    border-color: #667eea;
+    color: #667eea;
+}
+
+.filter-btn.active {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border-color: transparent;
+}
+
+.time-select {
+    padding: 10px 15px;
+    border: 2px solid #e5e7eb;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    background: white;
+    color: #374151;
+    min-width: 180px;
+}
+
+.time-select:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+/* Timeline */
+.timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: 30px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #667eea, #e5e7eb);
+}
+
+.timeline-item {
+    position: relative;
+    padding-left: 70px;
+    margin-bottom: 30px;
+    opacity: 0;
+    animation: fadeInUp 0.5s forwards;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.timeline-icon {
+    position: absolute;
+    left: 15px;
+    top: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 1;
+}
+
+.timeline-icon.user {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.timeline-icon.bot {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+}
+
+.timeline-icon.system {
+    background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+}
+
+.timeline-icon.payment {
+    background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+}
+
+.timeline-icon.error {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+}
+
+.timeline-content {
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    padding: 15px;
+    transition: all 0.3s ease;
+}
+
+.timeline-content:hover {
+    transform: translateX(5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+    border-color: #667eea;
+}
+
+.timeline-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.timeline-time {
+    font-size: 12px;
+    color: #9ca3af;
+    font-weight: 600;
+}
+
+.timeline-badge {
+    padding: 3px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+}
+
+.timeline-badge.success {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.timeline-badge.warning {
+    background: #fef3c7;
+    color: #92400e;
+}
+
+.timeline-badge.error {
+    background: #fee2e2;
+    color: #991b1b;
+}
+
+.timeline-badge.info {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.timeline-action {
+    font-size: 15px;
+    font-weight: 600;
+    color: #1f2937;
+    margin-bottom: 5px;
+}
+
+.timeline-user {
+    font-size: 13px;
+    color: #6b7280;
+}
+
+.timeline-details {
+    font-size: 13px;
+    color: #6b7280;
+    margin-top: 8px;
+    padding-top: 8px;
+    border-top: 1px solid #e5e7eb;
+}
+
+/* Date Divider */
+.date-divider {
+    display: flex;
+    align-items: center;
+    margin: 40px 0 30px 0;
+    padding-left: 70px;
+}
+
+.date-divider-line {
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, #667eea, transparent);
+}
+
+.date-divider-text {
+    font-size: 14px;
+    font-weight: 700;
+    color: #667eea;
+    margin-right: 15px;
+}
+
+/* Load More */
+.load-more-container {
+    text-align: center;
+    margin-top: 30px;
+}
+
+.btn-load-more {
+    padding: 12px 30px;
+    background: white;
+    border: 2px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #374151;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-load-more:hover {
+    border-color: #667eea;
+    color: #667eea;
+    transform: translateY(-2px);
+}
+
+/* Dark Mode */
+body.dark .history-title {
+    color: #f3f4f6;
+}
+
+body.dark .history-subtitle {
+    color: #9ca3af;
+}
+
+body.dark .btn-clear-history {
+    background: #374151;
+    border-color: #ef4444;
+}
+
+body.dark .history-filters {
+    background: #2d3748;
+    border-color: #4b5563;
+}
+
+body.dark .filter-group label {
+    color: #f3f4f6;
+}
+
+body.dark .filter-btn {
+    background: #374151;
+    border-color: #4b5563;
+    color: #d1d5db;
+}
+
+body.dark .time-select {
+    background: #374151;
+    border-color: #4b5563;
+    color: #e5e7eb;
+}
+
+body.dark .timeline::before {
+    background: linear-gradient(to bottom, #667eea, #4b5563);
+}
+
+body.dark .timeline-content {
+    background: #2d3748;
+    border-color: #4b5563;
+}
+
+body.dark .timeline-action {
+    color: #f3f4f6;
+}
+
+body.dark .timeline-details {
+    border-top-color: #4b5563;
+}
+
+body.dark .btn-load-more {
+    background: #374151;
+    border-color: #4b5563;
+    color: #d1d5db;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .history-header {
+        flex-direction: column;
+    }
+    
+    .btn-clear-history {
+        width: 100%;
+    }
+    
+    .timeline::before {
+        left: 15px;
+    }
+    
+    .timeline-item {
+        padding-left: 55px;
+    }
+    
+    .timeline-icon {
+        left: 0;
+    }
+    
+    .date-divider {
+        padding-left: 55px;
+    }
+}
+</style>
+
+<script>
+$(document).ready(function() {
+    let currentFilter = 'all';
+    let currentTime = 'month';
+    let displayedItems = 10;
+    
+    // Sample history data
+    const historyData = [
+        { type: 'user', action: 'Người dùng mới đăng ký', user: 'Nguyễn Văn A', details: 'Zalo ID: 0987654321', time: '2 phút trước', status: 'success', date: 'today' },
+        { type: 'bot', action: 'Bot đã được khởi động', user: 'System', details: 'Bot Alpha - Status: Online', time: '15 phút trước', status: 'success', date: 'today' },
+        { type: 'payment', action: 'Thanh toán thành công', user: 'Trần Thị B', details: 'Gói thuê 30 ngày - 150,000đ', time: '1 giờ trước', status: 'success', date: 'today' },
+        { type: 'system', action: 'Cập nhật hệ thống', user: 'Admin', details: 'Version 2.5.0 - Thêm tính năng mới', time: '2 giờ trước', status: 'info', date: 'today' },
+        { type: 'user', action: 'Người dùng bị chặn', user: 'Admin', details: 'User: Đỗ Văn G - Lý do: Vi phạm quy định', time: '3 giờ trước', status: 'warning', date: 'today' },
+        { type: 'bot', action: 'Bot gặp lỗi', user: 'System', details: 'Bot Beta - Connection timeout', time: '5 giờ trước', status: 'error', date: 'today' },
+        { type: 'payment', action: 'Mua lệnh thành công', user: 'Lê Văn C', details: '/music, /game - 180,000đ', time: 'Hôm qua 23:45', status: 'success', date: 'yesterday' },
+        { type: 'system', action: 'Backup dữ liệu', user: 'System', details: 'Database backup completed', time: 'Hôm qua 22:00', status: 'success', date: 'yesterday' },
+        { type: 'user', action: 'Thay đổi quyền admin', user: 'Admin', details: 'User: Lê Văn C - Admin Bot', time: 'Hôm qua 20:30', status: 'info', date: 'yesterday' },
+        { type: 'bot', action: 'Bot đã dừng', user: 'Admin', details: 'Bot Gamma - Bảo trì định kỳ', time: 'Hôm qua 18:00', status: 'warning', date: 'yesterday' },
+        { type: 'payment', action: 'Giao dịch thất bại', user: 'Hoàng Văn E', details: 'Gói thuê 15 ngày - Thanh toán bị hủy', time: '2 ngày trước 16:20', status: 'error', date: 'week' },
+        { type: 'user', action: 'Đăng nhập thành công', user: 'Vũ Thị F', details: 'IP: 192.168.1.1', time: '2 ngày trước 14:10', status: 'success', date: 'week' },
+        { type: 'system', action: 'Khởi động hệ thống', user: 'System', details: 'Server restarted successfully', time: '3 ngày trước 09:00', status: 'success', date: 'week' },
+        { type: 'bot', action: 'Bot được tạo mới', user: 'Admin', details: 'Bot Delta - Tạo thành công', time: '4 ngày trước 11:30', status: 'success', date: 'week' },
+        { type: 'payment', action: 'Hoàn tiền', user: 'System', details: 'Gói thuê bị hủy - Hoàn 90,000đ', time: '5 ngày trước 15:45', status: 'info', date: 'week' }
+    ];
+    
+    // Check login
+    function checkLogin() {
+        $.ajax({
+            url: '/api/auth/me',
+            method: 'GET',
+            error: function() {
+                alert('⚠️ Bạn cần đăng nhập để xem lịch sử!');
+                window.location.href = '/login/';
+            }
+        });
+    }
+    
+    // Get icon for type
+    function getIcon(type) {
+        const icons = {
+            user: '<i class="bx bx-user"></i>',
+            bot: '<i class="bx bxs-bot"></i>',
+            system: '<i class="bx bx-cog"></i>',
+            payment: '<i class="bx bx-money"></i>',
+            error: '<i class="bx bx-error"></i>'
+        };
+        return icons[type] || icons.system;
+    }
+    
+    // Filter history
+    function getFilteredHistory() {
+        let filtered = [...historyData];
+        
+        // Filter by type
+        if (currentFilter !== 'all') {
+            filtered = filtered.filter(item => item.type === currentFilter);
+        }
+        
+        // Filter by time
+        if (currentTime === 'today') {
+            filtered = filtered.filter(item => item.date === 'today');
+        } else if (currentTime === 'week') {
+            filtered = filtered.filter(item => ['today', 'yesterday', 'week'].includes(item.date));
+        } else if (currentTime === 'month') {
+            // All items (month includes all in sample)
+        }
+        
+        return filtered.slice(0, displayedItems);
+    }
+    
+    // Render timeline
+    function renderTimeline() {
+        const filtered = getFilteredHistory();
+        const $timeline = $('#timeline');
+        $timeline.empty();
+        
+        if (filtered.length === 0) {
+            $timeline.html(`
+                <div style="text-align: center; padding: 60px 20px; color: #9ca3af;">
+                    <div style="font-size: 60px; margin-bottom: 15px;">📜</div>
+                    <div style="font-size: 18px; font-weight: 600;">Không có lịch sử</div>
+                </div>
+            `);
+            $('#load-more-btn').hide();
+            return;
+        }
+        
+        let currentDate = '';
+        
+        filtered.forEach((item, index) => {
+            // Add date divider
+            if (item.date !== currentDate) {
+                currentDate = item.date;
+                const dateText = item.date === 'today' ? 'Hôm nay' : (item.date === 'yesterday' ? 'Hôm qua' : 'Tuần này');
+                $timeline.append(`
+                    <div class="date-divider">
+                        <div class="date-divider-text">${dateText}</div>
+                        <div class="date-divider-line"></div>
+                    </div>
+                `);
+            }
+            
+            const itemHtml = $(`
+                <div class="timeline-item" style="animation-delay: ${index * 0.05}s;">
+                    <div class="timeline-icon ${item.type}">
+                        ${getIcon(item.type)}
+                    </div>
+                    <div class="timeline-content">
+                        <div class="timeline-header">
+                            <span class="timeline-time">${item.time}</span>
+                            <span class="timeline-badge ${item.status}">${getStatusText(item.status)}</span>
+                        </div>
+                        <div class="timeline-action">${item.action}</div>
+                        <div class="timeline-user">Bởi: ${item.user}</div>
+                        <div class="timeline-details">${item.details}</div>
+                    </div>
+                </div>
+            `);
+            
+            $timeline.append(itemHtml);
+        });
+        
+        // Show/hide load more button
+        if (filtered.length >= displayedItems && displayedItems < historyData.length) {
+            $('#load-more-btn').show();
+        } else {
+            $('#load-more-btn').hide();
+        }
+    }
+    
+    // Get status text
+    function getStatusText(status) {
+        const texts = {
+            success: 'Thành công',
+            warning: 'Cảnh báo',
+            error: 'Lỗi',
+            info: 'Thông tin'
+        };
+        return texts[status] || 'Thông tin';
+    }
+    
+    // Filter buttons
+    $('.filter-btn').click(function() {
+        $('.filter-btn').removeClass('active');
+        $(this).addClass('active');
+        currentFilter = $(this).data('filter');
+        displayedItems = 10;
+        renderTimeline();
+    });
+    
+    // Time select
+    $('#time-filter').change(function() {
+        currentTime = $(this).val();
+        displayedItems = 10;
+        renderTimeline();
+    });
+    
+    // Load more
+    $('#load-more-btn').click(function() {
+        displayedItems += 10;
+        renderTimeline();
+    });
+    
+    // Clear history
+    $('#clear-history-btn').click(function() {
+        if (confirm('⚠️ Bạn có chắc muốn xóa toàn bộ lịch sử? Hành động này không thể hoàn tác!')) {
+            alert('✅ Đã xóa lịch sử thành công!');
+            // In real implementation, call API to clear history
+        }
+    });
+    
+    // Theme synchronization
+    function applyTheme() {
+        const theme = localStorage.getItem('theme') || 'light';
+        if (theme === 'dark') {
+            $('body').addClass('dark');
+        } else {
+            $('body').removeClass('dark');
+        }
+    }
+
+    applyTheme();
+
+    $('#theme-toggle-sidebar').click(function(e) {
+        e.preventDefault();
+        const currentTheme = localStorage.getItem('theme') || 'light';
+        const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+        localStorage.setItem('theme', newTheme);
+        applyTheme();
+    });
+
+    $(window).on('storage', function(e) {
+        if (e.originalEvent.key === 'theme') {
+            applyTheme();
+        }
+    });
+    
+    // Initialize
+    checkLogin();
+    renderTimeline();
+});
+</script>
 </body>
 </html>

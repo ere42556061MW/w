@@ -107,16 +107,23 @@
 </a>
 <span class="tooltip">Toggle Theme</span>
 </li>
-<li>
-<a href="#" id="nav-register-btn">
+<li id="auth-buttons" style="display: none;">
+<a href="/login/">
+<i class="bx bx-log-in"></i>
+<span class="links_name">Login</span>
+</a>
+<span class="tooltip">Login</span>
+</li>
+<li id="register-button" style="display: none;">
+<a href="/register/">
 <i class="bx bx-user-plus"></i>
 <span class="links_name">Register</span>
 </a>
 <span class="tooltip">Register</span>
 </li>
-<li class="profile">
+<li class="profile" id="user-profile">
 <div class="profile-details">
-<img src="/profile.jpg" alt="profileImg" />
+<div class="avatar" id="profile-avatar">U</div>
 <div class="name_job">
 <div class="name" id="profile-name">User</div>
 <div class="job">Web Manager</div>

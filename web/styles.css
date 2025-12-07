@@ -264,6 +264,21 @@ html::-webkit-scrollbar, body::-webkit-scrollbar, .sidebar::-webkit-scrollbar, .
   margin-right: 10px;
 }
 
+.sidebar li .avatar{
+  height: 45px;
+  width: 45px;
+  min-width: 45px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  border-radius: 6px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  color: white;
+}
+
 .sidebar li.profile .name,
 .sidebar li.profile .job{
   font-size: 15px;
